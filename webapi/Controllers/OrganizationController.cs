@@ -28,7 +28,7 @@ namespace webapi.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult<Worker>> Register(OrgRegisterModel request)
+        public async Task<ActionResult<Worker>> Register(OrgRegisterRequest request)
         {
             if (!ModelState.IsValid){ return BadRequest(ModelState); }
 

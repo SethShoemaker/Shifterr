@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace webapi.ResourceModels
 {
-    public class AccLoginModel
+    public class AccLoginRequest
     {
         
     }

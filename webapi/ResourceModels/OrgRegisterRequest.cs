@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace webapi.ResourceModels
 {
-    public class OrgRegisterModel
+    public class OrgRegisterRequest
     {
         [Required]
         public string OrgName { get; set; } = string.Empty;
