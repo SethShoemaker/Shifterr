@@ -5,23 +5,59 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using webapi.Services;
+using webapi.ResourceModels;
+using webapi.Models;
 
 namespace webapi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("account")]
     public class AccountController : ControllerBase
     {
         private readonly ILogger<AccountController> _logger;
-        private readonly UserManager<IdentityUser> _userManager;
-        public SignInManager<IdentityUser> _signInManager { get; }
-        public AccountController(ILogger<AccountController> Logger, UserManager<IdentityUser> UserManager , SignInManager<IdentityUser> signInManager)
-        {
+        private readonly UserManager<Worker> _userManager;
+        public SignInManager<Worker> _signInManager { get; }
+        public JwtService _jwtService { get; }
+
+        public AccountController(
+            ILogger<AccountController> Logger, 
+            UserManager<Worker> UserManager , 
+            SignInManager<Worker> signInManager,
+            JwtService JwtService
+            ){
             _logger = Logger;
             _userManager = UserManager;
             _signInManager = signInManager;
-            
+            _jwtService = JwtService;
         }
+
+        [HttpPost("bearerToken")]
+        public async Task<ActionResult<AccLoginResponse>> CreateBearerToken(AccLoginRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Bad credentials");
+            }
+
+            var user = await _userManager.FindByNameAsync(request.UserName);
+
+            if (user == null)
+            {
+                return BadRequest("Bad credentials");
+            }
+
+            var isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
+
+            if (!isPasswordValid)
+            {
+                return BadRequest("Bad credentials");
+            }
+
+            var token = _jwtService.CreateToken(user);
+
+            return Ok(token);
+        } 
 
         
 

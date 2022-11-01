@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace webapi.ResourceModels
 {
-    public class AccLoginRequest
+    public class AccLoginResponse
     {
         [Required]
-        public string UserName { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
         [Required]
-        public string Password { get; set; } = string.Empty;
+        [DataType(DataType.DateTime)]
+        public DateTime Expiration { get; set; }
     }
 }

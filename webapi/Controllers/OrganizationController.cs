@@ -7,7 +7,7 @@ using webapi.ResourceModels;
 namespace webapi.Controllers
 {
     [ApiController]
-    [Route("api/organization")]
+    [Route("organization")]
     public class OrganizationController : ControllerBase
     {
         private readonly ILogger<OrganizationController> _logger;
