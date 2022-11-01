@@ -1,11 +1,15 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webapi.Models
 {
     public class ShiftPosition
     {
+        [Required]
         public int Id { get; set; }
+        [Required]
         public Organization Organization { get; set; } = null!;
+        [Required]
         [Column(TypeName="char(10)")]
         public string Name { get; set; } = null!;
         [Column(TypeName="varchar(275)")]

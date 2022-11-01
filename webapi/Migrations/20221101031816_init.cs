@@ -83,8 +83,6 @@ namespace webapi.Migrations
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     OrganizationRole = table.Column<string>(type: "ENUM('Crew','Manager','Administrator')", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Nickname = table.Column<string>(type: "char(50)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Bio = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)

@@ -290,10 +290,6 @@ namespace webapi.Migrations
                     b.Property<string>("Bio")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("Nickname")
-                        .IsRequired()
-                        .HasColumnType("char(50)");
-
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 

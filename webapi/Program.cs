@@ -17,7 +17,16 @@ builder.Services.AddDbContext<ApplicationContext>(options =>{
         options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     });
 
-builder.Services.AddIdentity<Worker, IdentityRole>().AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<Worker, IdentityRole>(options => {
+        options.SignIn.RequireConfirmedAccount = true;
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+.AddEntityFrameworkStores<ApplicationContext>();
 
 var app = builder.Build();
 
@@ -30,6 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
