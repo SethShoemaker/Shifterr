@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webapi.Data;
 using webapi.Models;
@@ -12,12 +13,15 @@ namespace webapi.Controllers
     {
         private readonly ApplicationContext _context;
         private readonly AuthService _authService;
+        private readonly UserInfoHelperService _userInfoHelperService;
         public AuthController(
             ApplicationContext Context, 
-            AuthService AuthService   
+            AuthService AuthService,
+            UserInfoHelperService UserManagerService
         ){
             _context = Context;
             _authService = AuthService;
+            _userInfoHelperService = UserManagerService;
         } 
 
         [HttpPost]
@@ -34,6 +38,26 @@ namespace webapi.Controllers
 
             string token = _authService.CreateToken(User);
             return Ok(token);
+        }
+
+        [HttpPost]
+        [Route("register")]
+        [Authorize(Roles = "Manager,Administrator")]
+        public ActionResult Register(AccRegisterRequest request)
+        {
+            bool registered = _authService.RegisterUser(
+                request.UserName,
+                request.Email,
+                request.Password,
+                _userInfoHelperService.GetUserOrg(HttpContext.User),
+                OrganizationRole.Crew
+            );
+
+            if(!registered) return BadRequest("Username Taken");
+
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }
