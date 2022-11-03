@@ -56,14 +56,16 @@ namespace webapi.Services
             List<Claim> claims = new List<Claim>
             {
                 new Claim(type: "UserOrgId", value: User.OrganizationId.ToString()),
-                new Claim(type: "UserRole", value: User.OrganizationRole.ToString()),
-                new Claim(type: "UserName", value: User.UserName.ToString()),
+                new Claim(ClaimTypes.Role, value: User.OrganizationRole.ToString()),
+                new Claim(ClaimTypes.Name, value: User.UserName.ToString()),
             };
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
             var token = new JwtSecurityToken(
+                issuer: _configuration.GetSection("Jwt:Issuer").Value,
+                audience: _configuration.GetSection("Jwt:Audience").Value,
                 claims: claims,
-                expires: DateTime.Now.AddHours(6),
+                expires: DateTime.Now.AddHours(4),
                 signingCredentials: creds
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -79,8 +81,8 @@ namespace webapi.Services
         }
         private bool UsernameExists(string UserName)
         {
-            int existingUser = _context.Users.Where(u => u.UserName == UserName).Count();
-            return existingUser > 0;
+            int existingUserCount = _context.Users.Where(u => u.UserName == UserName).Count();
+            return existingUserCount > 0;
         }
     }
 }
