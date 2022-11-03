@@ -28,8 +28,6 @@ namespace webapi.Controllers
         [Route("login")]
         public ActionResult Login(AccLoginRequest request)
         {
-            if(!ModelState.IsValid) return BadRequest("Invalid Request");
-
             User User = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
             if(User == null) return BadRequest("User Not Found");
             
