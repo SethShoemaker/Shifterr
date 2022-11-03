@@ -26,6 +26,8 @@ namespace webapi.Controllers
         [Route("create")]
         public ActionResult Create(OrgRegisterRequest request)
         {
+            if(!ModelState.IsValid) return BadRequest("Invalid Request");
+
             Organization Organization = new Organization { Name = request.OrgName };
 
             _context.Organizations.Add(Organization);
