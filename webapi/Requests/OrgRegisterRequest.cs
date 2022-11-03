@@ -10,11 +10,14 @@ namespace webapi.Requests
     {
         [Required]
         public string OrgName { get; set; } = string.Empty;
+        
         [Required]
-        public string ExecName { get; set; } = string.Empty;        
+        public string ExecName { get; set; } = string.Empty;  
+
         [Required]
         [DataType(DataType.EmailAddress)]
         public string ExecEmail { get; set; } = string.Empty;
+
         [Required]
         public string ExecPassword { get; set; } = string.Empty;
     }

@@ -24,5 +24,19 @@ namespace webapi.Controllers
             _context = Context;
             _authService = AuthService;
         } 
+
+        [HttpPost]
+        [Route("login")]
+        public ActionResult Login(AccLoginRequest request)
+        {
+            User User = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
+            if(User == null) return BadRequest("User Not Found");
+            
+            bool valid = _authService.checkCredentialValidity(request.UserName, request.Password);
+            if(!valid) return Unauthorized("Bad Credentials");
+
+            string token = _authService.CreateToken(User);
+            return Ok(token);
+        }
     }
 }
