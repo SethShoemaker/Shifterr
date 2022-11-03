@@ -2,54 +2,45 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using webapi.Data;
 using webapi.Models;
-using webapi.ResourceModels;
+using webapi.Requests;
+using webapi.Responses;
+using webapi.Services;
 
 namespace webapi.Controllers
 {
     [ApiController]
-    [Route("organization")]
+    [Route("api/organization")]
     public class OrganizationController : ControllerBase
     {
-        private readonly ILogger<OrganizationController> _logger;
-        private readonly ApplicationContext _context;
-        private readonly UserManager<Worker> _userManager;
-        public SignInManager<Worker> _signInManager { get; }
+        public ApplicationContext _context { get; }
+        private readonly AuthService _authService;
         public OrganizationController(
-            ILogger<OrganizationController> Logger,
-            ApplicationContext Context, 
-            UserManager<Worker> UserManager, 
-            SignInManager<Worker> signInManager
+            ApplicationContext ApplicationContext, 
+            AuthService AuthService
         ){
-            _context = Context;
-            _logger = Logger;
-            _userManager = UserManager;
-            _signInManager = signInManager;
+            _context = ApplicationContext;
+            _authService = AuthService;
         }
 
         [HttpPost]
-        [Route("register")]
-        public async Task<ActionResult<Worker>> Register(OrgRegisterRequest request)
+        [Route("create")]
+        public ActionResult Create(OrgRegisterRequest request)
         {
-            if (!ModelState.IsValid){ return BadRequest(ModelState); }
+            Organization Organization = new Organization { Name = request.OrgName };
 
-            Organization newOrg = new Organization{ Name = request.OrgName };
-            _context.Organizations.Add(newOrg);
-            _context.SaveChanges();
+            _context.Organizations.Add(Organization);
 
-            var result = await _userManager.CreateAsync(
-                new Worker() { 
-                    OrganizationId = newOrg.Id,
-                    UserName = request.ExecName, 
-                    Email = request.ExecEmail,
-                    OrganizationRole = OrganizationRole.Administrator,
-                    },
-                request.ExecPassword
+            bool registered = _authService.RegisterUser(
+                request.ExecName,
+                request.ExecEmail,
+                request.ExecPassword,
+                Organization,
+                OrganizationRole.Administrator
             );
 
-            if (!result.Succeeded){ return BadRequest(result.Errors); }
+            _context.SaveChanges();
 
-            request.ExecPassword = string.Empty;
-            return Created("", request);
+            return registered ? Ok() : BadRequest();
         }
     }
 }

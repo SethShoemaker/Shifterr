@@ -7,11 +7,17 @@ namespace webapi.Models
     {
         [Required]
         public int Id { get; set; }
+
+        [Required]
+        public int OrganizationId { get; set; }
+
         [Required]
         public Organization Organization { get; set; } = null!;
+
         [Required]
         [Column(TypeName="char(10)")]
         public string Name { get; set; } = null!;
+
         [Column(TypeName="varchar(275)")]
         public string? Description { get; set; }
     }

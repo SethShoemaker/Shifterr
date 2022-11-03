@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace webapi.ResourceModels
+namespace webapi.Responses
 {
     public class AccLoginResponse
     {

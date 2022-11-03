@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using webapi.Models;
 
-namespace webapi.ResourceModels
+namespace webapi.Responses
 {
     public class ShiftsIndexResponse
     {

@@ -6,6 +6,7 @@ namespace webapi.Models
     public class Organization
     {
         public int Id { get; set; }
+        
         [Required]
         [Column(TypeName="char(20)")]
         public string Name { get; set; } = string.Empty;
