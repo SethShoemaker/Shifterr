@@ -11,7 +11,7 @@ using webapi.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221103181903_init")]
+    [Migration("20221104144508_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,6 +104,9 @@ namespace webapi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("EmailIsConfirmed")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
@@ -128,6 +131,25 @@ namespace webapi.Migrations
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("webapi.Models.UserConfirmationGuid", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ConfirmationKey")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserConfirmationGuids");
                 });
 
             modelBuilder.Entity("webapi.Models.Shift", b =>
@@ -175,6 +197,17 @@ namespace webapi.Migrations
                         .IsRequired();
 
                     b.Navigation("Organization");
+                });
+
+            modelBuilder.Entity("webapi.Models.UserConfirmationGuid", b =>
+                {
+                    b.HasOne("webapi.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("webapi.Models.User", b =>

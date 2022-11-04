@@ -63,6 +63,7 @@ namespace webapi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    EmailIsConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "longblob", nullable: false),
                     OrganizationRole = table.Column<string>(type: "ENUM('Crew','Manager','Administrator')", nullable: false)
@@ -117,6 +118,27 @@ namespace webapi.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "UserConfirmationGuids",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ConfirmationKey = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserConfirmationGuids", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserConfirmationGuids_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_ShiftPositions_OrganizationId",
                 table: "ShiftPositions",
@@ -138,6 +160,11 @@ namespace webapi.Migrations
                 column: "WorkerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserConfirmationGuids_UserId",
+                table: "UserConfirmationGuids",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_OrganizationId",
                 table: "Users",
                 column: "OrganizationId");
@@ -147,6 +174,9 @@ namespace webapi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Shifts");
+
+            migrationBuilder.DropTable(
+                name: "UserConfirmationGuids");
 
             migrationBuilder.DropTable(
                 name: "ShiftPositions");

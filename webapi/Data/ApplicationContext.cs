@@ -10,5 +10,6 @@ namespace webapi.Data
         public DbSet<Shift> Shifts { get; set; } = null!;
         public DbSet<ShiftPosition> ShiftPositions { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<UserConfirmationGuid> UserConfirmationGuids { get; set; } = null!;
     }
 }
