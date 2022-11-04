@@ -27,6 +27,9 @@ namespace webapi.Models
         public string Email { get; set; } = string.Empty;
 
         [Required]
+        public bool EmailIsConfirmed { get; set; } = false;
+
+        [Required]
         public byte[] PasswordHash { get; set; } = null!;
 
         [Required]
