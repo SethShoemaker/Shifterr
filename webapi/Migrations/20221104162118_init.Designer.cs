@@ -11,7 +11,7 @@ using webapi.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221104144508_init")]
+    [Migration("20221104162118_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,23 +133,24 @@ namespace webapi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("webapi.Models.UserConfirmationGuid", b =>
+            modelBuilder.Entity("webapi.Models.UserConfirmationKey", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ConfirmationKey")
-                        .HasColumnType("char(36)");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserConfirmationGuids");
+                    b.ToTable("UserConfirmationKeys");
                 });
 
             modelBuilder.Entity("webapi.Models.Shift", b =>
@@ -199,7 +200,7 @@ namespace webapi.Migrations
                     b.Navigation("Organization");
                 });
 
-            modelBuilder.Entity("webapi.Models.UserConfirmationGuid", b =>
+            modelBuilder.Entity("webapi.Models.UserConfirmationKey", b =>
                 {
                     b.HasOne("webapi.Models.User", "User")
                         .WithMany()

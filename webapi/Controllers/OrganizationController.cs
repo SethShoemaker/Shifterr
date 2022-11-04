@@ -31,7 +31,7 @@ namespace webapi.Controllers
 
             _context.Organizations.Add(Organization);
 
-            bool registered = _userRegisterService.RegisterUser(
+            bool registered = _userRegisterService.RegisterUserUnsaved(
                 request.ExecName,
                 request.ExecEmail,
                 request.ExecPassword,

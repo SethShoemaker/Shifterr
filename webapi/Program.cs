@@ -37,7 +37,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddScoped<UserRegisterService>();
 builder.Services.AddScoped<UserLoginService>();
+builder.Services.AddScoped<UserConfirmationService>();
 builder.Services.AddScoped<UserInfoHelperService>();
+builder.Services.AddScoped<EmailService>();
 
 var app = builder.Build();
 

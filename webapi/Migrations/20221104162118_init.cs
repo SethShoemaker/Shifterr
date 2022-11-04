@@ -119,19 +119,20 @@ namespace webapi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "UserConfirmationGuids",
+                name: "UserConfirmationKeys",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    ConfirmationKey = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    Value = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserConfirmationGuids", x => x.Id);
+                    table.PrimaryKey("PK_UserConfirmationKeys", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserConfirmationGuids_Users_UserId",
+                        name: "FK_UserConfirmationKeys_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -160,8 +161,8 @@ namespace webapi.Migrations
                 column: "WorkerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserConfirmationGuids_UserId",
-                table: "UserConfirmationGuids",
+                name: "IX_UserConfirmationKeys_UserId",
+                table: "UserConfirmationKeys",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -176,7 +177,7 @@ namespace webapi.Migrations
                 name: "Shifts");
 
             migrationBuilder.DropTable(
-                name: "UserConfirmationGuids");
+                name: "UserConfirmationKeys");
 
             migrationBuilder.DropTable(
                 name: "ShiftPositions");

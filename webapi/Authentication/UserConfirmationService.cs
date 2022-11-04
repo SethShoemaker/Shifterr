@@ -10,32 +10,40 @@ namespace webapi.Authentication
         {
             _context = Context;
         }
-        public Guid GetConfirmationGuidSaved(User User)
+        public string GenerateConfirmationKeySaved(User User)
         {
-            DeleteExistingConfirmationGuidUnsaved(User);
-            Guid Guid = GenerateConfirmationGuidUnsaved(User);
-            _context.SaveChanges();
+            DeleteExistingConfirmationKeyUnsaved(User);
 
-            return Guid;
-        }
-        private void DeleteExistingConfirmationGuidUnsaved(User User)
-        {
-            UserConfirmationGuid? ExistingGuid = _context.UserConfirmationGuids.FirstOrDefault(g => g.User == User);
-            if(ExistingGuid != null) _context.UserConfirmationGuids.Remove(ExistingGuid);
-        }
-        private Guid GenerateConfirmationGuidUnsaved(User User)
-        {
-            Guid Guid = new Guid();
+            string Key = new Guid().ToString();
 
-            UserConfirmationGuid NewConfirmationGuid = new UserConfirmationGuid
+            UserConfirmationKey NewConfirmationKey = new UserConfirmationKey
             {
                 User = User,
-                ConfirmationKey = Guid
+                Value = Key
             };
 
-            _context.UserConfirmationGuids.Add(NewConfirmationGuid);
+            _context.UserConfirmationKeys.Add(NewConfirmationKey);
+            _context.SaveChanges();
 
-            return Guid;
+            return Key;
+        }
+        public bool ValidateUserConfirmationKey(User User , string ProposedKey)
+        {
+            string? ValidKey = _context.UserConfirmationKeys.First(g => g.User == User).Value;
+
+            return ValidKey == ProposedKey;
+        }
+        public bool ConfirmUserSaved(User User)
+        {
+            DeleteExistingConfirmationKeyUnsaved(User);
+            User.EmailIsConfirmed = true;
+            _context.SaveChanges();
+            return true;
+        }
+        private void DeleteExistingConfirmationKeyUnsaved(User User)
+        {
+            UserConfirmationKey? ExistingKey = _context.UserConfirmationKeys.FirstOrDefault(g => g.User == User);
+            if(ExistingKey != null) _context.UserConfirmationKeys.Remove(ExistingKey);
         }
     }
 }
