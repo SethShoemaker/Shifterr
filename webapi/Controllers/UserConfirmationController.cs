@@ -66,8 +66,10 @@ namespace webapi.Controllers
             User? User = _context.Users.FirstOrDefault(u => u.Id == request.UserId);
             if(User == null) return Unauthorized("Invalid");
 
-            bool valid = _userConfirmationService.ValidateUserConfirmationKey(User, request.ConfirmationKey);
-            if(!valid) return Unauthorized("Invalid");
+            if(User.EmailIsConfirmed) return Unauthorized("Invalid");
+
+            bool IsValid = _userConfirmationService.ValidateUserConfirmationKey(User, request.ConfirmationKey);
+            if(!IsValid) return Unauthorized("Invalid");
 
             bool UserConfirmed = _userConfirmationService.ConfirmUserSaved(User);
             if(!UserConfirmed) return BadRequest("Error Confirming User");
