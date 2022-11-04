@@ -49,6 +49,7 @@ namespace webapi.Authentication
             {
                 new Claim(type: "UserOrgId", value: User.OrganizationId.ToString()),
                 new Claim(ClaimTypes.Role, value: User.OrganizationRole.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, value: User.Id.ToString()),
                 new Claim(ClaimTypes.Name, value: User.UserName.ToString()),
             };
         }
