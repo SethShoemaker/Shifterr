@@ -34,7 +34,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     }
 );
 
-builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<UserRegisterService>();
+builder.Services.AddScoped<UserLoginService>();
 builder.Services.AddScoped<UserInfoHelperService>();
 
 var app = builder.Build();

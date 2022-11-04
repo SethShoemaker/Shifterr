@@ -12,15 +12,18 @@ namespace webapi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        private readonly AuthService _authService;
+        private readonly UserRegisterService _userRegisterService;
+        private readonly UserLoginService _userLoginService;
         private readonly UserInfoHelperService _userInfoHelperService;
         public AuthController(
             ApplicationContext Context, 
-            AuthService AuthService,
+            UserRegisterService UserRegisterService,
+            UserLoginService UserLoginService,
             UserInfoHelperService UserManagerService
         ){
             _context = Context;
-            _authService = AuthService;
+            _userRegisterService = UserRegisterService;
+            _userLoginService = UserLoginService;
             _userInfoHelperService = UserManagerService;
         } 
 
@@ -31,10 +34,10 @@ namespace webapi.Controllers
             User User = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
             if(User == null) return BadRequest("User Not Found");
             
-            bool valid = _authService.checkCredentialValidity(request.UserName, request.Password);
+            bool valid = _userLoginService.CheckCredentialValidity(request.UserName, request.Password);
             if(!valid) return Unauthorized("Bad Credentials");
 
-            string token = _authService.CreateToken(User);
+            string token = _userLoginService.CreateToken(User);
             return Ok(token);
         }
 
@@ -43,7 +46,7 @@ namespace webapi.Controllers
         [Authorize(Roles = "Manager,Administrator")]
         public ActionResult Register(AccRegisterRequest request)
         {
-            bool registered = _authService.RegisterUser(
+            bool registered = _userRegisterService.RegisterUser(
                 request.UserName,
                 request.Email,
                 request.Password,

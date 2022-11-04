@@ -12,14 +12,14 @@ namespace webapi.Controllers
     [Route("api/organization")]
     public class OrganizationController : ControllerBase
     {
-        public ApplicationContext _context { get; }
-        private readonly AuthService _authService;
+        public readonly ApplicationContext _context;
+        private readonly UserRegisterService _userRegisterService;
         public OrganizationController(
             ApplicationContext ApplicationContext, 
-            AuthService AuthService
+            UserRegisterService UserRegisterService
         ){
             _context = ApplicationContext;
-            _authService = AuthService;
+            _userRegisterService = UserRegisterService;
         }
 
         [HttpPost]
@@ -30,7 +30,7 @@ namespace webapi.Controllers
 
             _context.Organizations.Add(Organization);
 
-            bool registered = _authService.RegisterUser(
+            bool registered = _userRegisterService.RegisterUser(
                 request.ExecName,
                 request.ExecEmail,
                 request.ExecPassword,
