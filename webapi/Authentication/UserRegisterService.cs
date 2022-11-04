@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using webapi.Data;
 using webapi.Models;
 
-namespace webapi.Services
+namespace webapi.Authentication
 {
     public class UserRegisterService
     {
-        public ApplicationContext _context { get; set; }
+        public readonly ApplicationContext _context;
         public UserRegisterService(ApplicationContext Context)
         {
             _context = Context;
-            
         }
         public bool RegisterUser(
             string Username, 
@@ -24,9 +19,11 @@ namespace webapi.Services
             OrganizationRole OrganizationRole
         ){
             if(UsernameExists(Username)) return false; 
+
             byte[] passwordHash;
             byte[] passwordSalt;
-            CreatePassword(Password, out passwordHash, out passwordSalt);
+            CreatePasswordHashAndSalt(Password, out passwordHash, out passwordSalt);
+
             User User = new User 
             {
                 UserName = Username,
@@ -37,9 +34,10 @@ namespace webapi.Services
                 OrganizationRole = OrganizationRole
             };
             _context.Users.Add(User);
+            
             return true;
         }
-        private void CreatePassword( 
+        private void CreatePasswordHashAndSalt( 
             string PasswordPlainText, 
             out byte[] PasswordHash, 
             out byte[] PasswordSalt
@@ -50,8 +48,8 @@ namespace webapi.Services
         }
         private bool UsernameExists(string UserName)
         {
-            int existingUserCount = _context.Users.Where(u => u.UserName == UserName).Count();
-            return existingUserCount > 0;
+            User? existingUser = _context.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            return existingUser != null;
         }
     }
 }

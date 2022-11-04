@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using webapi.Authentication;
 using webapi.Data;
 using webapi.Models;
 using webapi.Requests;
@@ -34,7 +35,7 @@ namespace webapi.Controllers
             User User = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
             if(User == null) return BadRequest("User Not Found");
             
-            bool valid = _userLoginService.CheckCredentialValidity(request.UserName, request.Password);
+            bool valid = _userLoginService.ValidateCredentials(request.UserName, request.Password);
             if(!valid) return Unauthorized("Bad Credentials");
 
             string token = _userLoginService.CreateToken(User);

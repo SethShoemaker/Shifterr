@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using webapi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using webapi.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 

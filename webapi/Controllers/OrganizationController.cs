@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using webapi.Authentication;
 using webapi.Data;
 using webapi.Models;
 using webapi.Requests;
-using webapi.Responses;
-using webapi.Services;
 
 namespace webapi.Controllers
 {
@@ -26,7 +24,10 @@ namespace webapi.Controllers
         [Route("create")]
         public ActionResult Create(OrgRegisterRequest request)
         {
-            Organization Organization = new Organization { Name = request.OrgName };
+            Organization Organization = new Organization 
+            { 
+                Name = request.OrgName
+            };
 
             _context.Organizations.Add(Organization);
 
@@ -38,9 +39,11 @@ namespace webapi.Controllers
                 OrganizationRole.Administrator
             );
 
+            if(!registered) return BadRequest("Username Taken");
+
             _context.SaveChanges();
 
-            return registered ? Ok() : BadRequest();
+            return Ok();
         }
     }
 }
