@@ -11,7 +11,7 @@ namespace webapi.Authentication
         {
             _context = Context;
         }
-        public bool RegisterUser(
+        public bool RegisterUserUnsaved(
             string Username, 
             string Email, 
             string Password, 
@@ -48,7 +48,7 @@ namespace webapi.Authentication
         }
         private bool UsernameExists(string UserName)
         {
-            User? existingUser = _context.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            User? existingUser = _context.Users.FirstOrDefault(u => u.UserName == UserName);
             return existingUser != null;
         }
     }

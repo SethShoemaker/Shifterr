@@ -18,6 +18,20 @@ namespace webapi.Authentication
             _context = ApplicationContext;
             _configuration = Configuration;
         }
+        public string CreateToken(User User)
+        {
+            List<Claim> Claims = CreateClaims(User);
+            var Key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value));
+            var Creds = new SigningCredentials(Key, SecurityAlgorithms.HmacSha512Signature);
+            var Token = new JwtSecurityToken(
+                issuer: _configuration.GetSection("Jwt:Issuer").Value,
+                audience: _configuration.GetSection("Jwt:Audience").Value,
+                claims: Claims,
+                expires: DateTime.Now.AddHours(4),
+                signingCredentials: Creds
+            );
+            return new JwtSecurityTokenHandler().WriteToken(Token);
+        }
         public bool ValidateCredentials(
             string UserName,
             string PasswordPlainText
@@ -29,24 +43,14 @@ namespace webapi.Authentication
             var attemptedPasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(PasswordPlainText));
             return attemptedPasswordHash.SequenceEqual(UserToVerify.PasswordHash);
         }
-        public string CreateToken(User User)
+        private List<Claim> CreateClaims(User User)
         {
-            List<Claim> Claims = new List<Claim>
+            return new List<Claim>
             {
                 new Claim(type: "UserOrgId", value: User.OrganizationId.ToString()),
                 new Claim(ClaimTypes.Role, value: User.OrganizationRole.ToString()),
                 new Claim(ClaimTypes.Name, value: User.UserName.ToString()),
             };
-            var Key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value));
-            var Creds = new SigningCredentials(Key, SecurityAlgorithms.HmacSha512Signature);
-            var Token = new JwtSecurityToken(
-                issuer: _configuration.GetSection("Jwt:Issuer").Value,
-                audience: _configuration.GetSection("Jwt:Audience").Value,
-                claims: Claims,
-                expires: DateTime.Now.AddHours(4),
-                signingCredentials: Creds
-            );
-            return new JwtSecurityTokenHandler().WriteToken(Token);
         }
     }
 }
