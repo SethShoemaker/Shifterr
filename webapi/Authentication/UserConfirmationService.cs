@@ -14,7 +14,7 @@ namespace webapi.Authentication
         {
             DeleteExistingConfirmationKeyUnsaved(User);
 
-            string Key = new Guid().ToString();
+            string Key = Guid.NewGuid().ToString();
 
             UserConfirmationKey NewConfirmationKey = new UserConfirmationKey
             {
