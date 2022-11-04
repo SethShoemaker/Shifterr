@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using webapi.Data;
 using webapi.Models;
 
@@ -15,11 +11,18 @@ namespace webapi.Services
         {
             _context = Context;
         }
-        public Organization GetUserOrg(ClaimsPrincipal user)
+
+        public Organization GetUserOrg(ClaimsPrincipal User)
         {
-            string orgIdString = user.Claims.First(c => c.Type == "UserOrgId").Value;
-            int orgIdInt = Int32.Parse(orgIdString);
-            return _context.Organizations.First(c => c.Id == orgIdInt);
+            string OrgIdString = User.Claims.First(c => c.Type == "UserOrgId").Value;
+            int OrgIdInt = Int32.Parse(OrgIdString);
+            return _context.Organizations.First(c => c.Id == OrgIdInt);
+        }
+
+        public int GetUserId (ClaimsPrincipal User)
+        {
+            string UserIdString = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            return Int32.Parse(UserIdString);
         }
     }
 }
