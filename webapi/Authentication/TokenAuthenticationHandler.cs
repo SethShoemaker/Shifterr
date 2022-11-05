@@ -17,15 +17,18 @@ namespace webapi.Authentication
         {
             _userCheckpointService = userCheckpointService;
         }
-        // 5291f071-9dbf-4d15-bb57-f74856a59b22
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             string headerToken = this.Request.Headers.Authorization;
+
             if (string.IsNullOrEmpty(headerToken)) 
             {
                 return Task.FromResult(AuthenticateResult.Fail("Auth Token Not Found"));
             }
+
+            // Remove "Bearer" from headerToken string
+            headerToken = headerToken.Substring(7);
 
             if (!_userCheckpointService.VerifyToken(headerToken)) 
             {
