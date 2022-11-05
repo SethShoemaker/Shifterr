@@ -10,13 +10,13 @@ namespace webapi.Controllers
 {
     [ApiController]
     [Route("api/user")]
-    public class AuthController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly ApplicationContext _context;
         private readonly UserRegisterService _userRegisterService;
         private readonly UserLoginService _userLoginService;
         private readonly UserInfoHelperService _userInfoHelperService;
-        public AuthController(
+        public UserController(
             ApplicationContext Context, 
             UserRegisterService UserRegisterService,
             UserLoginService UserLoginService,
@@ -52,16 +52,16 @@ namespace webapi.Controllers
         [Route("login")]
         public ActionResult Login(AccLoginRequest request)
         {
-            User? User = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
-            if(User == null) return BadRequest("User Not Found");
+            User? user = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
+            if(user == null) return BadRequest("User Not Found");
             
-            bool valid = _userLoginService.ValidateCredentials(request.UserName, request.Password);
+            bool valid = _userLoginService.ValidatePassword(user, request.Password);
             if(!valid) return Unauthorized("Bad Credentials");
 
-            bool EmailConfirmed = User.EmailIsConfirmed;
-            if(!EmailConfirmed) return Unauthorized("User Not Confirmed");
+            bool emailConfirmed = user.EmailIsConfirmed;
+            if(!emailConfirmed) return Unauthorized("User Not Confirmed");
 
-            string token = _userLoginService.CreateToken(User);
+            string token = _userLoginService.CreateTokenSaved(user);
             return Ok(token);
         }
     }

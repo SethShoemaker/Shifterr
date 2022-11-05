@@ -11,13 +11,15 @@ namespace webapi.Authentication
         {
             _context = Context;
         }
+        
         public bool RegisterUserUnsaved(
             string Username, 
             string Email, 
             string Password, 
             Organization Organization,
             OrganizationRole OrganizationRole
-        ){
+        )
+        {
             if(UsernameExists(Username)) return false; 
 
             byte[] passwordHash;
@@ -37,11 +39,13 @@ namespace webapi.Authentication
             
             return true;
         }
+
         private void CreatePasswordHashAndSalt( 
             string PasswordPlainText, 
             out byte[] PasswordHash, 
             out byte[] PasswordSalt
-        ){
+        )
+        {
             var hmac = new HMACSHA512();
             PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(PasswordPlainText));
             PasswordSalt = hmac.Key;

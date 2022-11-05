@@ -21,7 +21,8 @@ namespace webapi.Controllers
             UserLoginService UserLoginService,
             UserConfirmationService UserConfirmationService,
             EmailService EmailService
-        ){
+        )
+        {
             _context = Context;
             _userLoginService = UserLoginService;
             _userConfirmationService = UserConfirmationService;
@@ -32,21 +33,21 @@ namespace webapi.Controllers
         [Route("send")]
         public ActionResult Send(AccSendConfKeyRequest request)
         {
-            User? User = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
-            if(User == null) return BadRequest("User Not Found");
+            User? user = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
+            if(user == null) return BadRequest("User Not Found");
 
-            bool valid = _userLoginService.ValidateCredentials(request.UserName, request.Password);
+            bool valid = _userLoginService.ValidatePassword(user, request.Password);
             if(!valid) return Unauthorized("Bad Credentials");
 
-            if(User.EmailIsConfirmed) return BadRequest("User Already Confirmed");
+            if(user.EmailIsConfirmed) return BadRequest("User Already Confirmed");
 
             if(request.NewEmail != null)
             {
-                User.Email = request.NewEmail;
+                user.Email = request.NewEmail;
                 _context.SaveChanges();
             }
 
-            string ConfirmationKey = _userConfirmationService.GenerateConfirmationKeySaved(User);
+            string ConfirmationKey = _userConfirmationService.GenerateConfirmationKeySaved(user);
 
             _emailService.SendEmail
             (
@@ -63,15 +64,15 @@ namespace webapi.Controllers
         [Route("validate")]
         public ActionResult Validate([FromQuery]AccValidateConfKeyRequest request)
         {
-            User? User = _context.Users.FirstOrDefault(u => u.Id == request.UserId);
-            if(User == null) return Unauthorized("Invalid");
+            User? user = _context.Users.FirstOrDefault(u => u.Id == request.UserId);
+            if(user == null) return Unauthorized("Invalid");
 
-            if(User.EmailIsConfirmed) return Unauthorized("Invalid");
+            if(user.EmailIsConfirmed) return Unauthorized("Invalid");
 
-            bool IsValid = _userConfirmationService.ValidateUserConfirmationKey(User, request.ConfirmationKey);
+            bool IsValid = _userConfirmationService.ValidateUserConfirmationKey(user, request.ConfirmationKey);
             if(!IsValid) return Unauthorized("Invalid");
 
-            bool UserConfirmed = _userConfirmationService.ConfirmUserSaved(User);
+            bool UserConfirmed = _userConfirmationService.ConfirmUserSaved(user);
             if(!UserConfirmed) return BadRequest("Error Confirming User");
 
             return Ok("User Confirmed");

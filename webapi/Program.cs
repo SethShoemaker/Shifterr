@@ -1,8 +1,6 @@
 using webapi.Data;
 using Microsoft.EntityFrameworkCore;
 using webapi.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using webapi.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,23 +19,16 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     }
 );
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(
-    JwtBearerDefaults.AuthenticationScheme,
-    options => options.TokenValidationParameters = new TokenValidationParameters 
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:Key").Value)),
-        ValidateIssuer = true,
-        ValidIssuer = builder.Configuration.GetSection("Jwt:Issuer").Value,
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration.GetSection("Jwt:Audience").Value,
-    }
-);
+// <Auth>
+builder.Services.AddAuthentication(TokenAuthenticationSchemeOptions.Name)
+.AddScheme<TokenAuthenticationSchemeOptions, TokenAuthenticationHandler>(TokenAuthenticationSchemeOptions.Name, option => {});
 
 builder.Services.AddScoped<UserRegisterService>();
 builder.Services.AddScoped<UserLoginService>();
 builder.Services.AddScoped<UserConfirmationService>();
+builder.Services.AddScoped<UserCheckpointService>();
+// </Auth>
+
 builder.Services.AddScoped<UserInfoHelperService>();
 builder.Services.AddScoped<EmailService>();
 
