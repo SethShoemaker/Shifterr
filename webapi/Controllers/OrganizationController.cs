@@ -32,11 +32,11 @@ namespace webapi.Controllers
             _context.Organizations.Add(Organization);
 
             bool registered = _userRegisterService.RegisterUserUnsaved(
-                request.ExecName,
-                request.ExecEmail,
-                request.ExecPassword,
-                Organization,
-                OrganizationRole.Administrator
+                Username: request.ExecName,
+                Email: request.ExecEmail,
+                Password: request.ExecPassword,
+                OrganizationId: Organization.Id,
+                OrganizationRole: OrganizationRole.Administrator
             );
 
             if(!registered) return BadRequest("Username Taken");

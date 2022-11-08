@@ -16,7 +16,7 @@ namespace webapi.Authentication
             string Username, 
             string Email, 
             string Password, 
-            Organization Organization,
+            int OrganizationId,
             OrganizationRole OrganizationRole
         )
         {
@@ -32,7 +32,7 @@ namespace webapi.Authentication
                 Email = Email,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                Organization = Organization,
+                OrganizationId = OrganizationId,
                 OrganizationRole = OrganizationRole
             };
             _context.Users.Add(User);

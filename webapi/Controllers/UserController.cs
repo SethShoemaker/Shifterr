@@ -34,11 +34,11 @@ namespace webapi.Controllers
         public ActionResult Register(AccRegisterRequest request)
         {
             bool registered = _userRegisterService.RegisterUserUnsaved(
-                request.UserName,
-                request.Email,
-                request.Password,
-                _userInfoHelperService.GetUserOrg(HttpContext.User),
-                OrganizationRole.Crew
+                Username: request.UserName,
+                Email: request.Email,
+                Password: request.Password,
+                OrganizationId: _userInfoHelperService.GetUserOrgId(HttpContext.User),
+                OrganizationRole: OrganizationRole.Crew
             );
 
             if(!registered) return BadRequest("Username Taken");

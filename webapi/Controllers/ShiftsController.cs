@@ -27,13 +27,13 @@ namespace webapi.Controllers
         [Route("index")]
         public ActionResult<ShiftsIndexResponse> Index()
         {
-            Organization UserOrg = _userInfoHelperService.GetUserOrg(HttpContext.User);
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
             int UserId = _userInfoHelperService.GetUserId(HttpContext.User);        
                 
             List<ShiftIndexShiftDto> Shifts = 
             (
                 from shift in _context.Shifts
-                    where shift.Organization == UserOrg
+                    where shift.OrganizationId == UserOrgId
                     select new ShiftIndexShiftDto 
                         { 
                             Id = shift.Id,
@@ -52,12 +52,12 @@ namespace webapi.Controllers
         [Route("show/{id:int}")]
         public ActionResult<ShiftShowResponse> Show(int id)
         {
-            Organization UserOrg = _userInfoHelperService.GetUserOrg(HttpContext.User);
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
                 
             ShiftShowResponse? Shift = 
             (
                 from shift in _context.Shifts
-                    where shift.Organization == UserOrg && shift.Id == id
+                    where shift.OrganizationId == UserOrgId && shift.Id == id
                     select new ShiftShowResponse 
                         { 
                             Worker = shift.Worker.UserName,
@@ -67,7 +67,7 @@ namespace webapi.Controllers
                             CoWorkers = 
                             (
                                 from coWorkerShift in _context.Shifts
-                                    where coWorkerShift.Organization == UserOrg &&
+                                    where coWorkerShift.OrganizationId == UserOrgId &&
                                     coWorkerShift.Id != shift.Id &&
                                     // Find Overlapping Shifts
                                     coWorkerShift.Start < shift.End && coWorkerShift.End > shift.Start
@@ -89,10 +89,10 @@ namespace webapi.Controllers
         [Authorize(Roles = "Manager,Administrator")]
         public ActionResult Create(ShiftCreateRequest request)
         {
-            Organization UserOrg = _userInfoHelperService.GetUserOrg(HttpContext.User);
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
             User? User = _context.Users
-                .Where(u => u.Organization == UserOrg)
+                .Where(u => u.OrganizationId == UserOrgId)
                 .Where(u => u.Id == request.WorkerId)
                 .FirstOrDefault();
             if(User == null) return BadRequest("Invalid Worker Id");
@@ -101,7 +101,7 @@ namespace webapi.Controllers
             if(request.ShiftPositionId != null)
             {
                 ShiftPosition = _context.ShiftPositions
-                    .Where(sp => sp.Organization == UserOrg)
+                    .Where(sp => sp.OrganizationId == UserOrgId)
                     .Where(sp => sp.Id == request.ShiftPositionId)
                     .FirstOrDefault();
                 if(ShiftPosition == null) return BadRequest("Invalid Shift Position Id");
@@ -115,7 +115,7 @@ namespace webapi.Controllers
 
             Shift NewShift = new Shift
             {
-                Organization = UserOrg,
+                OrganizationId = UserOrgId,
                 Worker = User,
                 ShiftPosition = ShiftPosition,
                 Start = Start,
@@ -133,10 +133,10 @@ namespace webapi.Controllers
         [Authorize(Roles = "Manager,Administrator")]
         public ActionResult Delete(int ShiftId)
         {
-            Organization UserOrg = _userInfoHelperService.GetUserOrg(HttpContext.User);
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
             Shift? ShiftToDelete = _context.Shifts
-                .Where(s => s.Organization == UserOrg)
+                .Where(s => s.OrganizationId == UserOrgId)
                 .Where(s => s.Id == ShiftId)
                 .FirstOrDefault();
             if(ShiftToDelete == null) return BadRequest("Shift Not Found");

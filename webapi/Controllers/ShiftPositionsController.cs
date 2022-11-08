@@ -26,9 +26,9 @@ namespace webapi.Controllers
         [Route("index")]
         public ActionResult<List<ShiftPosition>> Index()
         {
-            Organization UserOrg = _userInfoHelperService.GetUserOrg(HttpContext.User);
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
             return _context.ShiftPositions
-                .Where(s => s.Organization == UserOrg)
+                .Where(s => s.OrganizationId == UserOrgId)
                 .ToList();
         }
 
@@ -37,11 +37,11 @@ namespace webapi.Controllers
         [Authorize(Roles = "Manager,Administrator")]
         public ActionResult<List<ShiftPosition>> Create(ShiftPositionCreateRequest request)
         {
-            Organization UserOrg = _userInfoHelperService.GetUserOrg(HttpContext.User);
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
             ShiftPosition NewShiftPosition = new ShiftPosition
             {
-                Organization = UserOrg,
+                OrganizationId = UserOrgId,
                 Name = request.Name,
                 Description = request.Description
             };
@@ -57,10 +57,10 @@ namespace webapi.Controllers
         [Authorize(Roles = "Manager,Administrator")]
         public ActionResult Delete(int ShiftPositionId)
         {
-            Organization UserOrg = _userInfoHelperService.GetUserOrg(HttpContext.User);
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
             ShiftPosition? ShiftPositionToDelete = _context.ShiftPositions
-                .Where(sp => sp.Organization == UserOrg)
+                .Where(sp => sp.OrganizationId == UserOrgId)
                 .Where(sp => sp.Id == ShiftPositionId)
                 .FirstOrDefault();
             if(ShiftPositionToDelete == null) return BadRequest("Shift Position Not Found");
