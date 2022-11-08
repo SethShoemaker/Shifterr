@@ -4,7 +4,7 @@ namespace webapi.Responses
     {
         public int ShiftId { get; set; }
 
-        public int UserId { get; set; }
+        public string Position { get; set; } = string.Empty;
 
         public string UserName { get; set; } = string.Empty;
     }

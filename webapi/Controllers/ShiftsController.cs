@@ -69,15 +69,12 @@ namespace webapi.Controllers
                                 from coWorkerShift in _context.Shifts
                                     where coWorkerShift.Organization == UserOrg &&
                                     coWorkerShift.Id != shift.Id &&
-                                    (
-                                        // Find overlapping shifts
-                                        (coWorkerShift.Start <= shift.Start && coWorkerShift.End > shift.Start) ||
-                                        (coWorkerShift.End > shift.Start && coWorkerShift.End < shift.End)
-                                    )
+                                    // Find Overlapping Shifts
+                                    coWorkerShift.Start < shift.End && coWorkerShift.End > shift.Start
                                     select new ShiftShowCoworkerDto
                                         {
                                             ShiftId = coWorkerShift.Id,
-                                            UserId = coWorkerShift.Worker.Id,
+                                            Position = coWorkerShift.ShiftPosition.Name,
                                             UserName = coWorkerShift.Worker.UserName
                                         }
                             ).ToList()
