@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using webapi.Data;
 using webapi.Models;
 using webapi.Requests;
+using webapi.Responses;
 using webapi.Services;
 
 namespace webapi.Controllers
@@ -24,14 +25,66 @@ namespace webapi.Controllers
 
         [HttpGet]
         [Route("index")]
-        public ActionResult<List<Shift>> Index()
+        public ActionResult<ShiftsIndexResponse> Index()
         {
             Organization UserOrg = _userInfoHelperService.GetUserOrg(HttpContext.User);
-            int UserId = _userInfoHelperService.GetUserId(HttpContext.User);
-            return _context.Shifts
-                .Where(s => s.Organization == UserOrg)
-                .Where(s => s.Worker.Id == UserId)
-                .ToList();
+            int UserId = _userInfoHelperService.GetUserId(HttpContext.User);        
+                
+            List<ShiftIndexShiftDto> Shifts = 
+            (
+                from shift in _context.Shifts
+                    where shift.Organization == UserOrg
+                    select new ShiftIndexShiftDto 
+                        { 
+                            Id = shift.Id,
+                            WorkerId = shift.Worker.Id,
+                            Worker = shift.Worker.UserName,
+                            Position = shift.ShiftPosition.Name,
+                            Start = shift.Start,
+                            End = shift.End
+                        }
+            ).ToList();
+
+            return (Shifts == null) ? NoContent() : new ShiftsIndexResponse { Shifts = Shifts };
+        }
+
+        [HttpGet]
+        [Route("show/{id:int}")]
+        public ActionResult<ShiftShowResponse> Show(int id)
+        {
+            Organization UserOrg = _userInfoHelperService.GetUserOrg(HttpContext.User);
+                
+            ShiftShowResponse? Shift = 
+            (
+                from shift in _context.Shifts
+                    where shift.Organization == UserOrg && shift.Id == id
+                    select new ShiftShowResponse 
+                        { 
+                            Worker = shift.Worker.UserName,
+                            Position = shift.ShiftPosition.Name,
+                            Start = shift.Start,
+                            End = shift.End,
+                            CoWorkers = 
+                            (
+                                from coWorkerShift in _context.Shifts
+                                    where coWorkerShift.Organization == UserOrg &&
+                                    coWorkerShift.Id != shift.Id &&
+                                    (
+                                        // Find overlapping shifts
+                                        (coWorkerShift.Start <= shift.Start && coWorkerShift.End > shift.Start) ||
+                                        (coWorkerShift.End > shift.Start && coWorkerShift.End < shift.End)
+                                    )
+                                    select new ShiftShowCoworkerDto
+                                        {
+                                            ShiftId = coWorkerShift.Id,
+                                            UserId = coWorkerShift.Worker.Id,
+                                            UserName = coWorkerShift.Worker.UserName
+                                        }
+                            ).ToList()
+                        }
+            ).FirstOrDefault();
+
+            return (Shift == null) ? NotFound("Shift Not Found") : Shift;
         }
 
         [HttpPost]
