@@ -14,24 +14,17 @@ namespace webapi.Authentication
             _context = Context;
         }
 
-        public bool VerifyToken(string token)
+        public User? GetTokenUser(string inputToken)
         {
-            UserToken? userToken = _context.UserTokens.FirstOrDefault(ut => ut.Value == token);
-            if(userToken == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return (
+                from token in _context.UserTokens
+                    where token.Value == inputToken
+                    select token.User
+            ).FirstOrDefault();
         }
 
-        public AuthenticationTicket CreateTicket(string token)
+        public AuthenticationTicket CreateTicket(User user)
         {
-            UserToken userToken = _context.UserTokens.First(ut => ut.Value == token);
-            User user = _context.Users.First(u => u.Id == userToken.UserId);
-
             List<Claim> claims = CreateClaims(user);
             
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, nameof(TokenAuthenticationHandler));

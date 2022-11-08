@@ -1,6 +1,7 @@
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
+using webapi.Models;
 
 namespace webapi.Authentication
 {
@@ -30,12 +31,13 @@ namespace webapi.Authentication
             // Remove "Bearer" from headerToken string
             headerToken = headerToken.Substring(7);
 
-            if (!_userCheckpointService.VerifyToken(headerToken)) 
+            User? user = _userCheckpointService.GetTokenUser(headerToken);
+            if (user == null) 
             {
                 return Task.FromResult(AuthenticateResult.Fail("Auth Token Invalid"));
             }
 
-            AuthenticationTicket ticket = _userCheckpointService.CreateTicket(headerToken);
+            AuthenticationTicket ticket = _userCheckpointService.CreateTicket(user);
 
             return Task.FromResult(AuthenticateResult.Success(ticket));
         }
