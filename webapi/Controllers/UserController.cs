@@ -4,6 +4,7 @@ using webapi.Authentication;
 using webapi.Data;
 using webapi.Models;
 using webapi.Requests;
+using webapi.Responses;
 using webapi.Services;
 
 namespace webapi.Controllers
@@ -51,7 +52,7 @@ namespace webapi.Controllers
 
         [HttpPost]
         [Route("login")]
-        public ActionResult Login(AccLoginRequest request)
+        public ActionResult<LoginResponse> Login(AccLoginRequest request)
         {
             User? user = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
             if(user == null) return BadRequest("User Not Found");
@@ -63,7 +64,9 @@ namespace webapi.Controllers
             if(!emailConfirmed) return Unauthorized("User Not Confirmed");
 
             string token = _userLoginService.CreateTokenSaved(user);
-            return Ok(token);
+            return Ok(new LoginResponse{
+                Token = token
+            });
         }
     }
 }
