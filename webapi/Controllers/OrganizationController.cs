@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webapi.Authentication;
 using webapi.Data;
@@ -8,6 +9,7 @@ namespace webapi.Controllers
 {
     [ApiController]
     [Route("api/organization")]
+    [AllowAnonymous]
     public class OrganizationController : ControllerBase
     {
         public readonly ApplicationContext _context;

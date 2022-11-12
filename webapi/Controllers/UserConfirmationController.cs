@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webapi.Authentication;
 using webapi.Data;
@@ -9,6 +10,7 @@ namespace webapi.Controllers
 {
     [ApiController]
     [Route("api/user/confirmation")]
+    [AllowAnonymous]
     public class UserConfirmationController : ControllerBase
     {
         private ApplicationContext _context;

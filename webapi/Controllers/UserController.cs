@@ -10,6 +10,7 @@ namespace webapi.Controllers
 {
     [ApiController]
     [Route("api/user")]
+    [AllowAnonymous]
     public class UserController : ControllerBase
     {
         private readonly ApplicationContext _context;
