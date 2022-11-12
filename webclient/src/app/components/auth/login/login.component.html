@@ -1,0 +1,6 @@
+<form (submit)="onSubmit()" class="auth-form">
+    <input [(ngModel)]="loginRequestBody.UserName" name="userName" type="text">
+    <input [(ngModel)]="loginRequestBody.Password" name="password" type="password">
+    <input type="submit" value="Login">
+    <span>{{ errorMessage }}</span>
+</form>
