@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginRequestBody } from 'src/app/requests/login.request';
 import { LoginService } from 'src/app/services/auth/login/login.service';
-import { TokenService } from 'src/app/services/auth/token/token.service';
+import { StorageService } from 'src/app/services/auth/storage/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private tokenService: TokenService,
+    private storageService: StorageService,
     private router: Router
   ){}
 
@@ -28,12 +28,13 @@ export class LoginComponent implements OnInit {
     this.loginService.attemptLogin(this.loginRequestBody).subscribe(
       // Success
       response => {
-        this.tokenService.storeToken(response.token);
+        this.storageService.storeToken(response.token);
+        this.storageService.storeOrganizationName(response.organizationName);
         this.router.navigateByUrl("dashboard");
       },
       // Fail
       response => {
-        this.errorMessage = response.error;
+        this.errorMessage = `Error: ${response.error}`;
         this.loginRequestBody.Password = "";
       }
     ); 

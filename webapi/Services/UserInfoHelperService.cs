@@ -19,6 +19,12 @@ namespace webapi.Services
             return _context.Organizations.First(c => c.Id == OrgIdInt);
         }
 
+        public string GetUserOrgNameFromModel(User user)
+        {
+            Organization userOrg = _context.Organizations.Where(o => o.Id == user.OrganizationId).First();
+            return userOrg.Name;
+        }
+
         public int GetUserOrgId(ClaimsPrincipal User)
         {
             return Int32.Parse(User.Claims.First(c => c.Type == "UserOrgId").Value);

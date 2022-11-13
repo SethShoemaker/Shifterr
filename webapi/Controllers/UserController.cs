@@ -65,7 +65,8 @@ namespace webapi.Controllers
 
             string token = _userLoginService.CreateTokenSaved(user);
             return Ok(new LoginResponse{
-                Token = token
+                Token = token,
+                OrganizationName = _userInfoHelperService.GetUserOrgNameFromModel(user)
             });
         }
     }

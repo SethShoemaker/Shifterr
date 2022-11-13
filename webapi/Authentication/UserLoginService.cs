@@ -21,7 +21,7 @@ namespace webapi.Authentication
         public string CreateTokenSaved(User user)
         {
 
-            DeleteOldTokenUnsaved(user);
+            // DeleteOldTokenUnsaved(user);
 
             string token = Guid.NewGuid().ToString();
             UserToken userToken = new UserToken

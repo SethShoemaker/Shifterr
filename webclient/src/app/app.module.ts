@@ -9,11 +9,13 @@ import { ShiftsComponent } from './components/dashboard/shifts/shifts.component'
 import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { WorkersComponent } from './components/dashboard/workers/workers.component';
 import { PositionsComponent } from './components/dashboard/positions/positions.component';
-import { HomeComponent } from './components/dashboard/home/home.component';
-import { NavComponent } from './components/shared/nav/nav.component';
+import { NavComponent } from './components/dashboard/shared/nav/nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './services/auth/login/login.service';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HeaderComponent } from './components/dashboard/shared/nav/header/header.component';
+import { SidebarComponent } from './components/dashboard/shared/nav/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +26,10 @@ import { LoginService } from './services/auth/login/login.service';
     CalendarComponent,
     WorkersComponent,
     PositionsComponent,
-    HomeComponent,
-    NavComponent
+    NavComponent,
+    DashboardComponent,
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
