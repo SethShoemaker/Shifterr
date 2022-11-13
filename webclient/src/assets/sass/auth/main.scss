@@ -1,0 +1,82 @@
+@import '../vars';
+
+
+.auth-form-container{
+    background-color: $darkOffBlack;
+    height:100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form.auth-form{
+        height: calc(20rem + 20vh);
+        width: calc(18rem + 18vw);
+        padding: calc(2.25rem + 2.25vh) calc(1.4rem + 1.3vw);
+        background-color: $lightGrey;
+        color:$darkOffBlack;
+
+        h1.title{
+            font-size: calc(1.3rem + 1.2vw);
+            font-weight: 500;
+            letter-spacing: calc(0.005rem + 0.005vw);
+        }
+
+        div.auth-content-container{
+            padding:0 calc(2rem + 2%);
+
+            span.auth-notification{
+                display: block;
+                line-height: calc(1rem + 6vh);
+                height: calc(1rem + 6vh);
+                width: 100%;
+                color: $red;
+            }
+    
+            div.auth-input{
+
+                label{
+                    font-weight: 500;
+                    font-size: calc(0.7rem + 0.35vw);
+                }
+    
+                input{
+                    width: 100%;
+                    border: 0.9px solid $darkOffBlack;
+                    margin-top: calc(0.125rem + 0.125vh);
+                    padding: 0 2%;
+                    height: calc(1.5rem + 1.25vh);
+                    line-height: calc(1.5rem + 1.25vh);
+                    margin-bottom: calc(1.5rem + 1.5vh);
+                
+                    &:focus{
+                        outline: none;
+                    }
+                }
+            }
+    
+            div.auth-submit{
+                display: flex;
+                justify-content: flex-end;
+    
+                button{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    border: none;
+                    padding: 0 calc(0.5rem + 0.5vw);
+                    height: calc(1.5rem + 1.25vh);
+                    background-color: $navyBlue;
+
+                    span{
+                        font-weight: 500;
+                        letter-spacing: calc(0.025rem + 0.025vw);
+                        font-size: calc(0.7rem + 0.35vw);
+                        color: $trueWhite;
+                    }
+                }
+            }
+        }
+    }
+}

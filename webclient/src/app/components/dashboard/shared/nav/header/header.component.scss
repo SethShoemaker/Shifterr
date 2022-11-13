@@ -1,0 +1,56 @@
+@import '../../../../../../assets/sass/vars';
+
+header#dashboard-header{
+    z-index: 2;
+    position: absolute;
+    height: calc(2rem + 1.75vw);
+    padding: 0 calc(0.5rem + 2.2vw);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    box-shadow: 0 4px 7px -4px $darkOffBlack;
+    background-color: $trueWhite;
+
+    span.organization-title{
+        font-size: calc(1rem + 0.8vw);
+        font-weight: 400;
+        letter-spacing: calc(0.025rem + 0.025vw);
+    }
+
+    span.user-button{
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        font-size: calc(0.7rem + 0.6vw);
+        font-weight: 300;
+        letter-spacing: calc(0.025rem + 0.025vw);
+
+        img{
+            margin: 3px 0 0 calc(0.25rem + 0.25vw);
+            height: calc(0.25rem + 0.5vw);
+            width: calc(0.25rem + 0.5vw);
+        }
+    }
+
+    div.user-dropdown{
+        position: absolute;
+        top:calc(2rem + 1vw);
+        right:calc(0.5rem + 2.2vw);
+        width: calc(4rem + 7vw);
+        background-color: $trueWhite;
+        border:1px solid $darkOffBlack;
+        display: flex;
+        flex-direction: column;
+
+        a{
+            width: 100%;
+            cursor: pointer;
+            padding: calc(0.5rem + 0.5vh) calc(0.3rem + 0.3vw);
+            &:hover{
+                background-color: $offWhite;
+            }
+        }
+    }
+}

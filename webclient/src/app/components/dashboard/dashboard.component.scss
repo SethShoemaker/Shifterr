@@ -1,0 +1,13 @@
+@import '../../../assets/sass/vars';
+
+
+div#dashboard-content-viewport{
+    position: absolute;
+    z-index: 0;
+    overflow-y: scroll;
+    top: calc(2rem + 2vw);
+    left: 0;
+    height: 200vh;
+    min-width: 100vw;
+    background-color: $offWhite;
+}
