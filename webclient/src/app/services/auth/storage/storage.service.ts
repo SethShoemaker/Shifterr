@@ -7,6 +7,7 @@ export class StorageService {
 
   private tokenStorageLocation: string = "ShifterrAuthToken";
   private organizationNameStorageLocation: string = "ShifterrOrganizationName";
+  private organizationRoleStorageLocation: string = "ShifterrOrganizationRole";
   private userNameStorageLocation: string = "ShifterrUserName";
 
   constructor() { }
@@ -43,6 +44,24 @@ export class StorageService {
     localStorage.removeItem(this.organizationNameStorageLocation);
   }
 
+    // Organization Name Handlers
+
+    storeOrganizationRole(token:string): void{
+      localStorage.setItem(this.organizationRoleStorageLocation, token);
+    }
+  
+    hasOrganizationRole(): boolean{
+      return localStorage.getItem(this.organizationRoleStorageLocation) != null;
+    }
+  
+    getOrganizationRole(): string | null{
+      return localStorage.getItem(this.organizationRoleStorageLocation);
+    }
+  
+    deleteOrganizationRole(): void{
+      localStorage.removeItem(this.organizationRoleStorageLocation);
+    }
+
   // Username Handlers
 
   storeUserName(token:string): void{
@@ -61,16 +80,20 @@ export class StorageService {
     localStorage.removeItem(this.userNameStorageLocation);
   }
 
-  // Token, Organization Name, UserName Handlers
+  // Token, Organization Name, Organization Role, UserName Handlers
 
-  storeTokenOrganizationNameUserName(token: string, organizationName: string, userName: string){
+  storeAllAuthDetails(token: string, organizationName: string, organizationRole: string, userName: string){
     this.storeToken(token);
     this.storeOrganizationName(organizationName);
+    this.storeOrganizationRole(organizationRole);
     this.storeUserName(userName);
   }
 
-  hasTokenOrganizationNameUserName(): boolean{
-    return this.hasToken() && this.hasOrganizationName() && this.hasUserName();
+  hasAllAuthDetails(): boolean{
+    return this.hasToken() && 
+    this.hasOrganizationName() && 
+    this.hasUserName() &&
+    this.hasOrganizationRole();
   }
 
   deleteTokenOrganizationNameUserName(): void{

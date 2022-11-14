@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
 
   @Input() organizationName: string | null = null!;
+  @Input() organizationRole: string | null = null!;
   @Input() userName: string | null = null!;
 
   constructor() { }

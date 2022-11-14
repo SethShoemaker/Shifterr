@@ -9,6 +9,7 @@ import { StorageService } from 'src/app/services/auth/storage/storage.service';
 export class DashboardComponent implements OnInit {
 
   organizationName: string | null = this.storageService.getOrganizationName();
+  organizationRole: string | null = this.storageService.getOrganizationRole();
   userName: string | null = this.storageService.getUserName();
 
   constructor(private storageService: StorageService) { }
