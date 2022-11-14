@@ -12,17 +12,14 @@ namespace webapi.Services
             _context = Context;
         }
 
-        public Organization GetUserOrg(ClaimsPrincipal User)
+        public void GetUserOrgNameAndRole(
+            User user, 
+            out string userOrgName,
+            out string userRole
+        )
         {
-            string OrgIdString = User.Claims.First(c => c.Type == "UserOrgId").Value;
-            int OrgIdInt = Int32.Parse(OrgIdString);
-            return _context.Organizations.First(c => c.Id == OrgIdInt);
-        }
-
-        public string GetUserOrgNameFromModel(User user)
-        {
-            Organization userOrg = _context.Organizations.Where(o => o.Id == user.OrganizationId).First();
-            return userOrg.Name;
+            userOrgName = _context.Organizations.Where(o => o.Id == user.OrganizationId).First().Name;
+            userRole = user.OrganizationRole.ToString();
         }
 
         public int GetUserOrgId(ClaimsPrincipal User)

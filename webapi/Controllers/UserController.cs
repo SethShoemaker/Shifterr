@@ -55,7 +55,7 @@ namespace webapi.Controllers
         public ActionResult<LoginResponse> Login(AccLoginRequest request)
         {
             User? user = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
-            if(user == null) return BadRequest("User Not Found");
+            if(user == null) return Unauthorized("User Not Found");
             
             bool valid = _userLoginService.ValidatePassword(user, request.Password);
             if(!valid) return Unauthorized("Bad Credentials");
@@ -64,9 +64,15 @@ namespace webapi.Controllers
             if(!emailConfirmed) return Unauthorized("User Not Confirmed");
 
             string token = _userLoginService.CreateTokenSaved(user);
+
+            string userOrgName;
+            string userRole;
+            _userInfoHelperService.GetUserOrgNameAndRole(user, out userOrgName, out userRole);
+
             return Ok(new LoginResponse{
                 Token = token,
-                OrganizationName = _userInfoHelperService.GetUserOrgNameFromModel(user),
+                OrganizationName = userOrgName,
+                OrganizationRole = userRole,
                 UserName = user.UserName
             });
         }

@@ -6,6 +6,8 @@ namespace webapi.Responses
 
         public string OrganizationName { get; set; } = null!;
 
+        public string OrganizationRole { get; set; } = null!;
+
         public string UserName { get; set; } = null!;
     }
 }
