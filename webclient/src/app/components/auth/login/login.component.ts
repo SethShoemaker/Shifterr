@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.loginService.attemptLogin(this.loginRequestBody).subscribe(
       // Success
       response => {
-        this.storageService.storeTokenOrganizationNameUserName(response.token, response.organizationName, response.userName);
+        this.storageService.storeAllAuthDetails(response.token, response.organizationName, response.organizationRole, response.userName);
         this.router.navigateByUrl("dashboard");
       },
       // Fail
