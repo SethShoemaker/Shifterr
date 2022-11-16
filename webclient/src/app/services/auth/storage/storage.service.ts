@@ -96,9 +96,10 @@ export class StorageService {
     this.hasOrganizationRole();
   }
 
-  deleteTokenOrganizationNameUserName(): void{
+  deleteAllAuthDetails(): void{
     this.deleteToken();
     this.deleteOrganizationName();
+    this.deleteOrganizationRole();
     this.deleteUserName();
   }
 }
