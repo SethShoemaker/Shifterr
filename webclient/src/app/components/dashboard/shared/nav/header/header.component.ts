@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StorageService } from 'src/app/services/auth/storage/storage.service';
+import { LogoutService } from 'src/app/services/auth/logout/logout.service';
 
 @Component({
   selector: 'app-dashboard-nav-header',
@@ -13,12 +13,16 @@ export class HeaderComponent implements OnInit {
 
   dropdownActivated: boolean = false;
 
-  constructor() {}
+  constructor(private logoutService: LogoutService) {}
 
   ngOnInit(): void {
   }
 
   toggleDropdown(): void{
     this.dropdownActivated = !this.dropdownActivated;
+  }
+
+  onLogout(): void{
+    this.logoutService.logout();
   }
 }

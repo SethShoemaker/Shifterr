@@ -8,6 +8,6 @@
     </span>
     <div *ngIf="dropdownActivated" class="user-dropdown" aria-role="list">
         <a aria-role="list">Edit Profile</a>
-        <a aria-role="list">Logout</a>
+        <a (click)="onLogout()" aria-role="list">Logout</a>
     </div>
 </header>
