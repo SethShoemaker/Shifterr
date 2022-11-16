@@ -15,14 +15,10 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     var authToken = this.storageService.getToken();
 
-    if(authToken == null){
-      return next.handle(request);
-    }else{
-      authToken = "Bearer " + authToken.toString();
-    }
+    if(authToken == null) return next.handle(request);
 
     const authRequest = request.clone({
-      headers: request.headers.set('Authorization', authToken)
+      headers: request.headers.set('Authorization', "Bearer " + authToken)
     });
 
     return next.handle(authRequest);
