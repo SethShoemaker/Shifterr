@@ -6,10 +6,10 @@ div#dashboard-content-viewport{
     z-index: 0;
     overflow-y: scroll;
     top: calc(2rem + 2vw);
-    left: calc(7rem + 7.5vw);
+    left: calc(8rem + 9vw);
     height: 200vh;
-    min-width: 100vw;
-    padding: calc(1.5rem + 0.5vw) calc(2rem + 0.5vw);
+    width: calc(100vw - (8rem + 9vw));
+    padding: calc(1.5rem + 0.5vw) calc(1rem + 2.25vw);
     background-color: $offWhite;
 
     h1#dashboard-content-title{
