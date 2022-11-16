@@ -1,0 +1,40 @@
+@import '~src/app/styles/vars';
+
+@mixin btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: calc(1.75rem + 0.35vw);
+    padding: 0 calc(0.5rem + 0.3vw);
+    border: none;
+    cursor: pointer;
+
+    img{
+        max-height: 34.75%;
+        max-width: 34.75%;
+        padding-right: calc(0.2rem + 0.2vw);
+    }
+
+    span{
+        font-size: calc(0.7rem + 0.24vw);
+        letter-spacing: calc(0.02rem + 0.025vw);
+        font-weight: 500;
+        color: $trueWhite;
+    }
+}
+
+@mixin btn-black {
+    @include btn();
+    background-color: $darkOffBlack;
+}
+
+@mixin btn-blue {
+    @include btn();
+    background-color: $navyBlue;
+}
+
+@mixin btn-red {
+    @include btn();
+    background-color: $red;
+}

@@ -1,17 +1,26 @@
-@import '../../../../../../assets/sass/vars';
+@import '~src/app/styles/vars';
 
 div#dashboard-sidebar{
-    position: absolute;
-    top: calc(2rem + 1.75vw);
-    left: 0;
-    height:100vh;
-    width: calc(8rem + 9vw);
     background-color: $darkOffBlack;
     z-index: 1;
     color: $offWhite;
     display: flex;
     flex-direction: column;
     text-align: center;
+
+    // Make sidebar into fullscreen menu for mobile
+    @media (max-width:1100px) {
+        display: none;
+    }
+
+    // Sidebar is fixed to side of screen on desktop
+    @media (min-width:1100px) {
+        position: absolute;
+        top: calc(2rem + 1.75vw);
+        left: 0;
+        height:100vh;
+        width: calc(8rem + 8.5vw);
+    }
 
     span#user-name{
         margin-top: calc(1rem + 1vh);

@@ -1,14 +1,17 @@
-<button (click)="GetShifts()">Refresh</button>
+<button (click)="GetShifts()" id="dashboard-shifts-index-refresh">
+    <img src="assets/images/icons/refresh.svg" alt="">
+    <span>Refresh</span>
+</button>
 
-<li *ngFor="let shift of shifts">
-    {{ shift.worker }}
-    <br> 
-    {{ shift.position ?? "NULL" }}
-    <br>
-    {{ shift.start }}
-    <br>
-    {{ shift.end }}
-    <br>
-    <br>
-    <br>
-</li>
+<ul aria-label="Shifts List" id="dashboard-shifts-index-list">
+    <li *ngFor="let shift of shifts" class="dashboard-shifts-index-listItem-container">
+        <div class="dashboard-shifts-index-listItem">
+            <span class="dashboard-shifts-index-listItem-day" aria-label="shift day">{{ shift.start | date : 'EEEE, MMMM d, y' }}</span>
+            <span class="dashboard-shifts-index-listItem-time" aria-label="shift times">{{ shift.start | date : 'h:mm a' }} - {{ shift.end | date : 'h:mm a' }}</span>
+            <div class="dashboard-shifts-index-listItem-position">
+                <span class="dashboard-shifts-index-listItem-position-header">Position</span>
+                <span class="dashboard-shifts-index-listItem-position-body">{{ shift.position ?? "NULL" }}</span>
+            </div>
+        </div>
+    </li>
+</ul>

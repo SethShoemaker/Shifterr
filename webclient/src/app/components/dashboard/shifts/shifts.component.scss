@@ -1,0 +1,89 @@
+@import '~src/app/styles/vars';
+@import '~src/app/styles/dashboard/mixins';
+
+button#dashboard-shifts-index-refresh{
+    @include btn-black;
+}
+
+ul#dashboard-shifts-index-list{
+    list-style: none;
+    display: flex;
+
+    @media (min-width:550px) {
+        flex-wrap: wrap;
+        flex-direction: row;
+        transform: translateX(calc(-0.35rem - 0.6vw));
+    }
+
+    @media (max-width:550px) {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    li.dashboard-shifts-index-listItem-container{
+        margin-top: calc(1rem + 1vw);
+
+        @media (min-width:820px) {
+            width: percentage(1/3);
+        }      
+        
+        @media (max-width:820px) {
+            width: percentage(1/2);
+        }
+
+        @media (max-width:550px) {
+            width: 100%;
+        }
+
+        div.dashboard-shifts-index-listItem{
+            height: 100%;
+            box-sizing: border-box;
+            padding: calc(0.85rem + 0.6vw) calc(0.45rem + 0.75vw) calc(0.75rem + 0.45vw) calc(0.45rem + 0.75vw);
+
+            @media (min-width:550px) {
+                margin: 0 calc(0.35rem + 0.6vw);
+            }
+            
+            @media (max-width:550px) {
+                margin: 0;
+            }
+    
+            border: 0.95px solid $darkOffBlack;
+            background-color: $trueWhite;
+
+            display: flex;
+            flex-direction: column;
+
+            span.dashboard-shifts-index-listItem-day{
+                font-size: calc(0.9rem + 0.35vw);
+                font-weight: 500;
+                letter-spacing: calc(0.005rem + 0.005vw);
+                margin-bottom: calc(0.09rem + 0.1vw);
+            }
+
+            span.dashboard-shifts-index-listItem-time{
+                font-size: calc(0.8rem + 0.3vw);
+                font-weight: 300;
+                letter-spacing: calc(0.002rem + 0.002vw);
+                margin-bottom: calc(0.6rem + 0.2vw);
+            }
+
+            div.dashboard-shifts-index-listItem-position{
+                display: flex;
+                flex-direction: column;
+
+                span.dashboard-shifts-index-listItem-position-header{
+                    font-size: calc(0.5rem + 0.3vw);
+                    font-weight: 500;
+                    letter-spacing: calc(0.0025rem + 0.0025vw);
+                }
+    
+                span.dashboard-shifts-index-listItem-position-body{
+                    font-size: calc(0.8rem + 0.3vw);
+                    font-weight: 300;
+                    transform: translateY(calc(-0.075rem - 0.075vw));
+                }
+            }
+        }
+    }
+}
