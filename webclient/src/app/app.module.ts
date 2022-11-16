@@ -19,6 +19,7 @@ import { SidebarComponent } from './components/dashboard/shared/nav/sidebar/side
 import { ApiService } from './services/shared/api/api.service';
 import { ShiftsService } from './services/dashboard/shifts/shifts.service';
 import { AuthInterceptor } from 'src/interceptors/auth/auth.interceptor';
+import { RefreshComponent } from './components/dashboard/shared/buttons/refresh/refresh.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AuthInterceptor } from 'src/interceptors/auth/auth.interceptor';
     NavComponent,
     DashboardComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    RefreshComponent
   ],
   imports: [
     BrowserModule,
