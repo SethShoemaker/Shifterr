@@ -9,5 +9,12 @@ div#dashboard-content-viewport{
     left: calc(7rem + 7.5vw);
     height: 200vh;
     min-width: 100vw;
+    padding: calc(1.5rem + 0.5vw) calc(2rem + 0.5vw);
     background-color: $offWhite;
+
+    h1#dashboard-content-title{
+        font-size: calc(1.1rem + 0.8vw);
+        letter-spacing: calc(0.017rem + 0.017vw);
+        margin-bottom: calc(1.2rem + 0.9vw);
+    }
 }

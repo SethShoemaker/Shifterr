@@ -1,5 +1,5 @@
 <app-nav [organizationName]="organizationName" [organizationRole]="organizationRole" [userName]="userName"></app-nav>
 <div id="dashboard-content-viewport">
-    <h1>{{ title ?? "NULL"}}</h1>
+    <h1 id="dashboard-content-title">{{ title }}</h1>
     <router-outlet></router-outlet>
 </div>
