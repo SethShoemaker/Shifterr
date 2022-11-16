@@ -14,10 +14,12 @@ import { AuthGuard } from './guards/auth/auth.guard';
 const routes: Routes = [
   {
     path : "register",
+    title: "register",
     component : RegisterComponent
   },
   {
     path : "login",
+    title: "login",
     component : LoginComponent
   },
   {
@@ -27,18 +29,22 @@ const routes: Routes = [
     children: [
       {
         path: "shifts",
+        title: "Shifts",
         component: ShiftsComponent
       },
       {
         path: "calendar",
+        title: "Calendar",
         component: CalendarComponent
       },
       {
         path: "positions",
+        title: "Positions",
         component: PositionsComponent
       },
       {
         path: "workers",
+        title: "Workers",
         component: WorkersComponent
       },
       {
