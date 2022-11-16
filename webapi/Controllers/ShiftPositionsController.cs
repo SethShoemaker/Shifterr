@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using webapi.Data;
 using webapi.Models;
 using webapi.Requests;
+using webapi.Responses;
 using webapi.Services;
 
 namespace webapi.Controllers
@@ -24,12 +25,23 @@ namespace webapi.Controllers
 
         [HttpGet]
         [Route("index")]
-        public ActionResult<List<ShiftPosition>> Index()
+        public ActionResult<ShiftPositionsIndexResponse> Index()
         {
             int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
-            return _context.ShiftPositions
-                .Where(s => s.OrganizationId == UserOrgId)
-                .ToList();
+
+            List<ShiftPositionIndexPositionDto> positions = 
+            (
+                from position in _context.ShiftPositions
+                    where position.OrganizationId == UserOrgId
+                    select new ShiftPositionIndexPositionDto 
+                        { 
+                            Id = position.Id,
+                            Name = position.Name,
+                            Description = position.Description
+                        }
+            ).ToList();
+
+            return new ShiftPositionsIndexResponse{Positions = positions};
         }
 
         [HttpPost]
