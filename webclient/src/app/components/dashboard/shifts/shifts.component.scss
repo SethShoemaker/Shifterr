@@ -1,5 +1,5 @@
 @import '~src/app/styles/vars';
-@import '~src/app/styles/dashboard/mixins';
+@import '~src/app/styles/dashboard/_btn.mixin';
 
 button#dashboard-shifts-index-refresh{
     @include btn-black;
