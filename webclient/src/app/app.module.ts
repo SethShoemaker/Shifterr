@@ -11,11 +11,14 @@ import { WorkersComponent } from './components/dashboard/workers/workers.compone
 import { PositionsComponent } from './components/dashboard/positions/positions.component';
 import { NavComponent } from './components/dashboard/shared/nav/nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginService } from './services/auth/login/login.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/dashboard/shared/nav/header/header.component';
 import { SidebarComponent } from './components/dashboard/shared/nav/sidebar/sidebar.component';
+import { ApiService } from './services/shared/api/api.service';
+import { ShiftsService } from './services/dashboard/shifts/shifts.service';
+import { AuthInterceptor } from 'src/interceptors/auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,19 @@ import { SidebarComponent } from './components/dashboard/shared/nav/sidebar/side
     HttpClientModule
   ],
   providers: [
-    LoginService
+    AuthInterceptor,
+    {
+
+      provide: HTTP_INTERCEPTORS,
+      
+      useClass: AuthInterceptor,
+      
+      multi: true
+      
+    },
+    ApiService,
+    LoginService,
+    ShiftsService
   ],
   bootstrap: [AppComponent]
 })

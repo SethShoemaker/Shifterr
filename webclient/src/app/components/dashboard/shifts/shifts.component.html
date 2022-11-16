@@ -1,1 +1,14 @@
-<p>shifts works!</p>
+<button (click)="GetShifts()">Refresh</button>
+
+<li *ngFor="let shift of shifts">
+    {{ shift.worker }}
+    <br> 
+    {{ shift.position ?? "NULL" }}
+    <br>
+    {{ shift.start }}
+    <br>
+    {{ shift.end }}
+    <br>
+    <br>
+    <br>
+</li>

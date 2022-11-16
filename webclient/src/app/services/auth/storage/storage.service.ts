@@ -22,6 +22,10 @@ export class StorageService {
     return localStorage.getItem(this.tokenStorageLocation) != null;
   }
 
+  getToken(): string | null{
+    return localStorage.getItem(this.tokenStorageLocation);
+  }
+
   deleteToken(): void{
     localStorage.removeItem(this.tokenStorageLocation);
   }
