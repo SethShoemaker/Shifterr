@@ -6,7 +6,7 @@ div#dashboard-content-viewport{
     z-index: 0;
     overflow-y: scroll;
     top: calc(2rem + 2vw);
-    left: 0;
+    left: calc(7rem + 7.5vw);
     height: 200vh;
     min-width: 100vw;
     background-color: $offWhite;
