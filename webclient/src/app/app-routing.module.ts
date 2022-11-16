@@ -50,7 +50,7 @@ const routes: Routes = [
   },
   {
     path : "",
-    redirectTo: "login", 
+    redirectTo: "dashboard/shifts", 
     pathMatch: 'full'
   },
 ];
