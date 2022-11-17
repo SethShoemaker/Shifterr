@@ -1,13 +1,13 @@
 <app-refresh (click)="GetShifts()" [hasMb]="true"></app-refresh>
 
-<ul aria-label="Shifts List" id="dashboard-shifts-index-list">
-    <li *ngFor="let shift of shifts" class="dashboard-shifts-index-listItem-container">
-        <div class="dashboard-shifts-index-listItem">
-            <span class="dashboard-shifts-index-listItem-day" aria-label="shift day">{{ shift.start | date : 'EEEE, MMMM d, y' }}</span>
-            <span class="dashboard-shifts-index-listItem-time" aria-label="shift times">{{ shift.start | date : 'h:mm a' }} - {{ shift.end | date : 'h:mm a' }}</span>
-            <div class="dashboard-shifts-index-listItem-position">
-                <span class="dashboard-shifts-index-listItem-position-header">Position</span>
-                <span class="dashboard-shifts-index-listItem-position-body">{{ shift.position ?? "NULL" }}</span>
+<ul aria-label="Shifts List">
+    <li *ngFor="let shift of shifts" class="listItem-container">
+        <div class="listItem-content">
+            <span class="day" aria-label="shift day">{{ shift.start | date : 'EEEE, MMMM d, y' }}</span>
+            <span class="time" aria-label="shift times">{{ shift.start | date : 'h:mm a' }} - {{ shift.end | date : 'h:mm a' }}</span>
+            <div class="position-container">
+                <span class="position-header">Position</span>
+                <span class="position-body">{{ shift.position ?? "NULL" }}</span>
             </div>
         </div>
     </li>

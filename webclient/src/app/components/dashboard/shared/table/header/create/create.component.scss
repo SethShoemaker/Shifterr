@@ -1,6 +1,6 @@
 @import 'src/app/styles/vars';
 @import 'src/app/styles/dashboard/btn.mixin';
 
-button#table-header-create{
+button{
     @include btn-blue;
 }

@@ -1,10 +1,10 @@
 @import '~src/app/styles/vars';
 @import '~src/app/styles/dashboard/_btn.mixin';
 
-button.refresh-button{
+button{
     @include btn-black;
-}
 
-button.btn-mb{
-    @include btn-mb;
+    &.btn-mb{
+        @include btn-mb;
+    }
 }

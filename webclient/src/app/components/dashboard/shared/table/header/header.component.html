@@ -1,8 +1,8 @@
-<div id="table-header">
-    <div id="table-header-left">
+<div>
+    <div id="header-left">
         <app-refresh (click)="onRefreshClick()"></app-refresh>
     </div>
-    <div id="table-header-right">
+    <div id="header-right">
         <app-search [tableTopic]="tableTopic"></app-search>
         <app-create [createVerb]="createVerb" [tableTopic]="tableTopic" (click)="onAddClick()"></app-create>
     </div>

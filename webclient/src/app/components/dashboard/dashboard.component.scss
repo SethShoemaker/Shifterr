@@ -1,6 +1,6 @@
 @import '~src/app/styles/vars';
 
-div#dashboard-content-viewport{
+div{
     position: absolute;
     z-index: 0;
     overflow-y: scroll;
@@ -23,7 +23,7 @@ div#dashboard-content-viewport{
         padding: calc(1.5rem + 0.5vw) calc(1rem + 2.5vw);
     }
 
-    h1#dashboard-content-title{
+    h1{
         font-size: calc(1.2rem + 0.75vw);
         letter-spacing: calc(0.017rem + 0.017vw);
         margin-bottom: calc(1.2rem + 0.9vw);

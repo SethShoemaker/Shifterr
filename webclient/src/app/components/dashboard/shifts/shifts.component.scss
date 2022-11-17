@@ -1,7 +1,7 @@
 @import 'src/app/styles/vars';
 @import 'src/app/styles/dashboard/_btn.mixin';
 
-ul#dashboard-shifts-index-list{
+ul{
     list-style: none;
     display: flex;
 
@@ -16,7 +16,7 @@ ul#dashboard-shifts-index-list{
         align-items: center;
     }
 
-    li.dashboard-shifts-index-listItem-container{
+    li.listItem-container{
         margin-bottom: calc(1rem + 1vw);
 
         @media (min-width:820px) {
@@ -31,7 +31,7 @@ ul#dashboard-shifts-index-list{
             width: 100%;
         }
 
-        div.dashboard-shifts-index-listItem{
+        div.listItem-content{
             height: 100%;
             box-sizing: border-box;
             padding: calc(0.85rem + 0.6vw) calc(0.45rem + 0.75vw) calc(0.75rem + 0.45vw) calc(0.45rem + 0.75vw);
@@ -50,31 +50,31 @@ ul#dashboard-shifts-index-list{
             display: flex;
             flex-direction: column;
 
-            span.dashboard-shifts-index-listItem-day{
+            span.day{
                 font-size: calc(0.9rem + 0.35vw);
                 font-weight: 500;
                 letter-spacing: calc(0.005rem + 0.005vw);
                 margin-bottom: calc(0.09rem + 0.1vw);
             }
 
-            span.dashboard-shifts-index-listItem-time{
+            span.time{
                 font-size: calc(0.8rem + 0.3vw);
                 font-weight: 300;
                 letter-spacing: calc(0.002rem + 0.002vw);
                 margin-bottom: calc(0.6rem + 0.2vw);
             }
 
-            div.dashboard-shifts-index-listItem-position{
+            div.position-container{
                 display: flex;
                 flex-direction: column;
 
-                span.dashboard-shifts-index-listItem-position-header{
+                span.position-header{
                     font-size: calc(0.5rem + 0.3vw);
                     font-weight: 500;
                     letter-spacing: calc(0.0025rem + 0.0025vw);
                 }
     
-                span.dashboard-shifts-index-listItem-position-body{
+                span.position-body{
                     font-size: calc(0.8rem + 0.3vw);
                     font-weight: 300;
                     transform: translateY(calc(-0.075rem - 0.075vw));
