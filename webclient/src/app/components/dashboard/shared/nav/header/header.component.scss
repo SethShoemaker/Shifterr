@@ -2,7 +2,7 @@
 
 header{
     z-index: 2;
-    position: absolute;
+    position: fixed;
     height: calc(2rem + 1.75vw);
     padding: 0 calc(0.5rem + 2.2vw);
     display: flex;
