@@ -15,7 +15,7 @@ div#dashboard-sidebar{
 
     // Sidebar is fixed to side of screen on desktop
     @media (min-width:1100px) {
-        position: absolute;
+        position: fixed;
         top: calc(2rem + 1.75vw);
         left: 0;
         height:100vh;
