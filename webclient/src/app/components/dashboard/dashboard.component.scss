@@ -1,17 +1,16 @@
 @import '~src/app/styles/vars';
 
 div{
-    position: absolute;
     z-index: 0;
     overflow-y: scroll;
-    top: calc(2rem + 2vw);
+    margin-top: calc(2rem + 2vw);
     min-height: 200vh;
     
     background-color: $offWhite;
 
     // viewport is pushed away by sidebar on desktop
     @media (min-width:1100px) {
-        left: calc(8rem + 8.5vw);
+        margin-left: calc(8rem + 8.5vw);
         width: calc(100vw - (8rem + 8.5vw));
         padding: calc(1.5rem + 0.5vw) calc(2rem + 3vw) calc(1.5rem + 0.5vw) calc(1rem + 2.5vw);
     }
