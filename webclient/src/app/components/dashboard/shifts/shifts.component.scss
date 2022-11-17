@@ -17,7 +17,7 @@ ul#dashboard-shifts-index-list{
     }
 
     li.dashboard-shifts-index-listItem-container{
-        margin-top: calc(1rem + 1vw);
+        margin-bottom: calc(1rem + 1vw);
 
         @media (min-width:820px) {
             width: percentage(1/3);
