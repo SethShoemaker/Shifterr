@@ -19,7 +19,10 @@ import { SidebarComponent } from './components/dashboard/shared/nav/sidebar/side
 import { ApiService } from './services/shared/api/api.service';
 import { ShiftsService } from './services/dashboard/shifts/shifts.service';
 import { AuthInterceptor } from 'src/interceptors/auth/auth.interceptor';
+import { TableHeaderComponent } from './components/dashboard/shared/table/header/header.component';
 import { RefreshComponent } from './components/dashboard/shared/buttons/refresh/refresh.component';
+import { TableHeaderSearchComponent } from './components/dashboard/shared/table/header/search/search.component';
+import { TableHeaderCreateComponent } from './components/dashboard/shared/table/header/create/create.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { RefreshComponent } from './components/dashboard/shared/buttons/refresh/
     DashboardComponent,
     HeaderComponent,
     SidebarComponent,
-    RefreshComponent
+    RefreshComponent,
+    TableHeaderSearchComponent,
+    TableHeaderCreateComponent,
+    TableHeaderComponent
   ],
   imports: [
     BrowserModule,

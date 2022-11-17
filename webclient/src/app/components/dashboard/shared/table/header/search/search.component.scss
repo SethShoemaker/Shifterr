@@ -1,0 +1,21 @@
+@import 'src/app/styles/vars';
+@import 'src/app/styles/dashboard/input.mixin';
+
+div#table-header-search-container{
+    display: flex;
+    align-items: center;
+    @include input;
+
+    img#table-header-search-icon{
+        max-height: calc(0.95rem + 0.31vw);
+        max-width: calc(0.95rem + 0.31vw);
+        padding-right: calc(0.2rem + 0.2vw);
+    }
+
+    input#table-header-search-input{
+        border: none;
+        outline: none;
+        padding: 0;
+        margin: 0;
+    }
+}

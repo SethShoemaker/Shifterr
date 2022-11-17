@@ -1,0 +1,15 @@
+@import 'src/app/styles/vars';
+
+@mixin input {
+    width: calc(9rem + 13vw);
+    height: calc(1.75rem + 0.35vw);
+    line-height: calc(1.75rem + 0.35vw);
+    padding-left: calc(0.25rem + 0.25vw);
+    font-weight: 300;
+    border: 0.9px solid $darkOffBlack;
+    background-color: $trueWhite;
+
+    &:focus{
+        outline: none;
+    }
+}

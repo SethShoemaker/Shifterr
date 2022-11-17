@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/positions/index.response';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
 
@@ -11,18 +12,27 @@ export class PositionsComponent implements OnInit {
 
   public positions: PositionsIndexResponseBody[] = [];
 
-  constructor(private positionsService: PositionsService) { }
+  public tableTopic: string = "Position";
+
+  constructor(
+    private positionsService: PositionsService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.GetShifts();
+    this.GetPositions();
   }
 
-  GetShifts(){
+  GetPositions(){
     var shifts = this.positionsService.getAllPositions().subscribe(
       // Success
       res => {
         this.positions = res.positions;
       }
     )
+  }
+
+  onAddClick(){
+    this.router.navigateByUrl("dashboard/shifts");
   }
 }

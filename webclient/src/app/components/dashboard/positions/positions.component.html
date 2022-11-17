@@ -1,3 +1,20 @@
-<li *ngFor="let position of positions">
-    {{ position | json }}
-</li>
+<app-table-header (refreshEmitter)="GetPositions()" (addEmitter)="onAddClick()" [tableTopic]="tableTopic"></app-table-header>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let position of positions">
+            <td><span>{{ position.name }}</span></td>
+            <td><span>{{ position.description ?? "None" }}</span></td>
+            <td class="column-buttons">
+                <button class="delete">
+                    <span>{{ position.id }}</span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
