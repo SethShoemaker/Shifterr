@@ -12,11 +12,15 @@
             <td><span>{{ position.description ?? "None" }}</span></td>
             <td class="column-buttons">
                 <button class="delete">
-                    <span (click)="delete()">{{ position.id }}</span>
+                    <span (click)="createConfirmation(position.id)">Delete</span>
                 </button>
             </td>
+        </tr>
+        <tr *ngIf="positions.length == 0">
+            <td><span>No Positions</span></td>
         </tr>
     </tbody>
 </table>
 
-<app-confirmation *ngIf="deleteConfirmIsActive" (cancelEmitter)="delete()"></app-confirmation>
+<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="removeConfirmation()" (confirmEmitter)="confirmDeletion()"></app-confirmation>
+<app-alert *ngIf="alertIsActive" [alertMessage]="alertMessage"></app-alert>

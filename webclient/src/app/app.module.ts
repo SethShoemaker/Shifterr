@@ -26,6 +26,8 @@ import { TableHeaderCreateComponent } from './components/dashboard/shared/table/
 import { ConfirmationComponent } from './components/dashboard/shared/confirmation/confirmation.component';
 import { DeleteComponent } from './components/dashboard/shared/buttons/delete/delete.component';
 import { CancelComponent } from './components/dashboard/shared/buttons/cancel/cancel.component';
+import { AlertComponent } from './components/dashboard/shared/alert/alert.component';
+import { ScreenOverlayComponent } from './components/dashboard/shared/screen-overlay/screen-overlay.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { CancelComponent } from './components/dashboard/shared/buttons/cancel/ca
     TableHeaderComponent,
     ConfirmationComponent,
     DeleteComponent,
-    CancelComponent
+    CancelComponent,
+    AlertComponent,
+    ScreenOverlayComponent
   ],
   imports: [
     BrowserModule,

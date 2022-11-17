@@ -80,7 +80,7 @@ namespace webapi.Controllers
             _context.ShiftPositions.Remove(ShiftPositionToDelete);
             _context.SaveChanges();
 
-            return Ok("Shift Position Deleted");
+            return Ok(new { responseText = "Shift Position Deleted" });
         }
     }
 }

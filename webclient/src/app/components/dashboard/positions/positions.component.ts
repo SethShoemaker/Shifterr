@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/positions/index.response';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
@@ -14,7 +14,12 @@ export class PositionsComponent implements OnInit {
 
   public tableTopic: string = "Position";
 
-  public deleteConfirmIsActive: boolean = false;
+  public alertIsActive: boolean = false;
+  public alertMessage: string = null!;
+
+  public confirmationIsActive: boolean = false;
+
+  public positionIdToRemove: number = null!;
 
   constructor(
     private positionsService: PositionsService,
@@ -23,6 +28,7 @@ export class PositionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetPositions();
+    this.createAlert("Message");
   }
 
   GetPositions(){
@@ -30,6 +36,10 @@ export class PositionsComponent implements OnInit {
       // Success
       res => {
         this.positions = res.positions;
+      },
+      // Error
+      err => {
+        this.createAlert("Could Not Get Shifts");
       }
     )
   }
@@ -38,7 +48,42 @@ export class PositionsComponent implements OnInit {
     this.router.navigateByUrl("dashboard/shifts");
   }
 
-  delete(){
-    this.deleteConfirmIsActive = !this.deleteConfirmIsActive;
+  createConfirmation(id: number){
+    this.positionIdToRemove = id;
+    this.confirmationIsActive = true;
+  }
+
+  removeConfirmation(){
+    this.positionIdToRemove = null!;
+    this.confirmationIsActive = false;
+  }
+
+  createAlert(message: string){
+    this.alertMessage = message;
+    this.alertIsActive = true;
+  }
+
+  removeAlert(){
+    this.alertMessage = null!;
+    this.alertIsActive = false;
+  }
+
+  removePosition(id: number){
+    this.positions = this.positions.filter(p => p.id != id);
+  }
+
+  confirmDeletion(){
+    this.positionsService.deletePosition(this.positionIdToRemove).subscribe(
+      // Success
+      res => {
+        this.removePosition(this.positionIdToRemove);
+      },
+      // Error
+      err => {
+        this.createAlert("Could Not Delete Position");
+      }
+    );
+    
+    this.removeConfirmation();
   }
 }

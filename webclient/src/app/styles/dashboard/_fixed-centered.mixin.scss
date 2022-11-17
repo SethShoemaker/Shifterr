@@ -1,0 +1,13 @@
+@mixin fixed-center {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+
+    height: 40vh;
+    width: 50vw;
+    background-color: $trueWhite;
+    border-radius: calc(0.5rem + 0.5vw);
+    padding: calc(0.5rem + 0.5vw);
+}
