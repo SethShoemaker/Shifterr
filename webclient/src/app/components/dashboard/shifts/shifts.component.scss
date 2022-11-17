@@ -1,10 +1,6 @@
 @import '~src/app/styles/vars';
 @import '~src/app/styles/dashboard/_btn.mixin';
 
-button#dashboard-shifts-index-refresh{
-    @include btn-black;
-}
-
 ul#dashboard-shifts-index-list{
     list-style: none;
     display: flex;
