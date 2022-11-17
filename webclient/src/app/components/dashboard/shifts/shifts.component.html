@@ -1,7 +1,4 @@
-<button (click)="GetShifts()" id="dashboard-shifts-index-refresh">
-    <img src="assets/images/icons/refresh.svg" alt="">
-    <span>Refresh</span>
-</button>
+<app-refresh (click)="GetShifts()"></app-refresh>
 
 <ul aria-label="Shifts List" id="dashboard-shifts-index-list">
     <li *ngFor="let shift of shifts" class="dashboard-shifts-index-listItem-container">
