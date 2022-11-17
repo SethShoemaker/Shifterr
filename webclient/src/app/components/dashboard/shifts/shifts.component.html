@@ -1,4 +1,4 @@
-<app-refresh (click)="GetShifts()"></app-refresh>
+<app-refresh (click)="GetShifts()" [hasMb]="true"></app-refresh>
 
 <ul aria-label="Shifts List" id="dashboard-shifts-index-list">
     <li *ngFor="let shift of shifts" class="dashboard-shifts-index-listItem-container">

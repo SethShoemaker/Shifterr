@@ -11,13 +11,13 @@
     cursor: pointer;
 
     img{
-        max-height: 34.75%;
-        max-width: 34.75%;
+        max-height: calc(0.81rem + 0.31vw);
+        max-width: calc(0.81rem + 0.31vw);
         padding-right: calc(0.2rem + 0.2vw);
     }
 
     span{
-        font-size: calc(0.7rem + 0.24vw);
+        font-size: calc(0.6rem + 0.26vw);
         letter-spacing: calc(0.02rem + 0.025vw);
         font-weight: 500;
         color: $trueWhite;
@@ -37,4 +37,8 @@
 @mixin btn-red {
     @include btn();
     background-color: $red;
+}
+
+@mixin btn-mb{
+    margin-bottom: calc(0.5rem + 0.5vw);
 }

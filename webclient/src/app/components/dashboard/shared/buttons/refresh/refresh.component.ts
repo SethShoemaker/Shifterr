@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-refresh',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./refresh.component.scss']
 })
 export class RefreshComponent implements OnInit {
+
+  @Input() hasMb: boolean = false;
 
   constructor() { }
 

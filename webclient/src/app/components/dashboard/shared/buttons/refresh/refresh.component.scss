@@ -4,3 +4,7 @@
 button.refresh-button{
     @include btn-black;
 }
+
+button.btn-mb{
+    @include btn-mb;
+}
