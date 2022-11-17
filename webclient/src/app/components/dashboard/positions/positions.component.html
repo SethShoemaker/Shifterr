@@ -12,9 +12,11 @@
             <td><span>{{ position.description ?? "None" }}</span></td>
             <td class="column-buttons">
                 <button class="delete">
-                    <span>{{ position.id }}</span>
+                    <span (click)="delete()">{{ position.id }}</span>
                 </button>
             </td>
         </tr>
     </tbody>
 </table>
+
+<app-confirmation *ngIf="deleteConfirmIsActive" (cancelEmitter)="delete()"></app-confirmation>

@@ -14,6 +14,8 @@ export class PositionsComponent implements OnInit {
 
   public tableTopic: string = "Position";
 
+  public deleteConfirmIsActive: boolean = false;
+
   constructor(
     private positionsService: PositionsService,
     private router: Router
@@ -34,5 +36,9 @@ export class PositionsComponent implements OnInit {
 
   onAddClick(){
     this.router.navigateByUrl("dashboard/shifts");
+  }
+
+  delete(){
+    this.deleteConfirmIsActive = !this.deleteConfirmIsActive;
   }
 }

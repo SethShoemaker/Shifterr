@@ -23,6 +23,9 @@ import { TableHeaderComponent } from './components/dashboard/shared/table/header
 import { RefreshComponent } from './components/dashboard/shared/buttons/refresh/refresh.component';
 import { TableHeaderSearchComponent } from './components/dashboard/shared/table/header/search/search.component';
 import { TableHeaderCreateComponent } from './components/dashboard/shared/table/header/create/create.component';
+import { ConfirmationComponent } from './components/dashboard/shared/confirmation/confirmation.component';
+import { DeleteComponent } from './components/dashboard/shared/buttons/delete/delete.component';
+import { CancelComponent } from './components/dashboard/shared/buttons/cancel/cancel.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { TableHeaderCreateComponent } from './components/dashboard/shared/table/
     RefreshComponent,
     TableHeaderSearchComponent,
     TableHeaderCreateComponent,
-    TableHeaderComponent
+    TableHeaderComponent,
+    ConfirmationComponent,
+    DeleteComponent,
+    CancelComponent
   ],
   imports: [
     BrowserModule,

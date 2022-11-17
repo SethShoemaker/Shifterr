@@ -1,0 +1,22 @@
+@import 'src/app/styles/vars';
+
+div#screen-overlay{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba($darkOffBlack, $alpha: 0.8);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div#confirmations-container{
+        height: 40vh;
+        width: 50vw;
+        background-color: $trueWhite;
+        border-radius: calc(0.05rem + 0.05vw);
+    }
+}
