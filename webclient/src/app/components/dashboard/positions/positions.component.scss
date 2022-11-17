@@ -1,0 +1,6 @@
+@import 'src/app/styles/vars';
+@import 'src/app/styles/dashboard/table.mixin';
+
+table#dashboard-positions-index-table{
+    @include table;
+}
