@@ -2,13 +2,14 @@
 @import 'src/app/styles/dashboard/input.mixin';
 
 div{
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: calc(1.15rem + 0.51vw) 1fr;
     @include input;
 
     img{
         max-height: calc(0.95rem + 0.31vw);
         max-width: calc(0.95rem + 0.31vw);
+        margin: auto;
         padding-right: calc(0.2rem + 0.2vw);
     }
 
