@@ -1,19 +1,12 @@
-<div class="auth-form-container">
-    <form class="auth-form" ngNativeValidate>
-        <h1 class="title">Login</h1>
-        <div class="auth-content-container">
-            <span class="auth-notification">{{ errorMessage }}</span>
-            <div class="auth-input">
-                <label for="userName" id="userNameLabel">Username</label>
-                <input [(ngModel)]="loginRequestBody.UserName" name="userName" aria-labelledby="userNameLabel" type="text" required minlength="4">
-            </div>
-            <div class="auth-input">
-                <label for="password" id="passwordLabel">Password</label>
-                <input [(ngModel)]="loginRequestBody.Password" name="password" aria-labelledby="passwordLabel" type="password" required minlength="4">
-            </div>
-            <div class="auth-submit">
-                <button (click)="onSubmit()" aria-label="Login"><span>Login</span></button>
-            </div>
-        </div>
+<app-auth-backdrop></app-auth-backdrop>
+<div>
+    <h1>Login</h1>
+    <form ngNativeValidate>
+        <span class="message">{{ errorMessage }}</span>
+        <label for="userName" id="userNameLabel">Username</label>
+        <input [(ngModel)]="loginRequestBody.UserName" name="userName" aria-labelledby="userNameLabel" type="text" required minlength="4">
+        <label for="password" id="passwordLabel">Password</label>
+        <input [(ngModel)]="loginRequestBody.Password" name="password" aria-labelledby="passwordLabel" type="password" required minlength="4">
+        <button (click)="onSubmit()" aria-label="Login"><span>Login</span></button>
     </form>
 </div>

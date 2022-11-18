@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegisterComponent } from './components/auth/register/register.component';
+import { AuthLoginComponent } from './components/auth/login/login.component';
+import { AuthRequestConfirmationComponent } from './components/auth/request-confirmation/request-confirmation.component';
 import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PositionsComponent } from './components/dashboard/positions/positions.component';
@@ -13,14 +13,14 @@ import { AuthGuard } from './guards/auth/auth.guard';
 
 const routes: Routes = [
   {
-    path : "register",
-    title: "register",
-    component : RegisterComponent
+    path : "login",
+    title: "Login",
+    component : AuthLoginComponent
   },
   {
-    path : "login",
-    title: "login",
-    component : LoginComponent
+    path: "confirm", 
+    title: "Confirm",
+    component: AuthRequestConfirmationComponent
   },
   {
     path : "dashboard",
@@ -29,21 +29,25 @@ const routes: Routes = [
     children: [
       {
         path: "shifts",
+        canActivate: [AuthGuard],
         title: "Shifts",
         component: ShiftsComponent
       },
       {
         path: "calendar",
+        canActivate: [AuthGuard],
         title: "Calendar",
         component: CalendarComponent
       },
       {
         path: "positions",
+        canActivate: [AuthGuard],
         title: "Positions",
         component: PositionsComponent
       },
       {
         path: "workers",
+        canActivate: [AuthGuard],
         title: "Workers",
         component: WorkersComponent
       },

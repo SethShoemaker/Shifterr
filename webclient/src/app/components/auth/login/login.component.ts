@@ -10,7 +10,7 @@ import { StorageService } from 'src/app/services/auth/storage/storage.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class AuthLoginComponent implements OnInit {
 
   public loginRequestBody = new LoginRequestBody();
 
@@ -33,7 +33,11 @@ export class LoginComponent implements OnInit {
       },
       // Fail
       response => {
-        this.errorMessage = `Error: ${response.error}`;
+        if(response.status == 401){
+          if(response.error == 'User Not Found') this.errorMessage = "Error: User Not Found";
+          if(response.error == 'Bad Credentials') this.errorMessage = "Error: Bad Credentials";
+          if(response.error == 'User Not Confirmed') this.router.navigateByUrl("confirm");
+        }
         this.loginRequestBody.Password = "";
       }
     ); 

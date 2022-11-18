@@ -1,0 +1,12 @@
+<app-auth-backdrop></app-auth-backdrop>
+<div>
+    <h1>User Confirmation</h1>
+    <form ngNativeValidate>
+        <span class="message">{{ message }}</span>
+        <label for="userName" id="userNameLabel">Username</label>
+        <input [(ngModel)]="request.UserName" name="userName" aria-labelledby="userNameLabel" type="text" required minlength="4">
+        <label for="password" id="passwordLabel">Password</label>
+        <input [(ngModel)]="request.Password" name="password" aria-labelledby="passwordLabel" type="password" required minlength="4">
+        <button (click)="onSubmit()" aria-label="Login"><span>Send Confirmation</span></button>
+    </form>
+</div>

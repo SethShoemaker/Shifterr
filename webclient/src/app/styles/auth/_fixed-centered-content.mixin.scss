@@ -1,0 +1,75 @@
+@import 'src/app/styles/vars';
+
+@mixin fixed-centered-content{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    width: calc(28rem + 7vw);
+    @media (max-width:550px) {
+        width: 90vw;
+    }
+    padding: calc(2rem + 1.25vw) calc(1.15rem + 1vw) calc(3.5rem + 1.5vw) calc(1.15rem + 1vw);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: $lightGrey;
+
+    h1{
+        width: 100%;
+        font-size: calc(1.75rem + 0.75vw);
+        margin-bottom: calc(1rem + 2vw);
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+
+        width: 85%;
+
+        span.message{
+            height: calc(3rem + 1vw);
+            font-weight: 400;
+            color: $red;
+        }
+
+        label{
+            font-size: calc(0.85rem + 0.15vw);
+            margin-bottom: calc(0.2rem + 0.015vw);
+            font-weight: 400;
+        }
+    
+        input{
+            height: calc(1.75rem + 0.5vw);
+            line-height: calc(1.75rem + 0.5vw);
+            padding-left: calc(0.25rem + 0.25vw);
+            font-weight: 300;
+            border: 0.9px solid $darkOffBlack;
+            background-color: $trueWhite;
+            margin-bottom: calc(1rem + 0.25vw);
+            font-size: calc(0.85rem + 0.15vw);
+        
+            &:focus{
+                outline: none;
+            }
+        }
+        
+        button{
+            height: calc(1.75rem + 0.35vw);
+            padding: 0 calc(0.5rem + 0.25vw);
+            margin-left: auto;
+    
+            display: flex;
+            align-items: center;
+            border: none;
+            background-color: $navyBlue;
+            color: $trueWhite;
+            cursor: pointer;
+            font-size: calc(0.75rem + 0.15vw);
+        }
+    }
+}

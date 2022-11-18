@@ -59,7 +59,7 @@ namespace webapi.Controllers
                 Message: ConfirmationKey
             );
 
-            return Ok("Sent Confirmation");
+            return Ok( new { ResponseText = "Sent Confirmation" });
         }
 
         [HttpGet]
