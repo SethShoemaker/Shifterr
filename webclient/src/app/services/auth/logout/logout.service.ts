@@ -14,6 +14,6 @@ export class LogoutService {
 
   logout(): void{
     this.storageService.deleteAllAuthDetails();
-    this.router.navigateByUrl("/");
+    this.router.navigateByUrl("login");
   }
 }
