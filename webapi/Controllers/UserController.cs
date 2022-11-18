@@ -39,7 +39,7 @@ namespace webapi.Controllers
                 Username: request.UserName,
                 Email: request.Email,
                 Password: request.Password,
-                OrganizationId: _userInfoHelperService.GetUserOrgId(HttpContext.User),
+                Organization: _userInfoHelperService.GetUserOrg(HttpContext.User),
                 OrganizationRole: OrganizationRole.Crew
             );
 

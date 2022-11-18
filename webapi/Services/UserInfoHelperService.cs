@@ -22,6 +22,12 @@ namespace webapi.Services
             userRole = user.OrganizationRole.ToString();
         }
 
+        public Organization GetUserOrg(ClaimsPrincipal User)
+        {
+            int UserOrgId = this.GetUserOrgId(User);
+            return _context.Organizations.Where(o => o.Id == UserOrgId).First();
+        }
+
         public int GetUserOrgId(ClaimsPrincipal User)
         {
             return Int32.Parse(User.Claims.First(c => c.Type == "UserOrgId").Value);

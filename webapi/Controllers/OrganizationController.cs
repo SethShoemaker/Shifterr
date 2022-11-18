@@ -37,7 +37,7 @@ namespace webapi.Controllers
                 Username: request.ExecName,
                 Email: request.ExecEmail,
                 Password: request.ExecPassword,
-                OrganizationId: Organization.Id,
+                Organization: Organization,
                 OrganizationRole: OrganizationRole.Administrator
             );
 

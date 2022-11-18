@@ -11,7 +11,7 @@ using webapi.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221118003203_init")]
+    [Migration("20221118005649_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
