@@ -36,7 +36,7 @@ export class AuthLoginComponent implements OnInit {
         if(response.status == 401){
           if(response.error == 'User Not Found') this.errorMessage = "Error: User Not Found";
           if(response.error == 'Bad Credentials') this.errorMessage = "Error: Bad Credentials";
-          if(response.error == 'User Not Confirmed') this.router.navigateByUrl("confirm");
+          if(response.error == 'User Not Confirmed') this.router.navigateByUrl("login/confirm");
         }
         this.loginRequestBody.Password = "";
       }

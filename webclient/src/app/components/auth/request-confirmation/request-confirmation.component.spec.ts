@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequestConfirmationComponent } from './request-confirmation.component';
+import { AuthRequestConfirmationComponent } from './request-confirmation.component';
 
-describe('RequestConfirmationComponent', () => {
-  let component: RequestConfirmationComponent;
-  let fixture: ComponentFixture<RequestConfirmationComponent>;
+describe('AuthRequestConfirmationComponent', () => {
+  let component: AuthRequestConfirmationComponent;
+  let fixture: ComponentFixture<AuthRequestConfirmationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RequestConfirmationComponent ]
+      declarations: [ AuthRequestConfirmationComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RequestConfirmationComponent);
+    fixture = TestBed.createComponent(AuthRequestConfirmationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

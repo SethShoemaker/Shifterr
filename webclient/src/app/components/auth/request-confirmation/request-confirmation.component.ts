@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestConfirmationRequestBody } from 'src/app/requests/request-confirmation.request';
-import { RequestConfirmationService } from 'src/app/services/auth/request-confirmation/request-confirmation.service';
+import { ConfirmationService } from 'src/app/services/auth/confirmation/confirmation.service';
 
 @Component({
   selector: 'app-auth-request-confirmation',
@@ -15,7 +15,7 @@ export class AuthRequestConfirmationComponent implements OnInit {
   public request: RequestConfirmationRequestBody = new RequestConfirmationRequestBody();
 
   constructor(
-    private requestConfirmationService: RequestConfirmationService,
+    private confirmationService: ConfirmationService,
     private router: Router
     ) { }
 
@@ -23,7 +23,7 @@ export class AuthRequestConfirmationComponent implements OnInit {
   }
 
   onSubmit(){
-    this.requestConfirmationService.requestConfirmation(this.request).subscribe(
+    this.confirmationService.requestConfirmation(this.request).subscribe(
       // Success 
       res =>{
         this.message = "Confirmation Sent";

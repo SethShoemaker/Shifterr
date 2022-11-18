@@ -1,0 +1,5 @@
+@import 'src/app/styles/auth/fixed-centered-content.mixin';
+
+div{
+    @include fixed-centered-content;
+}

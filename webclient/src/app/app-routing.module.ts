@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthHandleConfirmationComponent } from './components/auth/handle-confirmation/handle-confirmation/handle-confirmation.component';
 
 import { AuthLoginComponent } from './components/auth/login/login.component';
 import { AuthRequestConfirmationComponent } from './components/auth/request-confirmation/request-confirmation.component';
@@ -18,9 +19,14 @@ const routes: Routes = [
     component : AuthLoginComponent
   },
   {
-    path: "confirm", 
+    path: "login/confirm", 
     title: "Confirm",
     component: AuthRequestConfirmationComponent
+  },
+  {
+    path: "login/confirm/handle", 
+    title: "Confirm",
+    component: AuthHandleConfirmationComponent
   },
   {
     path : "dashboard",

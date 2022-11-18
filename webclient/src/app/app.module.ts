@@ -29,6 +29,7 @@ import { AlertComponent } from './components/dashboard/shared/alert/alert.compon
 import { ScreenOverlayComponent } from './components/dashboard/shared/screen-overlay/screen-overlay.component';
 import { AuthRequestConfirmationComponent } from './components/auth/request-confirmation/request-confirmation.component';
 import { AuthBackdropComponent } from './components/auth/shared/backdrop/backdrop.component';
+import { AuthHandleConfirmationComponent } from './components/auth/handle-confirmation/handle-confirmation/handle-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AuthBackdropComponent } from './components/auth/shared/backdrop/backdro
     AlertComponent,
     ScreenOverlayComponent,
     AuthRequestConfirmationComponent,
-    AuthBackdropComponent
+    AuthBackdropComponent,
+    AuthHandleConfirmationComponent
   ],
   imports: [
     BrowserModule,
