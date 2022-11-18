@@ -28,7 +28,6 @@ export class PositionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetPositions();
-    this.createAlert("Message");
   }
 
   GetPositions(){
@@ -77,13 +76,13 @@ export class PositionsComponent implements OnInit {
       // Success
       res => {
         this.removePosition(this.positionIdToRemove);
+        this.removeConfirmation();
       },
       // Error
       err => {
         this.createAlert("Could Not Delete Position");
+        this.removeConfirmation();
       }
     );
-    
-    this.removeConfirmation();
   }
 }
