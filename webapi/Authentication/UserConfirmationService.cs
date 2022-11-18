@@ -29,9 +29,9 @@ namespace webapi.Authentication
         }
         public bool ValidateUserConfirmationKey(User User , string ProposedKey)
         {
-            string? ValidKey = _context.UserConfirmationKeys.First(g => g.User == User).Value;
+            UserConfirmationKey? ValidKey = _context.UserConfirmationKeys.FirstOrDefault(g => g.User == User);
 
-            return ValidKey == ProposedKey;
+            return (ValidKey != null) && (ValidKey.Value == ProposedKey);
         }
         public bool ConfirmUserSaved(User User)
         {
