@@ -15,7 +15,7 @@ namespace webapi.Models
         public Organization Organization { get; set; } = null!;
 
         [Required]
-        [Column(TypeName="char(10)")]
+        [Column(TypeName="varchar(20)")]
         public string Name { get; set; } = null!;
 
         [Column(TypeName="varchar(275)")]

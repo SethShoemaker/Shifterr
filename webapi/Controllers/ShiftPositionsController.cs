@@ -49,6 +49,11 @@ namespace webapi.Controllers
         [Authorize(Roles = "Manager,Administrator")]
         public ActionResult<List<ShiftPosition>> Create(ShiftPositionCreateRequest request)
         {
+
+            if(request.Name.Length > 20){
+                return BadRequest("Position Name Too Long");
+            }
+
             int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
             ShiftPosition NewShiftPosition = new ShiftPosition

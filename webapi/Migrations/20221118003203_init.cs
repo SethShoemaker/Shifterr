@@ -35,7 +35,7 @@ namespace webapi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     OrganizationId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "char(10)", nullable: false)
+                    Name = table.Column<string>(type: "varchar(20)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "varchar(275)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")

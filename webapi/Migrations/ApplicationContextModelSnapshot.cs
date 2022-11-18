@@ -77,7 +77,7 @@ namespace webapi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("char(10)");
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
