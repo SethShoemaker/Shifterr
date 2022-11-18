@@ -36,12 +36,12 @@ namespace webapi.Controllers
         public ActionResult Send(AccSendConfKeyRequest request)
         {
             User? user = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
-            if(user == null) return BadRequest("User Not Found");
+            if(user == null) return Unauthorized("User Not Found");
 
             bool valid = _userLoginService.ValidatePassword(user, request.Password);
             if(!valid) return Unauthorized("Bad Credentials");
 
-            if(user.EmailIsConfirmed) return BadRequest("User Already Confirmed");
+            if(user.EmailIsConfirmed) return Unauthorized("User Already Confirmed");
 
             if(request.NewEmail != null)
             {
