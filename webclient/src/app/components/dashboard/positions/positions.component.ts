@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/positions/index.response';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
@@ -10,7 +10,8 @@ import { PositionsService } from 'src/app/services/dashboard/positions/positions
 })
 export class PositionsComponent implements OnInit {
 
-  public positions: PositionsIndexResponseBody[] = [];
+  public positionsToStore: PositionsIndexResponseBody[] = [];
+  public positionsToDisplay:  PositionsIndexResponseBody[] = [];
 
   public tableTopic: string = "Position";
 
@@ -27,14 +28,15 @@ export class PositionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.GetPositions();
+    this.GetPositionsToStore();
   }
 
-  GetPositions(){
+  GetPositionsToStore(){
     var shifts = this.positionsService.getAllPositions().subscribe(
       // Success
       res => {
-        this.positions = res.positions;
+        this.positionsToStore = res.positions;
+        this.positionsToDisplay = this.positionsToStore;
       },
       // Error
       err => {
@@ -43,16 +45,24 @@ export class PositionsComponent implements OnInit {
     )
   }
 
+  searchPositions(query: string){
+    this.positionsToDisplay = this.positionsToStore.filter(p => {
+      var positionNameToLower = p.name.toLowerCase();
+      var searchQueryToLower = query.toLowerCase();
+      return positionNameToLower.includes(searchQueryToLower);
+    })
+  }
+
   onAddClick(){
     this.router.navigateByUrl("dashboard/shifts");
   }
 
-  createConfirmation(id: number){
+  createDeleteConfirmation(id: number){
     this.positionIdToRemove = id;
     this.confirmationIsActive = true;
   }
 
-  removeConfirmation(){
+  removeDeleteConfirmation(){
     this.positionIdToRemove = null!;
     this.confirmationIsActive = false;
   }
@@ -68,7 +78,7 @@ export class PositionsComponent implements OnInit {
   }
 
   removePosition(id: number){
-    this.positions = this.positions.filter(p => p.id != id);
+    this.positionsToStore = this.positionsToStore.filter(p => p.id != id);
   }
 
   confirmDeletion(){
@@ -76,12 +86,12 @@ export class PositionsComponent implements OnInit {
       // Success
       res => {
         this.removePosition(this.positionIdToRemove);
-        this.removeConfirmation();
+        this.removeDeleteConfirmation();
       },
       // Error
       err => {
         this.createAlert("Could Not Delete Position");
-        this.removeConfirmation();
+        this.removeDeleteConfirmation();
       }
     );
   }

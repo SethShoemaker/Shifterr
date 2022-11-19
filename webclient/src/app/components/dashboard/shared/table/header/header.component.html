@@ -3,7 +3,7 @@
         <app-refresh (click)="onRefreshClick()"></app-refresh>
     </div>
     <div id="header-right">
-        <app-search [tableTopic]="tableTopic"></app-search>
+        <app-table-header-search [tableTopic]="tableTopic" (searchEmitter)="onSearchQueryChange($event)"></app-table-header-search>
         <app-create [createVerb]="createVerb" [tableTopic]="tableTopic" (click)="onAddClick()"></app-create>
     </div>
 </div>
