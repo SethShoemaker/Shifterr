@@ -66,7 +66,7 @@ namespace webapi.Controllers
             _context.ShiftPositions.Add(NewShiftPosition);
             _context.SaveChanges();
 
-            return Ok("Created");
+            return Ok( new { ResponseText = "Created"});
         }
 
         [HttpGet]
