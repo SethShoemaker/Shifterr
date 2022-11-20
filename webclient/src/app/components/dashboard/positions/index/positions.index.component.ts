@@ -54,7 +54,7 @@ export class PositionsIndexComponent implements OnInit {
   }
 
   onAddClick(){
-    this.router.navigateByUrl("dashboard/shifts");
+    this.router.navigateByUrl("dashboard/positions/create");
   }
 
   createDeleteConfirmation(id: number){

@@ -3,11 +3,15 @@
 @mixin input {
     width: calc(9rem + 13vw);
     height: calc(1.75rem + 0.35vw);
-    line-height: calc(1.75rem + 0.35vw);
     padding-left: calc(0.25rem + 0.25vw);
     font-weight: 300;
+    font-size: calc(0.7rem + 0.2vw);
     border: 0.9px solid $darkOffBlack;
     background-color: $trueWhite;
+
+    @media (max-width:550px) {
+        width: 100%;
+    }
 
     &:focus{
         outline: none;

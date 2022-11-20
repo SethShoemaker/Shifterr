@@ -1,0 +1,5 @@
+@import 'src/app/styles/dashboard/form.mixin';
+
+form{
+    @include form;
+}

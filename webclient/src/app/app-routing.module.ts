@@ -6,10 +6,12 @@ import { AuthLoginComponent } from './components/auth/login/login.component';
 import { AuthRequestConfirmationComponent } from './components/auth/request-confirmation/request-confirmation.component';
 import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PositionsCreateComponent } from './components/dashboard/positions/create/positions.create.component';
 import { PositionsIndexComponent } from './components/dashboard/positions/index/positions.index.component';
 import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts.index.component';
 import { WorkersComponent } from './components/dashboard/workers/workers.component';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { ManagerGuard } from './guards/auth/role/manager/manager.guard';
 
 
 const routes: Routes = [
@@ -50,6 +52,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         title: "Positions",
         component: PositionsIndexComponent
+      },
+      {
+        path: "positions/create",
+        canActivate: [AuthGuard, ManagerGuard],
+        title: "Create Positions",
+        component: PositionsCreateComponent
       },
       {
         path: "workers",

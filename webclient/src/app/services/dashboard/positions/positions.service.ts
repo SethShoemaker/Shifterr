@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PositionsCreateRequestBody } from 'src/app/requests/positions.create.request';
 import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/positions/index.response';
 import { GenericResponseBody } from 'src/app/responses/generic.response';
 import { ApiService } from '../../shared/api/api.service';
@@ -17,5 +18,9 @@ export class PositionsService {
 
   deletePosition(id: number){
     return this.apiService.get<GenericResponseBody>("shifts/positions/delete?ShiftPositionId=" + id);
+  }
+
+  createPosition(requestBody: PositionsCreateRequestBody){
+    return this.apiService.post<GenericResponseBody>("shifts/positions/create", requestBody);
   }
 }

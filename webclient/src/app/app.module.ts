@@ -30,6 +30,7 @@ import { ScreenOverlayComponent } from './components/dashboard/shared/screen-ove
 import { AuthRequestConfirmationComponent } from './components/auth/request-confirmation/request-confirmation.component';
 import { AuthBackdropComponent } from './components/auth/shared/backdrop/backdrop.component';
 import { AuthHandleConfirmationComponent } from './components/auth/handle-confirmation/handle-confirmation/handle-confirmation.component';
+import { PositionsCreateComponent } from './components/dashboard/positions/create/positions.create.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AuthHandleConfirmationComponent } from './components/auth/handle-confir
     ScreenOverlayComponent,
     AuthRequestConfirmationComponent,
     AuthBackdropComponent,
-    AuthHandleConfirmationComponent
+    AuthHandleConfirmationComponent,
+    PositionsCreateComponent
   ],
   imports: [
     BrowserModule,
