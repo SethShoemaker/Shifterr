@@ -4,11 +4,11 @@ import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/position
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
 
 @Component({
-  selector: 'app-positions',
-  templateUrl: './positions.component.html',
-  styleUrls: ['./positions.component.scss']
+  selector: 'app-positions-index',
+  templateUrl: './positions.index.component.html',
+  styleUrls: ['./positions.index.component.scss']
 })
-export class PositionsComponent implements OnInit {
+export class PositionsIndexComponent implements OnInit {
 
   public positionsToStore: PositionsIndexResponseBody[] = [];
   public positionsToDisplay:  PositionsIndexResponseBody[] = [];

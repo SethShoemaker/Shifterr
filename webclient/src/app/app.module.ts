@@ -7,7 +7,7 @@ import { AuthLoginComponent } from './components/auth/login/login.component';
 import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts.index.component';
 import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { WorkersComponent } from './components/dashboard/workers/workers.component';
-import { PositionsComponent } from './components/dashboard/positions/positions.component';
+import { PositionsIndexComponent } from './components/dashboard/positions/index/positions.index.component';
 import { NavComponent } from './components/dashboard/shared/nav/nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -38,7 +38,7 @@ import { AuthHandleConfirmationComponent } from './components/auth/handle-confir
     ShiftsIndexComponent,
     CalendarComponent,
     WorkersComponent,
-    PositionsComponent,
+    PositionsIndexComponent,
     NavComponent,
     DashboardComponent,
     HeaderComponent,

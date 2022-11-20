@@ -6,7 +6,7 @@ import { AuthLoginComponent } from './components/auth/login/login.component';
 import { AuthRequestConfirmationComponent } from './components/auth/request-confirmation/request-confirmation.component';
 import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PositionsComponent } from './components/dashboard/positions/positions.component';
+import { PositionsIndexComponent } from './components/dashboard/positions/index/positions.index.component';
 import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts.index.component';
 import { WorkersComponent } from './components/dashboard/workers/workers.component';
 import { AuthGuard } from './guards/auth/auth.guard';
@@ -49,7 +49,7 @@ const routes: Routes = [
         path: "positions",
         canActivate: [AuthGuard],
         title: "Positions",
-        component: PositionsComponent
+        component: PositionsIndexComponent
       },
       {
         path: "workers",
