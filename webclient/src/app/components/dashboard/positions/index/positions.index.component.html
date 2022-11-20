@@ -1,4 +1,4 @@
-<app-table-header (refreshEmitter)="GetPositionsToStore()" (addEmitter)="onAddClick()" (searchEmitter)="searchPositions($event)" [tableTopic]="tableTopic"></app-table-header>
+<app-table-header (refreshEmitter)="GetPositions()" (addEmitter)="onAddClick()" (searchEmitter)="setSearchQueryAndFilterPositions($event)" [tableTopic]="tableTopic"></app-table-header>
 <table>
     <thead>
         <tr>

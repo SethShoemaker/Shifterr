@@ -22,21 +22,24 @@ export class PositionsIndexComponent implements OnInit {
 
   public positionIdToRemove: number = null!;
 
+  public searchQueryLowercase: string = null!;
+
   constructor(
     private positionsService: PositionsService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.GetPositionsToStore();
+    this.GetPositions();
   }
 
-  GetPositionsToStore(){
+  GetPositions(){
     var shifts = this.positionsService.getAllPositions().subscribe(
       // Success
       res => {
         this.positionsToStore = res.positions;
         this.positionsToDisplay = this.positionsToStore;
+        this.filterPositions();
       },
       // Error
       err => {
@@ -45,12 +48,21 @@ export class PositionsIndexComponent implements OnInit {
     )
   }
 
-  searchPositions(query: string){
-    this.positionsToDisplay = this.positionsToStore.filter(p => {
-      var positionNameToLower = p.name.toLowerCase();
-      var searchQueryToLower = query.toLowerCase();
-      return positionNameToLower.includes(searchQueryToLower);
-    })
+  filterPositions(){
+    if(this.searchQueryLowercase == null){
+      this.positionsToDisplay = this.positionsToStore;
+    }
+    else{
+      this.positionsToDisplay = this.positionsToStore.filter(p => {
+        var positionNameToLower = p.name.toLowerCase();
+        return positionNameToLower.includes(this.searchQueryLowercase);
+      })
+    }
+  }
+
+  setSearchQueryAndFilterPositions(query: string){
+    this.searchQueryLowercase = query.toLowerCase();
+    this.filterPositions();
   }
 
   onAddClick(){
@@ -79,6 +91,7 @@ export class PositionsIndexComponent implements OnInit {
 
   removePosition(id: number){
     this.positionsToStore = this.positionsToStore.filter(p => p.id != id);
+    this.positionsToDisplay = this.positionsToDisplay.filter(p => p.id != id);
   }
 
   confirmDeletion(){
