@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShiftsComponent } from './shifts.component';
+import { ShiftsIndexComponent } from './shifts.index.component';
 
 describe('ShiftsComponent', () => {
-  let component: ShiftsComponent;
-  let fixture: ComponentFixture<ShiftsComponent>;
+  let component: ShiftsIndexComponent;
+  let fixture: ComponentFixture<ShiftsIndexComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShiftsComponent ]
+      declarations: [ ShiftsIndexComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ShiftsComponent);
+    fixture = TestBed.createComponent(ShiftsIndexComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthLoginComponent } from './components/auth/login/login.component';
-import { ShiftsComponent } from './components/dashboard/shifts/shifts.component';
+import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts.index.component';
 import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { WorkersComponent } from './components/dashboard/workers/workers.component';
 import { PositionsComponent } from './components/dashboard/positions/positions.component';
@@ -35,7 +35,7 @@ import { AuthHandleConfirmationComponent } from './components/auth/handle-confir
   declarations: [
     AppComponent,
     AuthLoginComponent,
-    ShiftsComponent,
+    ShiftsIndexComponent,
     CalendarComponent,
     WorkersComponent,
     PositionsComponent,

@@ -3,11 +3,11 @@ import { ShiftsService } from 'src/app/services/dashboard/shifts/shifts.service'
 import { ShiftIndexResponseBody } from 'src/app/responses/dashboard/shifts/index.response';
 
 @Component({
-  selector: 'app-shifts',
-  templateUrl: './shifts.component.html',
-  styleUrls: ['./shifts.component.scss']
+  selector: 'app-shifts-index',
+  templateUrl: './shifts.index.component.html',
+  styleUrls: ['./shifts.index.component.scss']
 })
-export class ShiftsComponent implements OnInit {
+export class ShiftsIndexComponent implements OnInit {
 
   public shifts: ShiftIndexResponseBody[] = [];
 
