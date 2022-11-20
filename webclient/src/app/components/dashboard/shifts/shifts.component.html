@@ -11,4 +11,9 @@
             </div>
         </div>
     </li>
+    <li *ngIf="shifts.length == 0" class="listItem-container">
+        <div class="listItem-content">
+            <span class="day">No Shifts</span>
+        </div>
+    </li>
 </ul>
