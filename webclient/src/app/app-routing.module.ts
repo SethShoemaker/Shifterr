@@ -7,7 +7,7 @@ import { AuthRequestConfirmationComponent } from './components/auth/request-conf
 import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PositionsComponent } from './components/dashboard/positions/positions.component';
-import { ShiftsComponent } from './components/dashboard/shifts/shifts.component';
+import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts.index.component';
 import { WorkersComponent } from './components/dashboard/workers/workers.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 
@@ -37,7 +37,7 @@ const routes: Routes = [
         path: "shifts",
         canActivate: [AuthGuard],
         title: "Shifts",
-        component: ShiftsComponent
+        component: ShiftsIndexComponent
       },
       {
         path: "calendar",
