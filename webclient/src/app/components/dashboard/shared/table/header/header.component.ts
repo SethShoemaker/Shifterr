@@ -13,6 +13,7 @@ export class TableHeaderComponent implements OnInit {
 
   @Input() createVerb: string = "Create";
   @Input() tableTopic: string = "Table";
+  @Input() canCreate: boolean = null!;
 
   constructor() { }
 

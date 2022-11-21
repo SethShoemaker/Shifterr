@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/positions/index.response';
+import { RoleService } from 'src/app/services/auth/role/role.service';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
 
 @Component({
@@ -14,26 +15,27 @@ export class PositionsIndexComponent implements OnInit {
   public positionsToDisplay:  PositionsIndexResponseBody[] = [];
 
   public tableTopic: string = "Position";
+  public canCreate: boolean = this.roleService.isManager();
 
   public alertIsActive: boolean = false;
   public alertMessage: string = null!;
 
   public confirmationIsActive: boolean = false;
-
   public positionIdToRemove: number = null!;
 
   public searchQueryLowercase: string = null!;
 
   constructor(
     private positionsService: PositionsService,
-    private router: Router
+    private router: Router,
+    private roleService: RoleService
   ) { }
 
   ngOnInit(): void {
-    this.GetPositions();
+    this.getPositions();
   }
 
-  GetPositions(){
+  getPositions(){
     var shifts = this.positionsService.getAllPositions().subscribe(
       // Success
       res => {

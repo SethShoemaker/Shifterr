@@ -4,6 +4,6 @@
     </div>
     <div id="header-right">
         <app-table-header-search [tableTopic]="tableTopic" (searchEmitter)="onSearchQueryChange($event)"></app-table-header-search>
-        <app-create [createVerb]="createVerb" [tableTopic]="tableTopic" (click)="onAddClick()"></app-create>
+        <app-create *ngIf="canCreate" [createVerb]="createVerb" [tableTopic]="tableTopic" (click)="onAddClick()"></app-create>
     </div>
 </div>
