@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router,  ActivationStart, ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/services/auth/storage/storage.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { StorageService } from 'src/app/services/auth/storage/storage.service';
 })
 export class DashboardComponent implements OnInit {
 
-  title: string | undefined = null!;
+  title: string | undefined = "Your Shifts";
 
   organizationName: string | null = this.storageService.getOrganizationName();
   organizationRole: string | null = this.storageService.getOrganizationRole();
@@ -17,16 +17,14 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private storageService: StorageService,
+    private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    // Change component title
-    this.activatedRoute.url.subscribe(url => {
-      var activatedRoutePath = this.activatedRoute.snapshot.firstChild?.routeConfig?.path;
-      if (activatedRoutePath == null) return;
-      activatedRoutePath = activatedRoutePath[0].toUpperCase() + activatedRoutePath.slice(1);
-      this.title = activatedRoutePath;
-    });
+    // Change page title
+    this.activatedRoute.url.subscribe(() => {
+      this.title = this.activatedRoute.snapshot.firstChild?.data['header'];
+    })
   }
 }

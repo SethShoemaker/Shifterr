@@ -39,31 +39,46 @@ const routes: Routes = [
         path: "shifts",
         canActivate: [AuthGuard],
         title: "Shifts",
-        component: ShiftsIndexComponent
+        component: ShiftsIndexComponent,
+        data: {
+          "header": "Your Shifts"
+        }
       },
       {
         path: "calendar",
         canActivate: [AuthGuard],
         title: "Calendar",
-        component: CalendarComponent
+        component: CalendarComponent,
+        data: {
+          "header": "Calendar"
+        }
       },
       {
         path: "positions",
         canActivate: [AuthGuard],
         title: "Positions",
-        component: PositionsIndexComponent
+        component: PositionsIndexComponent,
+        data: {
+          "header": "Positions"
+        }
       },
       {
         path: "positions/create",
         canActivate: [AuthGuard, ManagerGuard],
         title: "Create Positions",
-        component: PositionsCreateComponent
+        component: PositionsCreateComponent,
+        data: {
+          "header": "Create Position"
+        }
       },
       {
         path: "workers",
         canActivate: [AuthGuard],
         title: "Workers",
-        component: WorkersComponent
+        component: WorkersComponent,
+        data: {
+          "header": "Workers"
+        }
       },
       {
         path : "",
