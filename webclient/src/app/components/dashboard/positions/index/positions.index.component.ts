@@ -15,7 +15,7 @@ export class PositionsIndexComponent implements OnInit {
   public positionsToDisplay:  PositionsIndexResponseBody[] = [];
 
   public tableTopic: string = "Position";
-  public canCreate: boolean = this.roleService.isManager();
+  public canEdit: boolean = this.roleService.isManager();
 
   public alertIsActive: boolean = false;
   public alertMessage: string = null!;

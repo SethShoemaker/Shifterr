@@ -1,4 +1,4 @@
-<app-table-header [canCreate]="canCreate" (refreshEmitter)="getPositions()" (addEmitter)="onAddClick()" (searchEmitter)="setSearchQueryAndFilterPositions($event)" [tableTopic]="tableTopic"></app-table-header>
+<app-table-header [canCreate]="canEdit" (refreshEmitter)="getPositions()" (addEmitter)="onAddClick()" (searchEmitter)="setSearchQueryAndFilterPositions($event)" [tableTopic]="tableTopic"></app-table-header>
 <table>
     <thead>
         <tr>
@@ -10,7 +10,7 @@
         <tr *ngFor="let position of positionsToDisplay">
             <td><span>{{ position.name }}</span></td>
             <td><span>{{ position.description ?? "None" }}</span></td>
-            <td class="column-buttons">
+            <td class="column-buttons" *ngIf="canEdit">
                 <button class="delete">
                     <span (click)="createDeleteConfirmation(position.id)">Delete</span>
                 </button>
