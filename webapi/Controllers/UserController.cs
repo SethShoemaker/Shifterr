@@ -11,23 +11,26 @@ namespace webapi.Controllers
 {
     [ApiController]
     [Route("api/user")]
-    [AllowAnonymous]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly ApplicationContext _context;
         private readonly UserRegisterService _userRegisterService;
         private readonly UserLoginService _userLoginService;
         private readonly UserInfoHelperService _userInfoHelperService;
+        private readonly UserUpdateService _userUpdateService;
         public UserController(
             ApplicationContext Context, 
             UserRegisterService UserRegisterService,
             UserLoginService UserLoginService,
-            UserInfoHelperService UserManagerService
+            UserInfoHelperService UserManagerService,
+            UserUpdateService UserUpdateService
         ){
             _context = Context;
             _userRegisterService = UserRegisterService;
             _userLoginService = UserLoginService;
             _userInfoHelperService = UserManagerService;
+            _userUpdateService = UserUpdateService;
         } 
 
         [HttpPost]
@@ -47,11 +50,12 @@ namespace webapi.Controllers
 
             _context.SaveChanges();
 
-            return Ok();
+            return Ok(new { ResponseText = "Created" });
         }
 
         [HttpPost]
         [Route("login")]
+        [AllowAnonymous]
         public ActionResult<LoginResponse> Login(AccLoginRequest request)
         {
             User? user = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
@@ -75,6 +79,83 @@ namespace webapi.Controllers
                 OrganizationRole = userRole,
                 UserName = user.UserName
             });
+        }
+
+        [HttpGet]
+        [Route("index")]
+        public ActionResult<UserIndexResponse> Index()
+        {
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
+
+            List<UserIndexUserDto> Workers = (
+                from users in _context.Users
+                where users.OrganizationId == UserOrgId
+                select new UserIndexUserDto
+                    {
+                        Id = users.Id,
+                        UserName = users.UserName,
+                        Email = users.Email,
+                        OrganizationRole = users.OrganizationRole.ToString()
+                    }
+                ).ToList();
+
+            return new UserIndexResponse{ Workers = Workers };
+        }
+
+        [HttpGet]
+        [Route("info")]
+        public ActionResult<UserInfoResponse> Info(int UserId){
+
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
+
+            User? User = _context.Users.Where(u => (u.OrganizationId == UserOrgId) && (u.Id == UserId)).FirstOrDefault();
+            if(User == null) return BadRequest("User Not Found");
+
+            UserInfoResponse Response = new UserInfoResponse{
+                userName = User.UserName,
+                email = User.Email,
+                organizationRole = User.OrganizationRole.ToString()
+            };
+
+            return Ok(Response);
+        }
+
+        [HttpPost]
+        [Route("update")]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Update(int UserId, AccUpdateRequest request){
+
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
+
+            User? UserToUpdate = _context.Users.Where(u => (u.OrganizationId == UserOrgId) && (u.Id == UserId)).FirstOrDefault();
+            if(UserToUpdate == null) return BadRequest("User Not Found");
+
+            if(request.OrganizationRole != null && UserToUpdate.OrganizationRole == OrganizationRole.Administrator) return BadRequest("Cannot Deassign Administrator Role");
+
+            this._userUpdateService.UpdateUserSaved(
+                    user: UserToUpdate,
+                    email: request.Email,
+                    password: request.Password,
+                    role: request.OrganizationRole
+                );
+
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("delete")]
+        [Authorize(Roles = "Manager,Administrator")]
+        public ActionResult Delete(int UserId){
+
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
+
+            User? UserToDelete = _context.Users.Where(u => (u.OrganizationId == UserOrgId) && (u.Id == UserId)).FirstOrDefault();
+            if(UserToDelete == null) return BadRequest("User Not Found");
+
+            _context.Users.Remove(UserToDelete);
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }

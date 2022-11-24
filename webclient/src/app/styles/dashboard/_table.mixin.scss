@@ -64,8 +64,16 @@ $table-border: 1px solid $darkOffBlack;
                     align-items: center;
                     justify-content: flex-end;
 
-                    button.delete{
-                        @include btn-red;
+                    button{
+                        margin-left: calc(0.5rem + 0.5vw);
+
+                        &.delete{
+                            @include btn-red;
+                        }
+
+                        &.edit{
+                            @include btn-blue;
+                        }
                     }
                 }
             }

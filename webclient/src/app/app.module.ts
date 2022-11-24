@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { AuthLoginComponent } from './components/auth/login/login.component';
 import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts.index.component';
 import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
-import { WorkersComponent } from './components/dashboard/workers/workers.component';
 import { PositionsIndexComponent } from './components/dashboard/positions/index/positions.index.component';
 import { NavComponent } from './components/dashboard/shared/nav/nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -31,6 +30,9 @@ import { AuthRequestConfirmationComponent } from './components/auth/request-conf
 import { AuthBackdropComponent } from './components/auth/shared/backdrop/backdrop.component';
 import { AuthHandleConfirmationComponent } from './components/auth/handle-confirmation/handle-confirmation/handle-confirmation.component';
 import { PositionsCreateComponent } from './components/dashboard/positions/create/positions.create.component';
+import { WorkersIndexComponent } from './components/dashboard/workers/index/workers.index.component';
+import { WorkersCreateComponent } from './components/dashboard/workers/create/workers.create.component';
+import { WorkersEditComponent } from './components/dashboard/workers/edit/workers.edit.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,6 @@ import { PositionsCreateComponent } from './components/dashboard/positions/creat
     AuthLoginComponent,
     ShiftsIndexComponent,
     CalendarComponent,
-    WorkersComponent,
     PositionsIndexComponent,
     NavComponent,
     DashboardComponent,
@@ -56,7 +57,10 @@ import { PositionsCreateComponent } from './components/dashboard/positions/creat
     AuthRequestConfirmationComponent,
     AuthBackdropComponent,
     AuthHandleConfirmationComponent,
-    PositionsCreateComponent
+    PositionsCreateComponent,
+    WorkersIndexComponent,
+    WorkersCreateComponent,
+    WorkersEditComponent
   ],
   imports: [
     BrowserModule,

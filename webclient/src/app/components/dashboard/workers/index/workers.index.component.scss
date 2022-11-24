@@ -1,0 +1,10 @@
+@import 'src/app/styles/dashboard/table.mixin';
+
+table{
+    @include table;
+
+    tr{
+        display: grid;
+        grid-template-columns: 25% 30% 25% 20%;
+    }
+}

@@ -35,6 +35,8 @@ builder.Services.AddAuthentication(TokenAuthenticationSchemeOptions.Name)
 .AddScheme<TokenAuthenticationSchemeOptions, TokenAuthenticationHandler>(TokenAuthenticationSchemeOptions.Name, option => {});
 
 builder.Services.AddScoped<UserRegisterService>();
+builder.Services.AddScoped<PasswordService>();
+builder.Services.AddScoped<UserUpdateService>();
 builder.Services.AddScoped<UserLoginService>();
 builder.Services.AddScoped<UserConfirmationService>();
 builder.Services.AddScoped<UserCheckpointService>();

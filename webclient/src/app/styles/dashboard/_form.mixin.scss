@@ -29,6 +29,22 @@
             @include input;
         }
 
+        select{
+            @include input;
+            
+        }
+
+        button.enable-input-button{
+            cursor: pointer;
+            @include input;
+            width: fit-content;
+            padding: 0 calc(0.25rem + 0.25vw);
+            border: 1px solid $navyBlue;
+            color: $navyBlue;
+            margin: 1px 0;
+            height: calc((1.75rem + 0.35vw) - 2px);
+        }
+
         textarea{
             @include input;
             height: calc(8rem + 3vw);

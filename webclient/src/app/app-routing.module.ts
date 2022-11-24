@@ -9,8 +9,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PositionsCreateComponent } from './components/dashboard/positions/create/positions.create.component';
 import { PositionsIndexComponent } from './components/dashboard/positions/index/positions.index.component';
 import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts.index.component';
-import { WorkersComponent } from './components/dashboard/workers/workers.component';
+import { WorkersCreateComponent } from './components/dashboard/workers/create/workers.create.component';
+import { WorkersEditComponent } from './components/dashboard/workers/edit/workers.edit.component';
+import { WorkersIndexComponent } from './components/dashboard/workers/index/workers.index.component';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { AdminGuard } from './guards/auth/role/admin/admin.guard';
 import { ManagerGuard } from './guards/auth/role/manager/manager.guard';
 
 
@@ -75,9 +78,27 @@ const routes: Routes = [
         path: "workers",
         canActivate: [AuthGuard],
         title: "Workers",
-        component: WorkersComponent,
+        component: WorkersIndexComponent,
         data: {
           "header": "Workers"
+        }
+      },
+      {
+        path: "workers/register",
+        canActivate: [AuthGuard, AdminGuard],
+        title: "Register Worker",
+        component: WorkersCreateComponent,
+        data: {
+          "header": "Register Worker"
+        }
+      },
+      {
+        path: "workers/edit/:id",
+        canActivate: [AuthGuard, AdminGuard],
+        title: "Edit Worker",
+        component: WorkersEditComponent,
+        data: {
+          "header": "Edit Worker"
         }
       },
       {

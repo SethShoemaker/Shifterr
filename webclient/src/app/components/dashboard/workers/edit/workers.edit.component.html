@@ -1,0 +1,25 @@
+<form ngNativeValidate (submit)="onSubmit()">
+    <div class="form-group">
+        <label for="userName">Username</label>
+        <input value="{{ userName }}" name="userName" type="text" disabled>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input [(ngModel)]="requestBody.email" name="email" id="email" type="email" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input [(ngModel)]="requestBody.password" *ngIf="isChangingPassword" name="password" id="password" type="password" minlength="6" required>
+        <button (click)="this.isChangingPassword = true" *ngIf="!isChangingPassword" class="enable-input-button">Change Password</button>
+    </div>
+    <div class="form-group">
+        <label for="role">Role</label>
+        <select [(ngModel)]="requestBody.organizationRole" *ngIf="!isAdmin" name="role" id="role">
+            <option value="Crew">Crew</option>
+            <option value="Manager">Manager</option>
+        </select>
+        <input *ngIf="isAdmin" value="Administrator" type="text" name="role" id="role" disabled>
+    </div>
+    <input type="submit" value="Save Changes">
+</form>
+<app-alert *ngIf="alertIsActive" [alertMessage]="alertMessage"></app-alert>

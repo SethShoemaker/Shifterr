@@ -7,9 +7,14 @@ namespace webapi.Authentication
     public class UserRegisterService
     {
         public readonly ApplicationContext _context;
-        public UserRegisterService(ApplicationContext Context)
+        public PasswordService _passwordService;
+        public UserRegisterService(
+            ApplicationContext Context,
+            PasswordService PasswordService
+        )
         {
             _context = Context;
+            _passwordService = PasswordService;
         }
         
         public bool RegisterUserUnsaved(
@@ -24,7 +29,7 @@ namespace webapi.Authentication
 
             byte[] passwordHash;
             byte[] passwordSalt;
-            CreatePasswordHashAndSalt(Password, out passwordHash, out passwordSalt);
+            this._passwordService.CreatePasswordHashAndSalt(Password, out passwordHash, out passwordSalt);
 
             User User = new User 
             {
@@ -40,16 +45,6 @@ namespace webapi.Authentication
             return true;
         }
 
-        private void CreatePasswordHashAndSalt( 
-            string PasswordPlainText, 
-            out byte[] PasswordHash, 
-            out byte[] PasswordSalt
-        )
-        {
-            var hmac = new HMACSHA512();
-            PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(PasswordPlainText));
-            PasswordSalt = hmac.Key;
-        }
         private bool UsernameExists(string UserName)
         {
             User? existingUser = _context.Users.FirstOrDefault(u => u.UserName == UserName);
