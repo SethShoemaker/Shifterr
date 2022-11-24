@@ -10,6 +10,6 @@ namespace webapi.Responses
         [Required]
         public string email { get; set; } = null!;
 
-        public string organizationRole { get; set; } = null!;
+        public string Role { get; set; } = null!;
     }
 }

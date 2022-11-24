@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using webapi.Data;
 using webapi.Models;
 
@@ -22,9 +21,10 @@ namespace webapi.Authentication
             string Email, 
             string Password, 
             Organization Organization,
-            OrganizationRole OrganizationRole
+            OrganizationRole Role
         )
         {
+            if(Role == OrganizationRole.Undefined) return false;
             if(UsernameExists(Username)) return false; 
 
             byte[] passwordHash;
@@ -38,7 +38,7 @@ namespace webapi.Authentication
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 Organization = Organization,
-                OrganizationRole = OrganizationRole
+                OrganizationRole = Role
             };
             _context.Users.Add(User);
             

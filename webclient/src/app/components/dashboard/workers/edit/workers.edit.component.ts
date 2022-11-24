@@ -37,10 +37,10 @@ export class WorkersEditComponent implements OnInit {
       res => {
         this.userName = res.userName;
         this.requestBody.email = res.email;
-        if(res.organizationRole == "Administrator"){
+        if(res.role == "Administrator"){
           this.isAdmin = true;
         }else{
-          this.requestBody.organizationRole = res.organizationRole;
+          this.requestBody.role = res.role;
         }
       },
       // Error

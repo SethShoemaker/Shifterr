@@ -16,7 +16,7 @@ namespace webapi.Responses
         public string Email { get; set; } = null!;
 
         [Required]
-        public string OrganizationRole { get; set; } = null!;
+        public string Role { get; set; } = null!;
     }
 
     public class UserIndexResponse

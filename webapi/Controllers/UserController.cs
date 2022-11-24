@@ -19,34 +19,41 @@ namespace webapi.Controllers
         private readonly UserLoginService _userLoginService;
         private readonly UserInfoHelperService _userInfoHelperService;
         private readonly UserUpdateService _userUpdateService;
+        private readonly UserRoleService _userRoleService;
         public UserController(
             ApplicationContext Context, 
             UserRegisterService UserRegisterService,
             UserLoginService UserLoginService,
             UserInfoHelperService UserManagerService,
-            UserUpdateService UserUpdateService
+            UserUpdateService UserUpdateService,
+            UserRoleService UserRoleService
         ){
             _context = Context;
             _userRegisterService = UserRegisterService;
             _userLoginService = UserLoginService;
             _userInfoHelperService = UserManagerService;
             _userUpdateService = UserUpdateService;
+            _userRoleService = UserRoleService;
         } 
 
         [HttpPost]
         [Route("register")]
-        [Authorize(Roles = "Manager,Administrator")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Register(AccRegisterRequest request)
         {
-            bool registered = _userRegisterService.RegisterUserUnsaved(
+
+            OrganizationRole Role = this._userRoleService.GetRoleFromString(request.Role);
+            if(Role == OrganizationRole.Undefined) return BadRequest("User Role Invalid");
+
+            bool Registered = _userRegisterService.RegisterUserUnsaved(
                 Username: request.UserName,
                 Email: request.Email,
                 Password: request.Password,
                 Organization: _userInfoHelperService.GetUserOrg(HttpContext.User),
-                OrganizationRole: OrganizationRole.Crew
+                Role: Role
             );
 
-            if(!registered) return BadRequest("Username Taken");
+            if(!Registered) return BadRequest("Username Taken");
 
             _context.SaveChanges();
 
@@ -95,7 +102,7 @@ namespace webapi.Controllers
                         Id = users.Id,
                         UserName = users.UserName,
                         Email = users.Email,
-                        OrganizationRole = users.OrganizationRole.ToString()
+                        Role = users.OrganizationRole.ToString()
                     }
                 ).ToList();
 
@@ -114,7 +121,7 @@ namespace webapi.Controllers
             UserInfoResponse Response = new UserInfoResponse{
                 userName = User.UserName,
                 email = User.Email,
-                organizationRole = User.OrganizationRole.ToString()
+                Role = User.OrganizationRole.ToString()
             };
 
             return Ok(Response);
@@ -130,21 +137,21 @@ namespace webapi.Controllers
             User? UserToUpdate = _context.Users.Where(u => (u.OrganizationId == UserOrgId) && (u.Id == UserId)).FirstOrDefault();
             if(UserToUpdate == null) return BadRequest("User Not Found");
 
-            if(request.OrganizationRole != null && UserToUpdate.OrganizationRole == OrganizationRole.Administrator) return BadRequest("Cannot Deassign Administrator Role");
+            if(request.Role != null && UserToUpdate.OrganizationRole == OrganizationRole.Administrator) return BadRequest("Cannot Deassign Administrator Role");
 
             this._userUpdateService.UpdateUserSaved(
-                    user: UserToUpdate,
-                    email: request.Email,
-                    password: request.Password,
-                    role: request.OrganizationRole
+                    User: UserToUpdate,
+                    Email: request.Email,
+                    Password: request.Password,
+                    Role: request.Role
                 );
 
-            return Ok();
+            return Ok(new { ResponseText = "Updated" });
         }
 
         [HttpGet]
         [Route("delete")]
-        [Authorize(Roles = "Manager,Administrator")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int UserId){
 
             int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
@@ -155,7 +162,7 @@ namespace webapi.Controllers
             _context.Users.Remove(UserToDelete);
             _context.SaveChanges();
 
-            return Ok();
+            return Ok(new { ResponseText = "Deleted" });
         }
     }
 }

@@ -11,7 +11,7 @@
         <tr *ngFor="let worker of workersToDisplay">
             <td><span>{{ worker.userName }}</span></td>
             <td><span>{{ worker.email }}</span></td>
-            <td><span>{{ worker.organizationRole }}</span></td>
+            <td><span>{{ worker.role }}</span></td>
             <td class="column-buttons" *ngIf="canEdit">
                 <button class="edit" (click)="onEditClick(worker.id)">Edit</button>
                 <button class="delete" (click)="createDeleteConfirmation(worker.id)">

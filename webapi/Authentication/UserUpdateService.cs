@@ -5,50 +5,43 @@ namespace webapi.Authentication
 {
     public class UserUpdateService
     {
-        public ApplicationContext _context { get; set; }
-        public PasswordService _passwordService { get; set; }
-
+        private readonly ApplicationContext _context;
+        private readonly PasswordService _passwordService;
+        private readonly UserRoleService _userRoleService;
         public UserUpdateService(
-            ApplicationContext context,
-            PasswordService passwordService
+            ApplicationContext Context,
+            PasswordService PasswordService,
+            UserRoleService UserRoleService
         )
         {
-            _context = context;
-            _passwordService = passwordService;
+            _context = Context;
+            _passwordService = PasswordService;
+            _userRoleService = UserRoleService;
         }
 
-        public void UpdateUserSaved(User user, string? email, string? password, string? role){
-            if(email != null && email != user.Email){
-                user.Email = email;
-                user.EmailIsConfirmed = false;
+        public bool UpdateUserSaved(User User, string? Email, string? Password, string? Role){
+            if(Email != null && Email != User.Email){
+                User.Email = Email;
+                User.EmailIsConfirmed = false;
             }
 
-            if(password != null){
+            if(Password != null){
                 byte[] passwordHash = null!;
                 byte[] passwordSalt = null!;
-                this._passwordService.CreatePasswordHashAndSalt(password, out passwordHash, out passwordSalt);
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
+                this._passwordService.CreatePasswordHashAndSalt(Password, out passwordHash, out passwordSalt);
+                User.PasswordHash = passwordHash;
+                User.PasswordSalt = passwordSalt;
             }
 
-            if(role != null){
-                switch(role){
-
-                    case "crew":
-                    case "Crew":
-                    user.OrganizationRole = OrganizationRole.Crew;
-                    break;
-
-                    case "manager":
-                    case "Manager":
-                    user.OrganizationRole = OrganizationRole.Manager;
-                    break;
-                }
+            if(Role != null){
+                OrganizationRole RoleEnum = this._userRoleService.GetRoleFromString(Role);
+                if(RoleEnum == OrganizationRole.Administrator || RoleEnum == OrganizationRole.Undefined) return false;
+                User.OrganizationRole = RoleEnum;
             }
 
             _context.SaveChanges();
 
-            return;
+            return true;
         }
     }
 }

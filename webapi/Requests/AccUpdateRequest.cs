@@ -6,6 +6,6 @@ namespace webapi.Requests
 
         public string? Password { get; set; }
 
-        public string? OrganizationRole { get; set; }
+        public string? Role { get; set; }
     }
 }

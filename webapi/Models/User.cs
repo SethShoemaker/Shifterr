@@ -5,7 +5,7 @@ namespace webapi.Models
 {
     public enum OrganizationRole
     {
-        Crew, Manager, Administrator
+        Undefined, Crew, Manager, Administrator
     }
 
     public class User

@@ -38,14 +38,14 @@ namespace webapi.Controllers
                 Email: request.ExecEmail,
                 Password: request.ExecPassword,
                 Organization: Organization,
-                OrganizationRole: OrganizationRole.Administrator
+                Role: OrganizationRole.Administrator
             );
 
             if(!registered) return BadRequest("Username Taken");
 
             _context.SaveChanges();
 
-            return Ok();
+            return Ok(new { ResponseText = "Created" });
         }
     }
 }
