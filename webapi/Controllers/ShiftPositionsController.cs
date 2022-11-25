@@ -50,9 +50,14 @@ namespace webapi.Controllers
         public ActionResult<List<ShiftPosition>> Create(ShiftPositionCreateRequest request)
         {
 
-            if(request.Name.Length > 20){
-                return BadRequest("Position Name Too Long");
-            }
+            if(request.Name.Length == 0) return BadRequest(new { ResponseText = "No Position Name Specified"} );
+            if(request.Name.Length < 3) return BadRequest(new { ResponseText = "Position Name Not Long Enough, Minimum of 3 characters"} );
+            if(request.Name.Length > 20) return BadRequest(new { ResponseText = "Position Name Too Long, Maximum of 20 characters"} );
+
+            if(request.Description != null){
+                if(request.Description.Length > 275) return BadRequest(new { ResponseText = "Position Description Too Long, Maximum of 275 characters"} );
+                if(request.Description.Length == 0) request.Description = null;
+            } 
 
             int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
@@ -98,13 +103,14 @@ namespace webapi.Controllers
 
             if(request.Name != null){
                 if(request.Name.Length == 0) return BadRequest(new { ResponseText = "No Position Name Specified"} );
+                if(request.Name.Length < 3) return BadRequest(new { ResponseText = "Position Name Not Long Enough, Minimum of 3 characters"} );
                 if(request.Name.Length > 20) return BadRequest(new { ResponseText = "Position Name Too Long, Maximum of 20 characters"} );
                 ShiftPositionToUpdate.Name = request.Name;
             } 
 
             if(request.Description != null){
-                if(request.Description.Length == 0) return BadRequest(new { ResponseText = "No Position Description Specified"} );
                 if(request.Description.Length > 275) return BadRequest(new { ResponseText = "Position Description Too Long, Maximum of 275 characters"} );
+                if(request.Description.Length == 0) request.Description = null;
                 ShiftPositionToUpdate.Description = request.Description;
             } 
 
