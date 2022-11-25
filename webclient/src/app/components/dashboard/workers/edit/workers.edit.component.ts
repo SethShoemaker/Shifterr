@@ -37,6 +37,7 @@ export class WorkersEditComponent implements OnInit {
       res => {
         this.userName = res.userName;
         this.requestBody.email = res.email;
+        this.requestBody.nickname = res.nickname;
         if(res.role == "Administrator"){
           this.isAdmin = true;
         }else{

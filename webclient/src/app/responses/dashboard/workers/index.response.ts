@@ -1,6 +1,6 @@
 export interface WorkersIndexResponseBody{
     id: number;
-    userName: string;
+    nickname: string;
     email: string;
     role: string;
 }

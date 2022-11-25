@@ -4,6 +4,10 @@
         <input value="{{ userName }}" name="userName" type="text" disabled>
     </div>
     <div class="form-group">
+        <label for="nickname">Nickname</label>
+        <input [(ngModel)]="requestBody.nickname" name="nickname" id="nickname" minlength="4" maxlength="20" type="text" required>
+    </div>
+    <div class="form-group">
         <label for="email">Email</label>
         <input [(ngModel)]="requestBody.email" name="email" id="email" type="email" required>
     </div>

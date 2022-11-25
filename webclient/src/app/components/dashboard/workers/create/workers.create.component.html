@@ -1,7 +1,11 @@
 <form ngNativeValidate>
     <div class="form-group">
         <label for="userName">Username</label>
-        <input [(ngModel)]="requestBody.userName" name="userName" id="userName" minlength="4" maxlength="15" type="text" required>
+        <input [(ngModel)]="requestBody.userName" name="userName" id="userName" minlength="8" maxlength="40" type="text" required>
+    </div>
+    <div class="form-group">
+        <label for="nickname">Nickname</label>
+        <input [(ngModel)]="requestBody.nickname" name="nickname" id="nickname" minlength="4" maxlength="20" type="text" required>
     </div>
     <div class="form-group">
         <label for="email">Email</label>

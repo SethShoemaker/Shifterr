@@ -58,7 +58,7 @@ export class WorkersIndexComponent implements OnInit {
     }
     else{
       this.workersToDisplay = this.workersToStore.filter(p => {
-        var workerNameToLower = p.userName.toLowerCase();
+        var workerNameToLower = p.nickname.toLowerCase();
         var workerEmailToLower = p.email.toLowerCase();
         return (workerNameToLower.includes(this.searchQueryLowercase)) || (workerEmailToLower.includes(this.searchQueryLowercase));
       })

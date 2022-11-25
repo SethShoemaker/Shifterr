@@ -36,11 +36,11 @@ export class WorkersCreateComponent implements OnInit {
   onSubmit(){
     this.workersService.registerWorker(this.requestBody).subscribe(
       // Success
-      res => {
+      () => {
         this.router.navigateByUrl("dashboard/workers");
       },
       // Error
-      res => {
+      () => {
         this.createAlert("Couldn't register worker");
       }
     )

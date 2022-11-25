@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let worker of workersToDisplay">
-            <td><span>{{ worker.userName }}</span></td>
+            <td><span>{{ worker.nickname }}</span></td>
             <td><span>{{ worker.email }}</span></td>
             <td><span>{{ worker.role }}</span></td>
             <td class="column-buttons" *ngIf="canEdit">
