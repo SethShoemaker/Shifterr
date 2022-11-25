@@ -7,6 +7,7 @@ import { AuthRequestConfirmationComponent } from './components/auth/request-conf
 import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PositionsCreateComponent } from './components/dashboard/positions/create/positions.create.component';
+import { PositionsEditComponent } from './components/dashboard/positions/edit/positions.edit.component';
 import { PositionsIndexComponent } from './components/dashboard/positions/index/positions.index.component';
 import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts.index.component';
 import { WorkersCreateComponent } from './components/dashboard/workers/create/workers.create.component';
@@ -72,6 +73,15 @@ const routes: Routes = [
         component: PositionsCreateComponent,
         data: {
           "header": "Create Position"
+        }
+      },
+      {
+        path: "positions/edit/:id",
+        canActivate: [AuthGuard, ManagerGuard],
+        title: "Edit Position",
+        component: PositionsEditComponent,
+        data: {
+          "header": "Edit Position"
         }
       },
       {

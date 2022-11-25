@@ -33,6 +33,7 @@ import { PositionsCreateComponent } from './components/dashboard/positions/creat
 import { WorkersIndexComponent } from './components/dashboard/workers/index/workers.index.component';
 import { WorkersCreateComponent } from './components/dashboard/workers/create/workers.create.component';
 import { WorkersEditComponent } from './components/dashboard/workers/edit/workers.edit.component';
+import { PositionsEditComponent } from './components/dashboard/positions/edit/positions.edit.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { WorkersEditComponent } from './components/dashboard/workers/edit/worker
     PositionsCreateComponent,
     WorkersIndexComponent,
     WorkersCreateComponent,
-    WorkersEditComponent
+    WorkersEditComponent,
+    PositionsEditComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,12 @@
+<form ngNativeValidate (submit)="onSubmit()">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input [(ngModel)]="requestBody.name" minlength="4" maxlength="20" type="text" name="name" id="name" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea [(ngModel)]="requestBody.description" maxlength="275" name="description" id="description"></textarea>
+    </div>
+    <input type="submit" value="Save Changes">
+</form>
+<app-alert *ngIf="alertIsActive" [alertMessage]="alertMessage"></app-alert>

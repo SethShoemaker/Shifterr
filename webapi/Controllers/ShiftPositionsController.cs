@@ -70,6 +70,50 @@ namespace webapi.Controllers
         }
 
         [HttpGet]
+        [Route("info")]
+        [Authorize(Roles = "Manager,Administrator")]
+        public ActionResult<ShiftPositionInfoResponse> Info(int ShiftPositionId)
+        {
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
+
+            ShiftPosition? ShiftPosition = _context.ShiftPositions.Where(sp => (sp.OrganizationId == UserOrgId) && (sp.Id == ShiftPositionId)).FirstOrDefault();
+            if(ShiftPosition == null) return BadRequest(new { ResponseText = "Shift Position Not Found"});
+
+            return Ok(new ShiftPositionInfoResponse{ 
+                Id = ShiftPosition.Id,
+                Name = ShiftPosition.Name,
+                Description = ShiftPosition.Description
+            });
+        }
+
+        [HttpPost]
+        [Route("update")]
+        [Authorize(Roles = "Manager,Administrator")]
+        public ActionResult Update(int ShiftPositionId, ShiftPositionUpdateRequest request)
+        {
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
+
+            ShiftPosition? ShiftPositionToUpdate = _context.ShiftPositions.Where(sp => (sp.OrganizationId == UserOrgId) && (sp.Id == ShiftPositionId)).FirstOrDefault();
+            if(ShiftPositionToUpdate == null) return BadRequest(new { ResponseText = "Shift Position Not Found"});
+
+            if(request.Name != null){
+                if(request.Name.Length == 0) return BadRequest(new { ResponseText = "No Position Name Specified"} );
+                if(request.Name.Length > 20) return BadRequest(new { ResponseText = "Position Name Too Long, Maximum of 20 characters"} );
+                ShiftPositionToUpdate.Name = request.Name;
+            } 
+
+            if(request.Description != null){
+                if(request.Description.Length == 0) return BadRequest(new { ResponseText = "No Position Description Specified"} );
+                if(request.Description.Length > 275) return BadRequest(new { ResponseText = "Position Description Too Long, Maximum of 275 characters"} );
+                ShiftPositionToUpdate.Description = request.Description;
+            } 
+
+            _context.SaveChanges();
+
+            return Ok(new { ResponseText = "Updated"} );
+        }
+
+        [HttpGet]
         [Route("delete")]
         [Authorize(Roles = "Manager,Administrator")]
         public ActionResult Delete(int ShiftPositionId)

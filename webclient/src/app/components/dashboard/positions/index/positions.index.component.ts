@@ -71,6 +71,10 @@ export class PositionsIndexComponent implements OnInit {
     this.router.navigateByUrl("dashboard/positions/create");
   }
 
+  onEditClick(id: number){
+    this.router.navigate(['/dashboard/positions/edit', id]);
+  }
+
   createDeleteConfirmation(id: number){
     this.positionIdToRemove = id;
     this.confirmationIsActive = true;
