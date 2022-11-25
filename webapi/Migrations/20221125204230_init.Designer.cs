@@ -11,7 +11,7 @@ using webapi.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221118005649_init")]
+    [Migration("20221125204230_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,10 +75,12 @@ namespace webapi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(275)
                         .HasColumnType("varchar(275)");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
                     b.Property<int>("OrganizationId")
@@ -107,6 +109,11 @@ namespace webapi.Migrations
                     b.Property<bool>("EmailIsConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
@@ -124,7 +131,8 @@ namespace webapi.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)");
 
                     b.HasKey("Id");
 

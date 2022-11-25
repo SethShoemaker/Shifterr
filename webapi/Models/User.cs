@@ -20,11 +20,18 @@ namespace webapi.Models
         public Organization Organization { get; set;} = null!;
 
         [Required]
-        public string UserName { get; set; } = string.Empty;
+        [MaxLength(40)]
+        [MinLength(8)]
+        public string UserName { get; set; } = null!;
+
+        [Required] 
+        [MaxLength(20)]
+        [MinLength(4)]
+        public string Nickname { get; set; } = null!;
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; } = string.Empty;
+        public string Email { get; set; } = null!;
 
         [Required]
         public bool EmailIsConfirmed { get; set; } = false;

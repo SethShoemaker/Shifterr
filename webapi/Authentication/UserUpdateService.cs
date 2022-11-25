@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using webapi.Data;
 using webapi.Models;
 
@@ -19,13 +20,41 @@ namespace webapi.Authentication
             _userRoleService = UserRoleService;
         }
 
-        public bool UpdateUserSaved(User User, string? Email, string? Password, string? Role){
+        public List<string> AttemptUpdateUser(
+            User User, 
+            string? Nickname, 
+            string? Email, 
+            string? Password, 
+            string? RoleString
+        )
+        {
+            List<string> Errors = new List<string>();
+
+            if(Nickname != null && Nickname != User.Nickname){
+
+                if(Nickname.Length < 4) Errors.Add("Nickname Not Long Enough");
+
+                if(Nickname.Length > 20) Errors.Add("Nickname Too Enough");
+
+                User.Nickname = Nickname;
+            }
+
             if(Email != null && Email != User.Email){
+
+                if(Email.Length < 8) Errors.Add("Email Not Long Enough");
+            
+                Regex EmailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                Match EmailRegexMatch = EmailRegex.Match(Email);
+                if(!EmailRegexMatch.Success) Errors.Add("Invalid Email Address");
+
                 User.Email = Email;
                 User.EmailIsConfirmed = false;
             }
 
             if(Password != null){
+
+                if(Password.Length < 8) Errors.Add("Password Not Long Enough");
+
                 byte[] passwordHash = null!;
                 byte[] passwordSalt = null!;
                 this._passwordService.CreatePasswordHashAndSalt(Password, out passwordHash, out passwordSalt);
@@ -33,15 +62,21 @@ namespace webapi.Authentication
                 User.PasswordSalt = passwordSalt;
             }
 
-            if(Role != null){
-                OrganizationRole RoleEnum = this._userRoleService.GetRoleFromString(Role);
-                if(RoleEnum == OrganizationRole.Administrator || RoleEnum == OrganizationRole.Undefined) return false;
+            if(RoleString != null){
+                OrganizationRole RoleEnum = this._userRoleService.GetRoleFromString(RoleString);
+
+                if(RoleEnum == OrganizationRole.Undefined) Errors.Add("User Role Invalid");
+
+                if(RoleEnum == OrganizationRole.Administrator) Errors.Add("Cannot Assign Administrator Role");
+
+                if(User.OrganizationRole == OrganizationRole.Administrator && RoleEnum != OrganizationRole.Administrator) Errors.Add("Cannot Deassign Administrator Role");
+
                 User.OrganizationRole = RoleEnum;
             }
 
-            _context.SaveChanges();
+            if(!Errors.Any()) _context.SaveChanges();
 
-            return true;
+            return Errors;
         }
     }
 }

@@ -4,31 +4,31 @@ namespace webapi.Authentication
 {
     public class UserRoleService
     {
-        public OrganizationRole GetRoleFromString(string roleString){
+        public OrganizationRole GetRoleFromString(string RoleString){
 
-            OrganizationRole roleEnum = OrganizationRole.Undefined;
-            switch(roleString){
+            OrganizationRole RoleEnum = OrganizationRole.Undefined;
+            switch(RoleString){
 
                 case "crew":
                 case "Crew":
-                    roleEnum = OrganizationRole.Crew;
+                    RoleEnum = OrganizationRole.Crew;
                 break;
 
 
                 case "manager":
                 case "Manager":
-                    roleEnum = OrganizationRole.Manager;
+                    RoleEnum = OrganizationRole.Manager;
                 break;
 
                 case "administrator":
                 case "Administrator":
                 case "admin":
                 case "Admin":
-                    roleEnum = OrganizationRole.Administrator;
+                    RoleEnum = OrganizationRole.Administrator;
                 break;
             }
 
-            return roleEnum;
+            return RoleEnum;
         }
     }
 }

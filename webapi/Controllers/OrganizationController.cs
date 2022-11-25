@@ -32,9 +32,10 @@ namespace webapi.Controllers
             _context.SaveChanges();
 
             List<string> Errors = _userRegisterService.AttemptUserRegistration(
-                UserName: request.ExecName,
-                Email: request.ExecEmail,
-                Password: request.ExecPassword,
+                UserName: request.AdminName,
+                Nickname: request.AdminNickname,
+                Email: request.AdminEmail,
+                Password: request.AdminPassword,
                 Organization: Organization,
                 Role: OrganizationRole.Administrator
             );

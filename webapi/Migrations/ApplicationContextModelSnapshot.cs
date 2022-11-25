@@ -73,10 +73,12 @@ namespace webapi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(275)
                         .HasColumnType("varchar(275)");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
                     b.Property<int>("OrganizationId")
@@ -105,6 +107,11 @@ namespace webapi.Migrations
                     b.Property<bool>("EmailIsConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
@@ -122,7 +129,8 @@ namespace webapi.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)");
 
                     b.HasKey("Id");
 

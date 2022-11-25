@@ -19,6 +19,7 @@ namespace webapi.Authentication
         
         public List<string> AttemptUserRegistration(
             string UserName, 
+            string Nickname,
             string Email, 
             string Password, 
             Organization Organization,
@@ -28,6 +29,7 @@ namespace webapi.Authentication
 
             List<string> Errors = this.ValidateUser(
                 UserName: UserName,
+                Nickname: Nickname,
                 Email: Email,
                 Password: Password,
                 Organization: Organization,
@@ -58,6 +60,7 @@ namespace webapi.Authentication
 
         private List<string> ValidateUser(            
             string UserName, 
+            string Nickname,
             string Email, 
             string Password, 
             Organization Organization,
@@ -65,15 +68,20 @@ namespace webapi.Authentication
         )
         {
 
-            List<string> Errors = new List<string>(5);
+            List<string> Errors = new List<string>();
 
             if(UserName.Length < 8) Errors.Add("Username Not Long Enough");
 
             if(UserName.Length > 40) Errors.Add("Username Too Long");
 
             User? ExistingUser = _context.Users.FirstOrDefault(u => u.UserName == UserName);
-            if(ExistingUser != null) Errors.Add( "Username is Taken");
-            
+            if(ExistingUser != null) Errors.Add("Username is Taken");
+
+
+            if(Nickname.Length < 4) Errors.Add("Nickname Not Long Enough");
+
+            if(Nickname.Length > 20) Errors.Add("Nickname Too Enough");
+
 
             if(Email.Length < 8) Errors.Add("Email Not Long Enough");
             

@@ -41,12 +41,17 @@ namespace webapi.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Register(AccRegisterRequest request)
         {
+
+            OrganizationRole Role = this._userRoleService.GetRoleFromString(request.Role);
+            if(Role == OrganizationRole.Administrator) return BadRequest(new { ResponseText = "Cannot Assign Multiple Administrators" });
+
             List<string> Errors = _userRegisterService.AttemptUserRegistration(
                 UserName: request.UserName,
+                Nickname: request.Nickname,
                 Email: request.Email,
                 Password: request.Password,
                 Organization: _userInfoHelperService.GetUserOrg(HttpContext.User),
-                Role: this._userRoleService.GetRoleFromString(request.Role)
+                Role: Role
             );
 
             return (Errors.Any()) ? BadRequest(new { ResponseText = Errors }) : Ok(new { ResponseText = "Registered"});
@@ -57,26 +62,27 @@ namespace webapi.Controllers
         [AllowAnonymous]
         public ActionResult<LoginResponse> Login(AccLoginRequest request)
         {
-            User? user = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
-            if(user == null) return Unauthorized("User Not Found");
+            User? User = _context.Users.FirstOrDefault(u => u.UserName == request.UserName);
+            if(User == null) return Unauthorized(new { ResponseText = "User Not Found" } );
             
-            bool valid = _userLoginService.ValidatePassword(user, request.Password);
-            if(!valid) return Unauthorized("Bad Credentials");
+            bool valid = _userLoginService.ValidatePassword(User, request.Password);
+            if(!valid) return Unauthorized(new { ResponseText = "Bad Credentials" } );
 
-            bool emailConfirmed = user.EmailIsConfirmed;
-            if(!emailConfirmed) return Unauthorized("User Not Confirmed");
+            bool emailConfirmed = User.EmailIsConfirmed;
+            if(!emailConfirmed) return Unauthorized(new { ResponseText = "User Not Confirmed" } );
 
-            string token = _userLoginService.CreateTokenSaved(user);
+            string token = _userLoginService.CreateToken(User);
 
-            string userOrgName;
-            string userRole;
-            _userInfoHelperService.GetUserOrgNameAndRole(user, out userOrgName, out userRole);
+            string UserOrgName;
+            string UserRole;
+            _userInfoHelperService.GetUserOrgNameAndRole(User, out UserOrgName, out UserRole);
 
             return Ok(new LoginResponse{
                 Token = token,
-                OrganizationName = userOrgName,
-                OrganizationRole = userRole,
-                UserName = user.UserName
+                OrganizationName = UserOrgName,
+                OrganizationRole = UserRole,
+                UserName = User.UserName,
+                Nickname = User.Nickname
             });
         }
 
@@ -87,14 +93,14 @@ namespace webapi.Controllers
             int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
             List<UserIndexUserDto> Workers = (
-                from users in _context.Users
-                where users.OrganizationId == UserOrgId
+                from user in _context.Users
+                where user.OrganizationId == UserOrgId
                 select new UserIndexUserDto
                     {
-                        Id = users.Id,
-                        UserName = users.UserName,
-                        Email = users.Email,
-                        Role = users.OrganizationRole.ToString()
+                        Id = user.Id,
+                        Nickname = user.Nickname,
+                        Email = user.Email,
+                        Role = user.OrganizationRole.ToString()
                     }
                 ).ToList();
 
@@ -108,11 +114,12 @@ namespace webapi.Controllers
             int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
             User? User = _context.Users.Where(u => (u.OrganizationId == UserOrgId) && (u.Id == UserId)).FirstOrDefault();
-            if(User == null) return BadRequest("User Not Found");
+            if(User == null) return BadRequest(new { ResponseText = "User Not Found" });
 
             UserInfoResponse Response = new UserInfoResponse{
-                userName = User.UserName,
-                email = User.Email,
+                UserName = User.UserName,
+                Nickname = User.Nickname,
+                Email = User.Email,
                 Role = User.OrganizationRole.ToString()
             };
 
@@ -127,15 +134,14 @@ namespace webapi.Controllers
             int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
             User? UserToUpdate = _context.Users.Where(u => (u.OrganizationId == UserOrgId) && (u.Id == UserId)).FirstOrDefault();
-            if(UserToUpdate == null) return BadRequest("User Not Found");
+            if(UserToUpdate == null) return BadRequest(new { ResponseText = "User Not Found" });
 
-            if(request.Role != null && UserToUpdate.OrganizationRole == OrganizationRole.Administrator) return BadRequest("Cannot Deassign Administrator Role");
-
-            this._userUpdateService.UpdateUserSaved(
+            List<string> Errors = this._userUpdateService.AttemptUpdateUser(
                     User: UserToUpdate,
+                    Nickname: request.Nickname,
                     Email: request.Email,
                     Password: request.Password,
-                    Role: request.Role
+                    RoleString: request.Role
                 );
 
             return Ok(new { ResponseText = "Updated" });

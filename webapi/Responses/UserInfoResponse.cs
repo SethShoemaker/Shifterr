@@ -5,10 +5,13 @@ namespace webapi.Responses
     public class UserInfoResponse
     {
         [Required]
-        public string userName { get; set; } = null!;
+        public string UserName { get; set; } = null!;
 
         [Required]
-        public string email { get; set; } = null!;
+        public string Nickname { get; set; } = null!;
+
+        [Required]
+        public string Email { get; set; } = null!;
 
         public string Role { get; set; } = null!;
     }

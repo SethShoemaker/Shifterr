@@ -18,10 +18,8 @@ namespace webapi.Authentication
             _configuration = Configuration;
         }
 
-        public string CreateTokenSaved(User user)
+        public string CreateToken(User user)
         {
-
-            // DeleteOldTokenUnsaved(user);
 
             string token = Guid.NewGuid().ToString();
             UserToken userToken = new UserToken
@@ -45,12 +43,6 @@ namespace webapi.Authentication
             var hmac = new HMACSHA512(user.PasswordSalt);
             var attemptedPasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             return attemptedPasswordHash.SequenceEqual(user.PasswordHash);
-        }
-
-        private void DeleteOldTokenUnsaved(User user)
-        {
-            UserToken? existingToken = _context.UserTokens.FirstOrDefault(ut => ut.UserId == user.Id);
-            if(existingToken != null) _context.UserTokens.Remove(existingToken);
         }
     }
 }

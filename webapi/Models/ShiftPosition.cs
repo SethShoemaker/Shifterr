@@ -15,10 +15,11 @@ namespace webapi.Models
         public Organization Organization { get; set; } = null!;
 
         [Required]
-        [Column(TypeName="varchar(20)")]
+        [MaxLength(20)]
+        [MinLength(3)]
         public string Name { get; set; } = null!;
 
-        [Column(TypeName="varchar(275)")]
+        [MaxLength(275)]
         public string? Description { get; set; }
     }
 }

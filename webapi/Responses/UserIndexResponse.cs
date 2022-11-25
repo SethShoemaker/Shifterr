@@ -9,7 +9,7 @@ namespace webapi.Responses
         public int Id { get; set; }
 
         [Required]
-        public string UserName { get; set; } = null!;
+        public string Nickname { get; set; } = null!;
 
         [Required]
         [DataType(DataType.EmailAddress)]
