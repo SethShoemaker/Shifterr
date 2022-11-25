@@ -3,4 +3,5 @@ export interface LoginResponseBody{
     OrganizationName: string;
     OrganizationRole: string;
     UserName: string;
+    Nickname: string;
 }

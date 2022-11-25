@@ -27,16 +27,16 @@ export class AuthLoginComponent implements OnInit {
   onSubmit(): void{
     this.loginService.attemptLogin(this.loginRequestBody).subscribe(
       // Success
-      response => {
-        this.storageService.storeAllAuthDetails(response.token, response.organizationName, response.organizationRole, response.userName);
+      res => {
+        this.storageService.storeAllAuthDetails(res.token, res.organizationName, res.organizationRole, res.userName, res.nickname);
         this.router.navigateByUrl("dashboard");
       },
       // Fail
-      response => {
-        if(response.status == 401){
-          if(response.error == 'User Not Found') this.errorMessage = "Error: User Not Found";
-          if(response.error == 'Bad Credentials') this.errorMessage = "Error: Bad Credentials";
-          if(response.error == 'User Not Confirmed') this.router.navigateByUrl("login/confirm");
+      res => {
+        if(res.status == 401){
+          if(res.error.responseText == 'User Not Found') this.errorMessage = "Error: User Not Found";
+          if(res.error.responseText == 'Bad Credentials') this.errorMessage = "Error: Bad Credentials";
+          if(res.error.responseText == 'User Not Confirmed') this.router.navigateByUrl("login/confirm");
         }
         this.loginRequestBody.Password = "";
       }

@@ -9,6 +9,7 @@ export class StorageService {
   private organizationNameStorageLocation: string = "ShifterrOrganizationName";
   private organizationRoleStorageLocation: string = "ShifterrOrganizationRole";
   private userNameStorageLocation: string = "ShifterrUserName";
+  private nicknameStorageLocation: string = "ShifterrNickname";
 
   constructor() { }
 
@@ -84,19 +85,46 @@ export class StorageService {
     localStorage.removeItem(this.userNameStorageLocation);
   }
 
+  // Nickname Handlers
+
+  storeNickname(token:string): void{
+    localStorage.setItem(this.nicknameStorageLocation, token);
+  }
+
+  hasNickname(): boolean{
+    return localStorage.getItem(this.nicknameStorageLocation) != null;
+  }
+
+  getNickname(): string | null{
+    return localStorage.getItem(this.nicknameStorageLocation);
+  }
+
+  deleteNickname(): void{
+    localStorage.removeItem(this.nicknameStorageLocation);
+  }
+
   // Token, Organization Name, Organization Role, UserName Handlers
 
-  storeAllAuthDetails(token: string, organizationName: string, organizationRole: string, userName: string){
-    this.storeToken(token);
-    this.storeOrganizationName(organizationName);
-    this.storeOrganizationRole(organizationRole);
-    this.storeUserName(userName);
+  storeAllAuthDetails(
+      token: string, 
+      organizationName: string, 
+      organizationRole: string, 
+      userName: string, 
+      nickname: string
+    )
+    {
+      this.storeToken(token);
+      this.storeOrganizationName(organizationName);
+      this.storeOrganizationRole(organizationRole);
+      this.storeUserName(userName);
+      this.storeNickname(nickname);
   }
 
   hasAllAuthDetails(): boolean{
     return this.hasToken() && 
     this.hasOrganizationName() && 
     this.hasUserName() &&
+    this.hasNickname() &&
     this.hasOrganizationRole();
   }
 
@@ -105,5 +133,6 @@ export class StorageService {
     this.deleteOrganizationName();
     this.deleteOrganizationRole();
     this.deleteUserName();
+    this.deleteNickname();
   }
 }
