@@ -29,7 +29,6 @@ namespace webapi.Controllers
 
             Organization Organization = new Organization { Name = request.OrgName };
             _context.Organizations.Add(Organization);
-            _context.SaveChanges();
 
             List<string> Errors = _userRegisterService.AttemptUserRegistration(
                 UserName: request.AdminName,

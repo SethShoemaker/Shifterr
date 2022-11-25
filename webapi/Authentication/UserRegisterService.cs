@@ -44,6 +44,7 @@ namespace webapi.Authentication
                 User User = new User 
                 {
                     UserName = UserName,
+                    Nickname = Nickname,
                     Email = Email,
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt,
@@ -93,14 +94,10 @@ namespace webapi.Authentication
             if(Password.Length < 8) Errors.Add("Password Not Long Enough");
 
 
-            Organization? ExistingOrganization = _context.Organizations.Where(o => o.Id == Organization.Id).FirstOrDefault();
-            if(ExistingOrganization == null)  Errors.Add("Organization Does Not Exist");
-
-
             if(Role == OrganizationRole.Undefined) Errors.Add("Role is Invalid");
 
-            if(ExistingOrganization != null && Role == OrganizationRole.Administrator){
-                User? ExistingAdmin = _context.Users.Where(u => (u.OrganizationId == ExistingOrganization.Id) && u.OrganizationRole == OrganizationRole.Administrator).FirstOrDefault();
+            if(Role == OrganizationRole.Administrator){
+                User? ExistingAdmin = _context.Users.Where(u => (u.OrganizationId == Organization.Id) && u.OrganizationRole == OrganizationRole.Administrator).FirstOrDefault();
                 if(ExistingAdmin != null) Errors.Add("Organization Administrator Already Exists");
             }
 
