@@ -26,26 +26,20 @@ namespace webapi.Controllers
         [Route("create")]
         public ActionResult Create(OrgRegisterRequest request)
         {
-            Organization Organization = new Organization 
-            { 
-                Name = request.OrgName
-            };
 
+            Organization Organization = new Organization { Name = request.OrgName };
             _context.Organizations.Add(Organization);
+            _context.SaveChanges();
 
-            bool registered = _userRegisterService.RegisterUserUnsaved(
-                Username: request.ExecName,
+            List<string> Errors = _userRegisterService.AttemptUserRegistration(
+                UserName: request.ExecName,
                 Email: request.ExecEmail,
                 Password: request.ExecPassword,
                 Organization: Organization,
                 Role: OrganizationRole.Administrator
             );
 
-            if(!registered) return BadRequest("Username Taken");
-
-            _context.SaveChanges();
-
-            return Ok(new { ResponseText = "Created" });
+            return (Errors.Any()) ? BadRequest(new { ResponseText = Errors }) : Ok(new { ResponseText = "Registered"});
         }
     }
 }

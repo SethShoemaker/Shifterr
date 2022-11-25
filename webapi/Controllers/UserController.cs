@@ -41,23 +41,15 @@ namespace webapi.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Register(AccRegisterRequest request)
         {
-
-            OrganizationRole Role = this._userRoleService.GetRoleFromString(request.Role);
-            if(Role == OrganizationRole.Undefined) return BadRequest("User Role Invalid");
-
-            bool Registered = _userRegisterService.RegisterUserUnsaved(
-                Username: request.UserName,
+            List<string> Errors = _userRegisterService.AttemptUserRegistration(
+                UserName: request.UserName,
                 Email: request.Email,
                 Password: request.Password,
                 Organization: _userInfoHelperService.GetUserOrg(HttpContext.User),
-                Role: Role
+                Role: this._userRoleService.GetRoleFromString(request.Role)
             );
 
-            if(!Registered) return BadRequest("Username Taken");
-
-            _context.SaveChanges();
-
-            return Ok(new { ResponseText = "Created" });
+            return (Errors.Any()) ? BadRequest(new { ResponseText = Errors }) : Ok(new { ResponseText = "Registered"});
         }
 
         [HttpPost]
