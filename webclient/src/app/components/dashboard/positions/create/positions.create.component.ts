@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PositionsCreateRequestBody } from 'src/app/requests/positions.create.request';
+import { PositionsCreateRequestBody } from 'src/app/requests/dashboard/positions/create.request';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
 
 @Component({
@@ -33,14 +33,14 @@ export class PositionsCreateComponent implements OnInit {
     this.alertIsActive = false;
   }
 
-  public createPosition(){
+  onSubmit(){
     this.positionService.createPosition(this.requestBody).subscribe(
       // Success
       res => {
         this.router.navigateByUrl("dashboard/positions");
       },
       // Error
-      res => {
+      () => {
         this.createAlert("Could Not Create Position");
       }
     )

@@ -1,11 +1,11 @@
 <form ngNativeValidate (submit)="onSubmit()">
     <div class="form-group">
-        <label for="name">Name</label>
-        <input [(ngModel)]="requestBody.name" minlength="3" maxlength="20" type="text" name="name" id="name" required>
+        <label for="position-name">Name</label>
+        <input [(ngModel)]="requestBody.name" minlength="3" maxlength="20" type="text" name="position-name" id="position-name" required>
     </div>
     <div class="form-group">
-        <label for="description">Description</label>
-        <textarea [(ngModel)]="requestBody.description" maxlength="275" name="description" id="description"></textarea>
+        <label for="position-description">Description</label>
+        <textarea [(ngModel)]="requestBody.description" maxlength="275" name="position-description" id="position-description"></textarea>
     </div>
     <input type="submit" value="Save Changes">
 </form>

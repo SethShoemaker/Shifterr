@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PositionsEditRequestBody } from 'src/app/requests/dashboard/positions/edit.request';
-import { PositionsCreateRequestBody } from 'src/app/requests/positions.create.request';
+import { PositionsCreateRequestBody } from 'src/app/requests/dashboard/positions/create.request';
 import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/positions/index.response';
 import { PositionsInfoResponseBody } from 'src/app/responses/dashboard/positions/info.response';
 import { GenericResponseBody } from 'src/app/responses/generic.response';

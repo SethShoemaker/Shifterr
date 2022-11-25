@@ -35,7 +35,7 @@ export class PositionsEditComponent implements OnInit {
       },
       // Error 
       () => {
-        this.router.navigateByUrl("dashboard/positions");
+        this.createAlert("Could Not Save Changes");
       }
     );
   }
