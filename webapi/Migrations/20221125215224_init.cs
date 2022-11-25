@@ -69,8 +69,6 @@ namespace webapi.Migrations
                     PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "longblob", nullable: false),
                     OrganizationRole = table.Column<string>(type: "ENUM('Crew','Manager','Administrator')", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Bio = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>

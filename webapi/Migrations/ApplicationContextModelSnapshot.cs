@@ -97,9 +97,6 @@ namespace webapi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Bio")
-                        .HasColumnType("varchar(255)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
