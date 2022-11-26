@@ -14,7 +14,7 @@
             <td><span>{{ worker.role }}</span></td>
             <td class="column-buttons" *ngIf="canEdit">
                 <button class="edit" (click)="onEditClick(worker.id)">Edit</button>
-                <button class="delete" (click)="createDeleteConfirmation(worker.id)">
+                <button class="delete" *ngIf="worker.role != 'Administrator'" (click)="createDeleteConfirmation(worker.id)">
                     <span>Delete</span>
                 </button>
             </td>

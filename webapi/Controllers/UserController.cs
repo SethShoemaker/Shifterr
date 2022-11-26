@@ -155,7 +155,9 @@ namespace webapi.Controllers
             int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
 
             User? UserToDelete = _context.Users.Where(u => (u.OrganizationId == UserOrgId) && (u.Id == UserId)).FirstOrDefault();
-            if(UserToDelete == null) return BadRequest("User Not Found");
+            if(UserToDelete == null) return BadRequest(new { ResponseText = "User Not Found" });
+
+            if(UserToDelete.OrganizationRole == OrganizationRole.Administrator) return BadRequest(new { ResponseText = "Cannot Delete Administrator" });
 
             _context.Users.Remove(UserToDelete);
             _context.SaveChanges();
