@@ -14,7 +14,7 @@ export class NavComponent implements OnInit {
   @Input() userName: string | null = null!;
   @Input() nickname: string | null = null!;
 
-  sidebarActivated: boolean = true;
+  sidebarActivated: boolean = false;
 
   constructor(
     private logoutService: LogoutService,
