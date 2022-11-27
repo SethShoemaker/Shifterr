@@ -1,8 +1,14 @@
-div{
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+div#header-container{
+    box-sizing: content-box;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: calc(0.4rem + 0.25vw);
     width: 100%;
-    margin-bottom: calc(0.5rem + 0.5vw);
+
+    @media (max-width:900px) {
+        width: 823px;
+        padding-right: calc(1rem + 2.5vw);
+    }
 
     div#header-left{
         display: flex;
@@ -15,7 +21,7 @@ div{
         flex-direction: row;
         justify-content: flex-end;
 
-        *{
+        :last-child{
             padding-left: calc(0.5rem + 0.5vw);
         }
     }

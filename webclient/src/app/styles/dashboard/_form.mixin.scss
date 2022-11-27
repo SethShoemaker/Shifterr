@@ -37,6 +37,9 @@
         button.enable-input-button{
             cursor: pointer;
             @include input;
+            @media (max-width:550px) {
+                width: 100%;
+            }
             width: fit-content;
             padding: 0 calc(0.25rem + 0.25vw);
             border: 1px solid $navyBlue;
@@ -47,6 +50,9 @@
 
         textarea{
             @include input;
+            @media (max-width:550px) {
+                width: 100%;
+            }
             height: calc(8rem + 3vw);
             resize: none;
             font-family: inherit;

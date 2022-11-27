@@ -8,6 +8,11 @@ $table-border: 1px solid $darkOffBlack;
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    table-layout: fixed;
+
+    @media (max-width:900px) {
+        width: 823px;
+    }
 
     thead{
         tr{
@@ -18,7 +23,7 @@ $table-border: 1px solid $darkOffBlack;
             th{
                 padding: calc(0.4rem + 0.75vw) 0;
                 font-size:calc(0.5rem + 0.5vw);
-    
+
                 &:first-of-type{
                     padding-left: $table-padding;
                 }

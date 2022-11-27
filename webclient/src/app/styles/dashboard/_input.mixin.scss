@@ -9,10 +9,6 @@
     border: 0.9px solid $darkOffBlack;
     background-color: $trueWhite;
 
-    @media (max-width:550px) {
-        width: 100%;
-    }
-
     &:focus{
         outline: none;
     }
