@@ -1,4 +1,4 @@
-@import '~src/app/styles/vars';
+@import 'src/app/styles/vars';
 
 header{
     z-index: 2;
@@ -14,12 +14,13 @@ header{
     background-color: $trueWhite;
 
     span.organization-title{
+        user-select: none;
         font-size: calc(1rem + 0.8vw);
         font-weight: 400;
         letter-spacing: calc(0.025rem + 0.025vw);
     }
 
-    span.user-button{
+    span#user-button{
         cursor: pointer;
         user-select: none;
         display: flex;
@@ -30,8 +31,30 @@ header{
 
         img{
             margin: 3px 0 0 calc(0.25rem + 0.25vw);
-            height: calc(0.25rem + 0.5vw);
-            width: calc(0.25rem + 0.5vw);
+            height: calc(0.2rem + 0.2vw);
+        }
+
+        @media (max-width:1100px) {
+            display: none;
+        }
+    }
+
+    button#menu-button{
+
+        border: none;
+        background: none;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img{
+            margin-left: calc(1rem + 1vw);
+            height: calc(0.55rem + 0.55vw);
+        }
+
+        @media (min-width:1100px) {
+            display: none;
         }
     }
 

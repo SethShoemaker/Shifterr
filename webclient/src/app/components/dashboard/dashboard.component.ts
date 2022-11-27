@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router,  ActivationStart, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/services/auth/storage/storage.service';
 
 @Component({
@@ -14,10 +14,10 @@ export class DashboardComponent implements OnInit {
   organizationName: string | null = this.storageService.getOrganizationName();
   organizationRole: string | null = this.storageService.getOrganizationRole();
   userName: string | null = this.storageService.getUserName();
+  nickname: string | null = this.storageService.getNickname();
 
   constructor(
     private storageService: StorageService,
-    private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
 

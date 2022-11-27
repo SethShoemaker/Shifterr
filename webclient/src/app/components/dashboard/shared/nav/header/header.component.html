@@ -2,12 +2,14 @@
     <span class="organization-title">
         {{ organizationName }}
     </span>
-    <span (click)="toggleDropdown()" class="user-button">
+    <span (click)="toggleDropdown()" id="user-button">
         {{ userName }}
         <img src="assets/images/icons/dropdown.svg" alt="">
     </span>
+    <button id="menu-button" (click)="toggleSidebar()">
+        <img src="assets/images/icons/menu.svg" alt="">
+    </button>
     <div *ngIf="dropdownActivated" class="user-dropdown" aria-role="list">
-        <a aria-role="list">Edit Profile</a>
         <a (click)="onLogout()" aria-role="list">Logout</a>
     </div>
 </header>

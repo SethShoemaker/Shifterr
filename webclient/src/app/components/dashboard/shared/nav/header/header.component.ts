@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LogoutService } from 'src/app/services/auth/logout/logout.service';
 
 @Component({
@@ -10,6 +10,9 @@ export class HeaderComponent implements OnInit {
 
   @Input() organizationName: string | null =  null;
   @Input() userName: string | null = null;
+
+  sidebarActivated: boolean = false;
+  @Output() sidebarEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   dropdownActivated: boolean = false;
 
@@ -24,5 +27,10 @@ export class HeaderComponent implements OnInit {
 
   onLogout(): void{
     this.logoutService.logout();
+  }
+
+  toggleSidebar(){
+    this.sidebarActivated = !this.sidebarActivated;
+    this.sidebarEmitter.emit(this.sidebarActivated);
   }
 }

@@ -1,2 +1,2 @@
-<app-dashboard-nav-header [organizationName]="organizationName" [userName]="userName"></app-dashboard-nav-header>
-<app-dashboard-nav-sidebar [organizationRole]="organizationRole" [userName]="userName"></app-dashboard-nav-sidebar>
+<app-dashboard-nav-header [organizationName]="organizationName" [userName]="userName" (sidebarEmitter)="toggleSidebar($event)"></app-dashboard-nav-header>
+<app-dashboard-nav-sidebar [organizationRole]="organizationRole" [nickname]="nickname" [sidebarActivated]="sidebarActivated"></app-dashboard-nav-sidebar>

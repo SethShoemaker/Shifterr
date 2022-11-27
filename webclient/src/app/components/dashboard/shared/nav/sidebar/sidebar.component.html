@@ -1,11 +1,23 @@
-<div id="dashboard-sidebar">
-    <span id="user-name">{{ userName }}</span>
+<div id="dashboard-sidebar"[ngClass]="{ 'isActive': sidebarActivated }">
+    <span id="user-name">{{ nickname }}</span>
     <span id="user-role">{{ organizationRole }}</span>
     
     <div id="sidebar-tabs" aria-role="list">
-        <a routerLink="/dashboard/shifts" aria-role="listitem">Shifts</a>
-        <a routerLink="/dashboard/calendar" aria-role="listitem">Calendar</a>
-        <a routerLink="/dashboard/positions" aria-role="listitem">Positions</a>
-        <a routerLink="/dashboard/workers" aria-role="listitem">Workers</a>
+        <a routerLink="/dashboard/shifts" aria-role="listitem">
+            <img src="assets/images/icons/shift.svg" alt="" id="shift-icon">
+            <span>Shifts</span>
+        </a>
+        <a routerLink="/dashboard/calendar" aria-role="listitem">
+            <img src="assets/images/icons/calendar.svg" alt="" id="calendar-icon">
+            <span>Calendar</span>
+        </a>
+        <a routerLink="/dashboard/positions" aria-role="listitem">
+            <img src="assets/images/icons/positions.svg" alt="" id="position-icon">
+            <span>Positions</span>
+        </a>
+        <a routerLink="/dashboard/workers" aria-role="listitem">
+            <img src="assets/images/icons/workers.svg" alt="" id="worker-icon">
+            <span>Workers</span>
+        </a>
     </div>
 </div>
