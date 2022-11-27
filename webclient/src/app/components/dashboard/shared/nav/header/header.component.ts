@@ -13,10 +13,11 @@ export class HeaderComponent implements OnInit {
 
   sidebarActivated: boolean = false;
   @Output() sidebarEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() logoutEmitter: EventEmitter<boolean> =  new EventEmitter<boolean>();
 
   dropdownActivated: boolean = false;
 
-  constructor(private logoutService: LogoutService) {}
+  constructor() {}
 
   ngOnInit(): void {
   }
@@ -26,7 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout(): void{
-    this.logoutService.logout();
+    this.logoutEmitter.emit();
   }
 
   toggleSidebar(){

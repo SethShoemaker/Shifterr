@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LogoutService } from 'src/app/services/auth/logout/logout.service';
 
 @Component({
   selector: 'app-nav',
@@ -12,15 +14,27 @@ export class NavComponent implements OnInit {
   @Input() userName: string | null = null!;
   @Input() nickname: string | null = null!;
 
-  sidebarActivated: boolean = false;
+  sidebarActivated: boolean = true;
 
-  constructor() { }
+  constructor(
+    private logoutService: LogoutService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.router.events.subscribe(
+      // Success
+      () => {
+        this.sidebarActivated = false;
+      }
+    )
   }
 
   toggleSidebar(sidebarActivated: boolean){
     this.sidebarActivated = sidebarActivated;
   }
 
+  onLogout(){
+    this.logoutService.logout();
+  }
 }

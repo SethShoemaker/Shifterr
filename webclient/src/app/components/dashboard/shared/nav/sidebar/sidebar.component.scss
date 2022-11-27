@@ -21,8 +21,8 @@ div#dashboard-sidebar{
             width: 100vw;
             height: calc(100vh - (2rem + 1.75vw));
 
-            span#user-name{
-                margin-top: calc(1rem + 1vh);
+            span#user-nickname{
+                margin-top: calc(1rem + 1.25vh);
                 font-size: calc(1.1rem + 0.9vw);
                 letter-spacing: calc(0.05rem + 0.045vw);
                 font-weight: 400;
@@ -58,15 +58,15 @@ div#dashboard-sidebar{
                         }
         
                         &#calendar-icon{
-                            height: calc(1rem + 0.6vw);
+                            height: calc(0.95rem + 0.55vw);
                         }
         
                         &#position-icon{
-                            height: calc(1.15rem + 0.75vw);
+                            height: calc(0.9rem + 0.5vw);
                         }
         
                         &#worker-icon{
-                            height: calc(1.15rem + 0.75vw);
+                            height: calc(0.85rem + 0.55vw);
                         }
                     }
         
@@ -83,6 +83,53 @@ div#dashboard-sidebar{
                     }
                 }
             }
+
+            div#user-name{
+                margin-top: calc(6rem + 4vw);
+                display: flex;
+                flex-direction: column;
+                margin-left: calc(0.43rem + 0.47vw);
+    
+                span{
+                    text-align: left;
+                    color: $mediumGrey;
+    
+                    &#user-name-label{
+                        user-select: none;
+                        font-weight: 400;
+                        font-size: calc(0.65rem + 0.55vw);
+                        letter-spacing: calc(0.005rem + 0.01vw);
+                        padding-bottom: calc(0.065rem + 0.05vw);
+                    }
+    
+                    &#user-name-content{
+                        font-weight: 300;
+                        letter-spacing: calc(0.006rem + 0.02vw);
+                        font-size: calc(0.9rem + 0.65vw);
+                    }
+                }
+            }
+    
+            div#user-logout{
+                cursor: pointer;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+    
+                margin-top: calc(0.51rem + 0.55vw);
+                margin-left: calc(0.43rem + 0.47vw);
+    
+                img{
+                    height: calc(0.5rem + 0.5vw);
+                    padding-right: calc(0.15rem + 0.25vw);
+                }
+    
+                span{
+                    font-weight: 300;
+                    color: $mediumGrey;
+                    font-size: calc(0.8rem + 0.6vw);
+                }
+            }
         }
     }
 
@@ -91,8 +138,8 @@ div#dashboard-sidebar{
         height:100vh;
         width: calc(8rem + 8.5vw);
 
-        span#user-name{
-            margin-top: calc(1rem + 1vh);
+        span#user-nickname{
+            margin-top: calc(1rem + 1.25vh);
             font-size: calc(0.7rem + 0.7vw);
             letter-spacing: calc(0.035rem + 0.045vw);
             font-weight: 400;
@@ -125,19 +172,19 @@ div#dashboard-sidebar{
                     height: calc(0.8rem + 0.8vw);
     
                     &#shift-icon{
-                        height: calc(0.65rem + 0.65vw);
+                        height: calc(0.59rem + 0.59vw);
                     }
     
                     &#calendar-icon{
-                        height: calc(0.69rem + 0.69vw);
+                        height: calc(0.6rem + 0.6vw);
                     }
     
                     &#position-icon{
-                        height: calc(0.77rem + 0.77vw);
+                        height: calc(0.57rem + 0.57vw);
                     }
     
                     &#worker-icon{
-                        height: calc(0.77rem + 0.77vw);
+                        height: calc(0.51rem + 0.51vw);
                     }
                 }
     
@@ -152,6 +199,53 @@ div#dashboard-sidebar{
                 &:first-of-type{
                     border-top: 1px solid $lightOffBlack;
                 }
+            }
+        }
+
+        div#user-name{
+            margin-top: calc(9rem + 8vw);
+            display: flex;
+            flex-direction: column;
+            margin-left: calc(0.43rem + 0.47vw);
+
+            span{
+                text-align: left;
+                color: $mediumGrey;
+
+                &#user-name-label{
+                    user-select: none;
+                    font-weight: 400;
+                    font-size: calc(0.38rem + 0.43vw);
+                    letter-spacing: calc(0.005rem + 0.01vw);
+                    padding-bottom: calc(0.065rem + 0.05vw);
+                }
+
+                &#user-name-content{
+                    font-weight: 300;
+                    letter-spacing: calc(0.006rem + 0.02vw);
+                    font-size: calc(0.51rem + 0.55vw);
+                }
+            }
+        }
+
+        div#user-logout{
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            margin-top: calc(0.51rem + 0.55vw);
+            margin-left: calc(0.43rem + 0.47vw);
+
+            img{
+                height: calc(0.34rem + 0.37vw);
+                padding-right: calc(0.15rem + 0.25vw);
+            }
+
+            span{
+                font-weight: 300;
+                color: $mediumGrey;
+                font-size: calc(0.48rem + 0.5vw);
             }
         }
     }
