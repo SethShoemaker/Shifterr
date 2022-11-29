@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PositionsEditRequestBody } from 'src/app/requests/dashboard/positions/edit.request';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
+import { AlertService } from 'src/app/services/shared/alert/alert.service';
 
 @Component({
   selector: 'app-positions.edit',
@@ -14,13 +15,11 @@ export class PositionsEditComponent implements OnInit {
 
   requestBody: PositionsEditRequestBody = new PositionsEditRequestBody();
 
-  alertIsActive: boolean = false;
-  alertMessage: string = null!;
-
   constructor(
     private positionsService: PositionsService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
     ) { }
 
   ngOnInit(): void {
@@ -34,31 +33,22 @@ export class PositionsEditComponent implements OnInit {
         this.requestBody.description = res.description
       },
       // Error 
-      () => {
-        this.createAlert("Could Not Save Changes");
+      err => {
+        this.alertService.alertErrorFromStatus(err.status);
       }
     );
   }
-
-  createAlert(message: string){
-    this.alertMessage = message;
-    this.alertIsActive = true;
-  }
-
-  removeAlert(){
-    this.alertMessage = null!;
-    this.alertIsActive = false;
-  }
-
+  
   onSubmit(){
     this.positionsService.updatePositionInfo(this.positionId, this.requestBody).subscribe(
       // Success
       () => {
         this.router.navigateByUrl("dashboard/positions");
+        this.alertService.alertSuccess("changes saved");
       },
       // Error
-      () => {
-        this.createAlert("Could Not Save Changes");
+      err => {
+        this.alertService.alertErrorFromStatus(err.status);
       }
     )
   }

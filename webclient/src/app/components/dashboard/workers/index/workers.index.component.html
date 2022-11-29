@@ -28,4 +28,3 @@
 </table>
 
 <app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="removeDeleteConfirmation()" (confirmEmitter)="confirmDeletion()"></app-confirmation>
-<app-alert *ngIf="alertIsActive" [alertMessage]="alertMessage"></app-alert>

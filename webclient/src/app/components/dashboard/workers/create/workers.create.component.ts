@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WorkersCreateRequestBody } from 'src/app/requests/dashboard/workers/create.request';
 import { WorkersService } from 'src/app/services/dashboard/workers/workers.service';
+import { AlertService } from 'src/app/services/shared/alert/alert.service';
 
 @Component({
   selector: 'app-workers-create',
@@ -17,20 +18,11 @@ export class WorkersCreateComponent implements OnInit {
 
   constructor(
     private workersService: WorkersService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
     ) { }
 
   ngOnInit(): void {
-  }
-
-  createAlert(message: string){
-    this.alertMessage = message;
-    this.alertIsActive = true;
-  }
-
-  removeAlert(){
-    this.alertMessage = null!;
-    this.alertIsActive = false;
   }
 
   onSubmit(){
@@ -38,10 +30,11 @@ export class WorkersCreateComponent implements OnInit {
       // Success
       () => {
         this.router.navigateByUrl("dashboard/workers");
+        this.alertService.alertSuccess("registered \"" + this.requestBody.nickname + "\"");
       },
       // Error
-      () => {
-        this.createAlert("Couldn't register worker");
+      err => {
+        this.alertService.alertErrorFromStatus(err.status);
       }
     )
   }

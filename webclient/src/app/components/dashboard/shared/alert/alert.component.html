@@ -1,6 +1,6 @@
-<app-screen-overlay></app-screen-overlay>
-
-<div>
-    <h1>Alert!</h1>
-    <span>{{ alertMessage }}</span>
-</div>
+<ul>
+    <li *ngFor="let alert of alerts; let i = index" [ngClass]="{'new': i == 0, 'old': i != 0}" >
+        <div role="image" [ngClass]="{'error': alert.type == 'error', 'success': alert.type == 'success'}"></div>
+        <span>{{ alert.body }}</span>
+    </li>
+</ul>

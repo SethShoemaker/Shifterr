@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkersEditRequestBody } from 'src/app/requests/dashboard/workers/edit.request';
 import { WorkersService } from 'src/app/services/dashboard/workers/workers.service';
+import { AlertService } from 'src/app/services/shared/alert/alert.service';
 
 @Component({
   selector: 'app-workers-edit',
@@ -17,15 +18,13 @@ export class WorkersEditComponent implements OnInit {
 
   public isAdmin: boolean = false;
 
-  public alertIsActive: boolean = false;
-  public alertMessage: string = null!;
-
   public requestBody: WorkersEditRequestBody = new WorkersEditRequestBody();
 
   constructor(
     private workersService: WorkersService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +44,8 @@ export class WorkersEditComponent implements OnInit {
         }
       },
       // Error
-      () => {
-        this.router.navigateByUrl("dashboard/workers");
+      err => {
+        this.alertService.alertErrorFromStatus(err.status);      
       }
     );
   }
@@ -54,12 +53,13 @@ export class WorkersEditComponent implements OnInit {
   onSubmit(){
     this.workersService.updateWorker(this.userId, this.requestBody).subscribe(
       // Success
-      res => {
+      () => {
         this.router.navigateByUrl("dashboard/workers");
+        this.alertService.alertSuccess("changes saved for \"" + this.requestBody.nickname + "\"");
       },
       // Error
-      () => {
-        console.log("error");
+      err => {
+        this.alertService.alertErrorFromStatus(err.status);
       }
     );
   }

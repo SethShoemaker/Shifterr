@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { WorkersIndexResponseBody } from 'src/app/responses/dashboard/workers/index.response';
 import { RoleService } from 'src/app/services/auth/role/role.service';
 import { WorkersService } from 'src/app/services/dashboard/workers/workers.service';
+import { AlertService } from 'src/app/services/shared/alert/alert.service';
 
 @Component({
   selector: 'app-workers-index',
@@ -18,9 +19,6 @@ export class WorkersIndexComponent implements OnInit {
   public createVerb: string = "Register";
   public canEdit: boolean = this.roleService.isAdmin();
 
-  public alertIsActive: boolean = false;
-  public alertMessage: string = null!;
-
   public confirmationIsActive: boolean = false;
   public workerIdToRemove: number = null!;
 
@@ -29,7 +27,8 @@ export class WorkersIndexComponent implements OnInit {
   constructor(
     private workersService: WorkersService,
     private roleService: RoleService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +42,10 @@ export class WorkersIndexComponent implements OnInit {
         this.workersToStore = res.workers;
         this.workersToDisplay = this.workersToStore;
         this.filterWorkers();
+      },
+      // Error
+      err => {
+        this.alertService.alertErrorFromStatus(err.status);
       }
     )
   }
@@ -75,16 +78,6 @@ export class WorkersIndexComponent implements OnInit {
     this.confirmationIsActive = false;
   }
 
-  createAlert(message: string){
-    this.alertMessage = message;
-    this.alertIsActive = true;
-  }
-
-  removeAlert(){
-    this.alertMessage = null!;
-    this.alertIsActive = false;
-  }
-
   removeWorker(id: number){
     this.workersToStore = this.workersToStore.filter(p => p.id != id);
     this.workersToDisplay = this.workersToDisplay.filter(p => p.id != id);
@@ -93,14 +86,15 @@ export class WorkersIndexComponent implements OnInit {
   confirmDeletion(){
     this.workersService.deleteWorker(this.workerIdToRemove).subscribe(
       // Success
-      res => {
+      () => {
+        var worker = this.workersToStore.filter(p => p.id == this.workerIdToRemove).pop();
+        this.alertService.alertSuccess("deleted \"" + worker?.nickname + "\"");
         this.removeWorker(this.workerIdToRemove);
         this.removeDeleteConfirmation();
       },
       // Error
       err => {
-        this.createAlert("Could Not Delete Position");
-        this.removeDeleteConfirmation();
+        this.alertService.alertErrorFromStatus(err.status);
       }
     );
   }

@@ -1,6 +1,55 @@
 @import 'src/app/styles/vars';
 @import 'src/app/styles/dashboard/fixed-centered.mixin';
 
-div{
-    @include fixed-center;
+ul{
+    position: fixed;
+    bottom: calc(3.1rem + 0.9vw);
+    right: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+
+    li{
+        margin-top: calc(0.5rem + 0.3vw);
+        width: calc(22rem + 6vw);
+        height: calc(1.8rem + 0.9vw);
+        border: 1px solid $darkOffBlack;
+        background-color: $trueWhite;
+        display: flex;
+        align-items: center;
+
+        &.new{
+            @keyframes slide-left {
+                from { transform: translateX(calc(22rem + 6vw)); }
+                to { transform: translateX(0); }
+            }
+            animation-name: slide-left;
+            animation-duration: 0.15s;
+            animation-timing-function: ease-out;
+        }
+
+        div{
+            background-size: 54%;
+            height: 100%;
+            width: calc(1.8rem + 0.9vw);
+            background-repeat: no-repeat;
+            background-position: center;
+            border-right: 1px solid $darkOffBlack;
+
+            &.error{
+                background-color: $red;
+                background-image: url("/assets/images/icons/error.svg");
+            }
+
+            &.success{
+                background-color: $navyBlue;
+                background-image: url("/assets/images/icons/check.svg");
+            }
+        }
+
+        span{
+            padding-left: calc(0.35rem + 0.35vw);
+        }
+    }
 }

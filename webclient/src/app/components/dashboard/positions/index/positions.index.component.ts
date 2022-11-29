@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/positions/index.response';
 import { RoleService } from 'src/app/services/auth/role/role.service';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
+import { AlertService } from 'src/app/services/shared/alert/alert.service';
 
 @Component({
   selector: 'app-positions-index',
@@ -28,7 +29,8 @@ export class PositionsIndexComponent implements OnInit {
   constructor(
     private positionsService: PositionsService,
     private router: Router,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class PositionsIndexComponent implements OnInit {
       },
       // Error
       err => {
-        this.createAlert("Could Not Get Shifts");
+        this.alertService.alertErrorFromStatus(err.status);
       }
     )
   }
@@ -103,14 +105,15 @@ export class PositionsIndexComponent implements OnInit {
   confirmDeletion(){
     this.positionsService.deletePosition(this.positionIdToRemove).subscribe(
       // Success
-      res => {
+      () => {
+        var position: PositionsIndexResponseBody | undefined = this.positionsToStore.filter(p => p.id == this.positionIdToRemove).pop();
+        this.alertService.alertSuccess("deleted \"" + position?.name + "\"");
         this.removePosition(this.positionIdToRemove);
         this.removeDeleteConfirmation();
       },
       // Error
       err => {
-        this.createAlert("Could Not Delete Position");
-        this.removeDeleteConfirmation();
+        this.alertService.alertErrorFromStatus(err.status);
       }
     );
   }
