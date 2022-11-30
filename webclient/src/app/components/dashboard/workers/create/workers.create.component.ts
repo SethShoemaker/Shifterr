@@ -25,6 +25,7 @@ export class WorkersCreateComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.loadingService.finishedLoading();
   }
 
   onSubmit(){

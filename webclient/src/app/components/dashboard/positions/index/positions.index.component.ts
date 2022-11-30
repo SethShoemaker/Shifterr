@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { delay } from 'rxjs';
 import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/positions/index.response';
 import { RoleService } from 'src/app/services/auth/role/role.service';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
@@ -35,10 +34,10 @@ export class PositionsIndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPositions();
-    this.loadingService.finishedLoading();
   }
 
   getPositions(){
+    this.loadingService.startLoading();
     this.positionsService.getAllPositions().subscribe(
       // Success
       res => {
@@ -51,6 +50,7 @@ export class PositionsIndexComponent implements OnInit {
         this.alertService.alertErrorFromStatus(err.status);
       }
     );
+    this.loadingService.finishedLoading();
   }
 
   filterPositions(){

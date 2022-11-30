@@ -39,6 +39,7 @@ export class WorkersIndexComponent implements OnInit {
   }
 
   getWorkers(){
+    this.loadingService.startLoading();
     this.workersService.getAllWorkers().subscribe(
       // Success
       res => {

@@ -55,6 +55,7 @@ export class WorkersEditComponent implements OnInit {
   }
 
   onSubmit(){
+    this.loadingService.startLoading();
     this.workersService.updateWorker(this.userId, this.requestBody).subscribe(
       // Success
       () => {
