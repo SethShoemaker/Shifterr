@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PositionsEditRequestBody } from 'src/app/requests/dashboard/positions/edit.request';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
 import { AlertService } from 'src/app/services/shared/alert/alert.service';
+import { LoadingService } from 'src/app/services/shared/loading/loading.service';
 
 @Component({
   selector: 'app-positions.edit',
@@ -19,7 +20,8 @@ export class PositionsEditComponent implements OnInit {
     private positionsService: PositionsService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loadingService: LoadingService
     ) { }
 
   ngOnInit(): void {
@@ -29,11 +31,13 @@ export class PositionsEditComponent implements OnInit {
     this.positionsService.getPositionInfo(this.positionId).subscribe(
       // Success
       res => {
-        this.requestBody.name = res.name,
-        this.requestBody.description = res.description
+        this.requestBody.name = res.name;
+        this.requestBody.description = res.description;
+        this.loadingService.finishedLoading();
       },
       // Error 
       err => {
+        this.loadingService.finishedLoading();
         this.alertService.alertErrorFromStatus(err.status);
       }
     );
@@ -48,6 +52,7 @@ export class PositionsEditComponent implements OnInit {
       },
       // Error
       err => {
+        this.loadingService.finishedLoading();
         this.alertService.alertErrorFromStatus(err.status);
       }
     )

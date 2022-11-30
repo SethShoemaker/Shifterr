@@ -4,6 +4,7 @@ import { WorkersIndexResponseBody } from 'src/app/responses/dashboard/workers/in
 import { RoleService } from 'src/app/services/auth/role/role.service';
 import { WorkersService } from 'src/app/services/dashboard/workers/workers.service';
 import { AlertService } from 'src/app/services/shared/alert/alert.service';
+import { LoadingService } from 'src/app/services/shared/loading/loading.service';
 
 @Component({
   selector: 'app-workers-index',
@@ -28,11 +29,13 @@ export class WorkersIndexComponent implements OnInit {
     private workersService: WorkersService,
     private roleService: RoleService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
     this.getWorkers();
+    this.loadingService.finishedLoading();
   }
 
   getWorkers(){
@@ -42,9 +45,11 @@ export class WorkersIndexComponent implements OnInit {
         this.workersToStore = res.workers;
         this.workersToDisplay = this.workersToStore;
         this.filterWorkers();
+        this.loadingService.finishedLoading();
       },
       // Error
       err => {
+        this.loadingService.finishedLoading();
         this.alertService.alertErrorFromStatus(err.status);
       }
     )
@@ -88,12 +93,14 @@ export class WorkersIndexComponent implements OnInit {
       // Success
       () => {
         var worker = this.workersToStore.filter(p => p.id == this.workerIdToRemove).pop();
-        this.alertService.alertSuccess("deleted \"" + worker?.nickname + "\"");
         this.removeWorker(this.workerIdToRemove);
         this.removeDeleteConfirmation();
+        this.alertService.alertSuccess("deleted \"" + worker?.nickname + "\"");
+        this.loadingService.finishedLoading();
       },
       // Error
       err => {
+        this.loadingService.finishedLoading();
         this.alertService.alertErrorFromStatus(err.status);
       }
     );

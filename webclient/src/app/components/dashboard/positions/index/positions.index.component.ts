@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { delay } from 'rxjs';
 import { PositionsIndexResponseBody } from 'src/app/responses/dashboard/positions/index.response';
 import { RoleService } from 'src/app/services/auth/role/role.service';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
 import { AlertService } from 'src/app/services/shared/alert/alert.service';
+import { LoadingService } from 'src/app/services/shared/loading/loading.service';
 
 @Component({
   selector: 'app-positions-index',
@@ -18,9 +20,6 @@ export class PositionsIndexComponent implements OnInit {
   public tableTopic: string = "Position";
   public canEdit: boolean = this.roleService.isManager();
 
-  public alertIsActive: boolean = false;
-  public alertMessage: string = null!;
-
   public confirmationIsActive: boolean = false;
   public positionIdToRemove: number = null!;
 
@@ -30,15 +29,17 @@ export class PositionsIndexComponent implements OnInit {
     private positionsService: PositionsService,
     private router: Router,
     private roleService: RoleService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
     this.getPositions();
+    this.loadingService.finishedLoading();
   }
 
   getPositions(){
-    var shifts = this.positionsService.getAllPositions().subscribe(
+    this.positionsService.getAllPositions().subscribe(
       // Success
       res => {
         this.positionsToStore = res.positions;
@@ -49,7 +50,7 @@ export class PositionsIndexComponent implements OnInit {
       err => {
         this.alertService.alertErrorFromStatus(err.status);
       }
-    )
+    );
   }
 
   filterPositions(){
@@ -87,32 +88,25 @@ export class PositionsIndexComponent implements OnInit {
     this.confirmationIsActive = false;
   }
 
-  createAlert(message: string){
-    this.alertMessage = message;
-    this.alertIsActive = true;
-  }
-
-  removeAlert(){
-    this.alertMessage = null!;
-    this.alertIsActive = false;
-  }
-
   removePosition(id: number){
     this.positionsToStore = this.positionsToStore.filter(p => p.id != id);
     this.positionsToDisplay = this.positionsToDisplay.filter(p => p.id != id);
   }
 
   confirmDeletion(){
+    this.loadingService.startLoading();
     this.positionsService.deletePosition(this.positionIdToRemove).subscribe(
       // Success
       () => {
         var position: PositionsIndexResponseBody | undefined = this.positionsToStore.filter(p => p.id == this.positionIdToRemove).pop();
-        this.alertService.alertSuccess("deleted \"" + position?.name + "\"");
         this.removePosition(this.positionIdToRemove);
         this.removeDeleteConfirmation();
+        this.loadingService.finishedLoading();
+        this.alertService.alertSuccess("deleted \"" + position?.name + "\"");
       },
       // Error
       err => {
+        this.loadingService.finishedLoading();
         this.alertService.alertErrorFromStatus(err.status);
       }
     );

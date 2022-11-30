@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { WorkersCreateRequestBody } from 'src/app/requests/dashboard/workers/create.request';
 import { WorkersService } from 'src/app/services/dashboard/workers/workers.service';
 import { AlertService } from 'src/app/services/shared/alert/alert.service';
+import { LoadingService } from 'src/app/services/shared/loading/loading.service';
 
 @Component({
   selector: 'app-workers-create',
@@ -19,7 +20,8 @@ export class WorkersCreateComponent implements OnInit {
   constructor(
     private workersService: WorkersService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loadingService: LoadingService
     ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class WorkersCreateComponent implements OnInit {
       },
       // Error
       err => {
+        this.loadingService.finishedLoading();
         this.alertService.alertErrorFromStatus(err.status);
       }
     )

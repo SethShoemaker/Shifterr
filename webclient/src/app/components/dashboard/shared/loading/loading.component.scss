@@ -1,0 +1,12 @@
+@import "src/app/styles/vars";
+
+h1{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    color: $trueWhite;
+    z-index: 3;
+    user-select: none;
+    font-size: calc(1.25rem + 1.5vw);
+}

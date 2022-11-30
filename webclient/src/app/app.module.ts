@@ -35,6 +35,7 @@ import { WorkersIndexComponent } from './components/dashboard/workers/index/work
 import { WorkersCreateComponent } from './components/dashboard/workers/create/workers.create.component';
 import { WorkersEditComponent } from './components/dashboard/workers/edit/workers.edit.component';
 import { PositionsEditComponent } from './components/dashboard/positions/edit/positions.edit.component';
+import { LoadingComponent } from './components/dashboard/shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { PositionsEditComponent } from './components/dashboard/positions/edit/po
     WorkersIndexComponent,
     WorkersCreateComponent,
     WorkersEditComponent,
-    PositionsEditComponent
+    PositionsEditComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

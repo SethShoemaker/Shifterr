@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PositionsCreateRequestBody } from 'src/app/requests/dashboard/positions/create.request';
 import { PositionsService } from 'src/app/services/dashboard/positions/positions.service';
 import { AlertService } from 'src/app/services/shared/alert/alert.service';
+import { LoadingService } from 'src/app/services/shared/loading/loading.service';
 
 @Component({
   selector: 'app-positions-create',
@@ -16,13 +17,16 @@ export class PositionsCreateComponent implements OnInit {
   constructor(
     private positionService: PositionsService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
+    this.loadingService.finishedLoading();
   }
 
   onSubmit(){
+    this.loadingService.startLoading();
     this.positionService.createPosition(this.requestBody).subscribe(
       // Success
       () => {
@@ -31,6 +35,7 @@ export class PositionsCreateComponent implements OnInit {
       },
       // Error
       err => {
+        this.loadingService.finishedLoading();
         this.alertService.alertErrorFromStatus(err.status);
       }
     )
