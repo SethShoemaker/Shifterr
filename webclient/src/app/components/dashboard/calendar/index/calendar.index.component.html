@@ -1,0 +1,43 @@
+<header>
+    <div id="header-left">
+        <app-refresh (click)="getShifts()"></app-refresh>
+        <div id="week-navigator">
+            <button (click)="previousWeek()">
+                <img src="assets/images/icons/prev.svg" alt="">
+                <span>Prev</span>
+            </button>
+            <span>Week of {{ dates[0] | date: "LLLL d yyy"}}</span>
+            <button (click)="nextWeek()">
+                <span>Next</span>
+                <img src="assets/images/icons/next.svg" alt="">
+            </button>
+        </div>
+    </div>
+    <div id="header-right">
+        <button (click)="onCreateClick()">
+            <span>Create Shift</span>
+        </button>
+    </div>
+</header>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th *ngFor="let date of dates" [ngClass]="{'today': date.getTime() == todaysDateTime}">
+                <span> {{ date | date: "EEEE d" }}</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let worker of workers">
+            <td>
+                <span class="user-nickname">{{ worker.nickname }}</span>
+            </td>
+            <td *ngFor="let date of dates">
+                <ng-container *ngFor="let shift of worker.shifts">
+                    <span class="date-block" *ngIf="shift.startDate == getShortDate(date)">{{ shift.startTime }} - {{ shift.endTime }} {{ shift.position}}</span>
+                </ng-container>
+            </td>
+        </tr>
+    </tbody>
+</table>

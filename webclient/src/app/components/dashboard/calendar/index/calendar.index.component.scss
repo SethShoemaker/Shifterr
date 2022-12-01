@@ -1,0 +1,162 @@
+@import "src/app/styles/vars";
+@import "src/app/styles/dashboard/btn.mixin";
+
+header{
+
+    box-sizing: content-box;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+
+    @media (max-width:900px) {
+        width: 823px;
+        padding-right: calc(1rem + 2.5vw);
+    }
+
+    div#header-left{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: calc(0.4rem + 0.25vw);
+    
+        div#week-navigator{
+            margin-left: calc(0.4rem + 0.25vw);
+            width: calc(15rem + 10vw);
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            border-collapse: collapse;
+            background-color: $trueWhite;
+            $weekNavigatorBorder: 0.9px solid $darkOffBlack;
+            border: $weekNavigatorBorder;
+    
+            span{
+                margin: auto;
+                font-size: calc(0.65rem + 0.26vw);
+                font-weight: 400;
+            }
+    
+            button{
+                border:none;
+                background-color: inherit;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+    
+                img{
+                    height: calc(0.35rem + 0.55vw);
+                    width: calc(0.35rem + 0.55vw);
+                }
+    
+                span{
+                    font-size: calc(0.6rem + 0.22vw);
+                    letter-spacing: calc(0.015rem + 0.02vw);
+                    font-weight: 400;
+                    margin: 0;
+                }
+    
+                $buttonContentPadding: calc(0.4rem + 0.25vw);
+                $buttonIconPadding: calc(0.25rem + 0.25vw);
+    
+                &:first-of-type{
+                    border-right: $weekNavigatorBorder;
+    
+                    img{
+                        padding-right: $buttonIconPadding;
+                    }
+                }
+    
+                &:last-of-type{
+                    border-left: $weekNavigatorBorder;
+    
+                    img{
+                        padding-left: $buttonIconPadding;
+                    }
+                }
+            }
+        }
+    }
+
+    div#header-right{
+        display: flex;
+        justify-content: flex-end;
+        button{
+            @include btn-blue;
+        }
+    }
+}
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid $darkOffBlack;
+
+    @media (max-width:900px) {
+        width: 823px;
+    }
+
+    thead,
+    tbody{
+        tr{
+            display: grid;
+            $dateFraction: 1fr;
+            grid-template-columns: calc(10rem + 1vw) $dateFraction $dateFraction $dateFraction $dateFraction $dateFraction $dateFraction $dateFraction;
+        }
+    }
+
+    thead{
+        background-color: $darkOffBlack;
+        color: $trueWhite;
+
+        tr{
+            th{
+                height: calc(1rem + 1.5vw);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 0.5px $mediumGrey;
+                border-style: none solid;
+
+                span{
+                    text-align: center;
+                    font-size: calc(0.35rem + 0.5vw);
+                }
+
+                &.today{
+                    background-color:$red;
+                }
+            }
+        }
+    }
+
+    tbody{
+        tr {
+            td{
+                min-height: calc(2rem + 1.75vw);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                border: 0.5px solid $mediumGrey;
+
+                span{
+                    height: 100%;
+                    width: 100%;
+                    display: inline-flex;
+                    align-items: center;
+
+                    &.user-nickname{
+                        text-align: center;
+                        padding-left: calc(0.5rem + 0.5vw);
+                        font-size: calc(0.5rem + 0.4vw);
+                    }
+
+                    &.date-block{
+                        min-height: calc(1.9rem + 1.75vw);
+                        font-size: calc(0.45rem + 0.35vw);
+                        padding-left: calc(0.35rem + 0.2vw);
+                        background-color: $lightGrey;
+                    }
+                }
+            }
+        }
+    }
+}

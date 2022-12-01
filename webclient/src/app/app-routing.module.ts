@@ -4,7 +4,6 @@ import { AuthHandleConfirmationComponent } from './components/auth/handle-confir
 
 import { AuthLoginComponent } from './components/auth/login/login.component';
 import { AuthRequestConfirmationComponent } from './components/auth/request-confirmation/request-confirmation.component';
-import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PositionsCreateComponent } from './components/dashboard/positions/create/positions.create.component';
 import { PositionsEditComponent } from './components/dashboard/positions/edit/positions.edit.component';
@@ -13,6 +12,7 @@ import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts
 import { WorkersCreateComponent } from './components/dashboard/workers/create/workers.create.component';
 import { WorkersEditComponent } from './components/dashboard/workers/edit/workers.edit.component';
 import { WorkersIndexComponent } from './components/dashboard/workers/index/workers.index.component';
+import { CalendarIndexComponent } from './components/dashboard/calendar/index/calendar.index.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { AdminGuard } from './guards/auth/role/admin/admin.guard';
 import { ManagerGuard } from './guards/auth/role/manager/manager.guard';
@@ -52,7 +52,7 @@ const routes: Routes = [
         path: "calendar",
         canActivate: [AuthGuard],
         title: "Calendar",
-        component: CalendarComponent,
+        component: CalendarIndexComponent,
         data: {
           "header": "Calendar"
         }

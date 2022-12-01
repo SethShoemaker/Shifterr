@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthLoginComponent } from './components/auth/login/login.component';
 import { ShiftsIndexComponent } from './components/dashboard/shifts/index/shifts.index.component';
-import { CalendarComponent } from './components/dashboard/calendar/calendar.component';
 import { PositionsIndexComponent } from './components/dashboard/positions/index/positions.index.component';
 import { NavComponent } from './components/dashboard/shared/nav/nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,13 +35,13 @@ import { WorkersCreateComponent } from './components/dashboard/workers/create/wo
 import { WorkersEditComponent } from './components/dashboard/workers/edit/workers.edit.component';
 import { PositionsEditComponent } from './components/dashboard/positions/edit/positions.edit.component';
 import { LoadingComponent } from './components/dashboard/shared/loading/loading.component';
+import { CalendarIndexComponent } from './components/dashboard/calendar/index/calendar.index.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLoginComponent,
     ShiftsIndexComponent,
-    CalendarComponent,
     PositionsIndexComponent,
     NavComponent,
     DashboardComponent,
@@ -65,7 +64,8 @@ import { LoadingComponent } from './components/dashboard/shared/loading/loading.
     WorkersCreateComponent,
     WorkersEditComponent,
     PositionsEditComponent,
-    LoadingComponent
+    LoadingComponent,
+    CalendarIndexComponent
   ],
   imports: [
     BrowserModule,
