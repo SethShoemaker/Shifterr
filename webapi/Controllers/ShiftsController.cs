@@ -33,8 +33,10 @@ namespace webapi.Controllers
             List<ShiftIndexShiftDto> Shifts = 
             (
                 from shift in _context.Shifts
-                    where shift.OrganizationId == UserOrgId &&
-                    shift.End >= DateTime.Now
+                    where 
+                        shift.OrganizationId == UserOrgId &&
+                        shift.Worker.Id == UserId && 
+                        shift.End >= DateTime.Now
                     select new ShiftIndexShiftDto 
                         { 
                             Id = shift.Id,
