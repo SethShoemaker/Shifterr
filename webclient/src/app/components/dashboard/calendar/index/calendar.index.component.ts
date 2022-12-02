@@ -57,7 +57,10 @@ export class CalendarIndexComponent implements OnInit {
   getShifts(){
     this.loadingService.startLoading();
     var from: string = this.dates[0].toISOString();
-    var to: string = this.dates[this.dates.length - 1].toISOString();
+    var toDate: Date = this.dates[this.dates.length - 1];
+    toDate.setHours(23);
+    toDate.setMinutes(59);
+    var to: string = toDate.toISOString();
     this.shiftsService.getCalendarShifts(from, to).subscribe(
       // Success
       res => {
