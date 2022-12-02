@@ -130,7 +130,12 @@ namespace webapi.Controllers
                 .Where(sp => sp.OrganizationId == UserOrgId)
                 .Where(sp => sp.Id == ShiftPositionId)
                 .FirstOrDefault();
-            if(ShiftPositionToDelete == null) return BadRequest("Shift Position Not Found");
+            if(ShiftPositionToDelete == null) return BadRequest(new { ResponseText = "Position Not Found" });
+
+            Shift? ShiftWithPosition = _context.Shifts
+                .Where(s => s.ShiftPosition == ShiftPositionToDelete)
+                .FirstOrDefault();
+            if(ShiftWithPosition != null) return BadRequest(new { ResponseText = "Position has associated shifts" });
 
             _context.ShiftPositions.Remove(ShiftPositionToDelete);
             _context.SaveChanges();

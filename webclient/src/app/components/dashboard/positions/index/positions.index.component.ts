@@ -21,6 +21,7 @@ export class PositionsIndexComponent implements OnInit {
 
   public confirmationIsActive: boolean = false;
   public positionIdToRemove: number = null!;
+  public positionNameToRemove: string = null!;
 
   public searchQueryLowercase: string = null!;
 
@@ -78,13 +79,15 @@ export class PositionsIndexComponent implements OnInit {
     this.router.navigate(['/dashboard/positions/edit', id]);
   }
 
-  createDeleteConfirmation(id: number){
+  onDeleteClick(id: number, name: string){
     this.positionIdToRemove = id;
+    this.positionNameToRemove = name;
     this.confirmationIsActive = true;
   }
 
-  removeDeleteConfirmation(){
+  cancelDeletion(){
     this.positionIdToRemove = null!;
+    this.positionNameToRemove = null!;
     this.confirmationIsActive = false;
   }
 
@@ -94,20 +97,24 @@ export class PositionsIndexComponent implements OnInit {
   }
 
   confirmDeletion(){
+    this.confirmationIsActive = false;
     this.loadingService.startLoading();
     this.positionsService.deletePosition(this.positionIdToRemove).subscribe(
       // Success
       () => {
-        var position: PositionsIndexResponseBody | undefined = this.positionsToStore.filter(p => p.id == this.positionIdToRemove).pop();
         this.removePosition(this.positionIdToRemove);
-        this.removeDeleteConfirmation();
         this.loadingService.finishedLoading();
-        this.alertService.alertSuccess("deleted \"" + position?.name + "\"");
+        this.alertService.alertSuccess("deleted \"" + this.positionNameToRemove + "\"");
       },
       // Error
       err => {
         this.loadingService.finishedLoading();
-        this.alertService.alertErrorFromStatus(err.status);
+        if(err.error.responseText != null){
+          this.alertService.alertError(err.error.responseText);
+        }
+        else{
+          this.alertService.alertErrorFromStatus(err.status);
+        }
       }
     );
   }

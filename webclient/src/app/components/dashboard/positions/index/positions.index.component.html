@@ -14,7 +14,7 @@
                 <button class="edit" (click)="onEditClick(position.id)">
                     <span>Edit</span>
                 </button>
-                <button class="delete" (click)="createDeleteConfirmation(position.id)">
+                <button class="delete" (click)="onDeleteClick(position.id, position.name)">
                     <span>Delete</span>
                 </button>
             </td>
@@ -25,4 +25,4 @@
     </tbody>
 </table>
 
-<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="removeDeleteConfirmation()" (confirmEmitter)="confirmDeletion()"></app-confirmation>
+<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="cancelDeletion()" (confirmEmitter)="confirmDeletion()"></app-confirmation>
