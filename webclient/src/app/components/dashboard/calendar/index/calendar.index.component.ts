@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CalendarIndexWorkerDto } from 'src/app/responses/dashboard/calendar/index.response';
+import { RoleService } from 'src/app/services/auth/role/role.service';
 import { ShiftsService } from 'src/app/services/dashboard/shifts/shifts.service';
 import { AlertService } from 'src/app/services/shared/alert/alert.service';
 import { LoadingService } from 'src/app/services/shared/loading/loading.service';
@@ -19,11 +20,14 @@ export class CalendarIndexComponent implements OnInit {
 
   workers: CalendarIndexWorkerDto[] = [];
 
+  canEdit: boolean = this.roleService.isManager();
+
   constructor(
     private shiftsService: ShiftsService,
     private loadingService: LoadingService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private roleService: RoleService
   ){}
 
   ngOnInit(): void {
@@ -84,6 +88,6 @@ export class CalendarIndexComponent implements OnInit {
   }
 
   onCreateClick(){
-    this.router.navigateByUrl("dashboard/shifts");
+    this.router.navigateByUrl("dashboard/shifts/create");
   }
 }

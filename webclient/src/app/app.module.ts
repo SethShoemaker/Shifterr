@@ -36,6 +36,7 @@ import { WorkersEditComponent } from './components/dashboard/workers/edit/worker
 import { PositionsEditComponent } from './components/dashboard/positions/edit/positions.edit.component';
 import { LoadingComponent } from './components/dashboard/shared/loading/loading.component';
 import { CalendarIndexComponent } from './components/dashboard/calendar/index/calendar.index.component';
+import { ShiftsCreateComponent } from './components/dashboard/shifts/create/shifts.create.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { CalendarIndexComponent } from './components/dashboard/calendar/index/ca
     WorkersEditComponent,
     PositionsEditComponent,
     LoadingComponent,
-    CalendarIndexComponent
+    CalendarIndexComponent,
+    ShiftsCreateComponent
   ],
   imports: [
     BrowserModule,

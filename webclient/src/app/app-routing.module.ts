@@ -16,6 +16,7 @@ import { CalendarIndexComponent } from './components/dashboard/calendar/index/ca
 import { AuthGuard } from './guards/auth/auth.guard';
 import { AdminGuard } from './guards/auth/role/admin/admin.guard';
 import { ManagerGuard } from './guards/auth/role/manager/manager.guard';
+import { ShiftsCreateComponent } from './components/dashboard/shifts/create/shifts.create.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,15 @@ const routes: Routes = [
         component: ShiftsIndexComponent,
         data: {
           "header": "Your Shifts"
+        }
+      },
+      {
+        path: "shifts/create",
+        canActivate: [ManagerGuard],
+        title: "Create Shift",
+        component: ShiftsCreateComponent,
+        data: {
+          "header": "Create Shift"
         }
       },
       {

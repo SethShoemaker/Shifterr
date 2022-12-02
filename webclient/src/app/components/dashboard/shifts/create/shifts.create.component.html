@@ -1,0 +1,24 @@
+<form ngNativeValidate (submit)="onSubmit()">
+    <div class="form-group">
+        <label for="worker-id">Worker</label>
+        <select [(ngModel)]="requestBody.workerId" name="worker-id" id="worker-id" required>
+            <option *ngFor="let worker of workers" value="{{ worker.id }}">{{ worker.nickname }}({{ worker.userName }})</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="start">Start</label>
+        <input [(ngModel)]="requestBody.start" type="datetime-local" name="start" id="start" required>
+    </div>
+    <div class="form-group">
+        <label for="end">End</label>
+        <input [(ngModel)]="requestBody.end" type="datetime-local" name="end" id="end" required>
+    </div>
+    <div class="form-group" *ngIf="positions.length > 0">
+        <label for="position-id">Position</label>
+        <select [(ngModel)]="requestBody.shiftPositionId" name="position-id" id="position-id" required>
+            <option value="null">No Position</option>
+            <option *ngFor="let position of positions" value="{{ position.id }}">{{ position.name }}</option>
+        </select>
+    </div>
+    <input type="submit" value="Create Shift">
+</form>

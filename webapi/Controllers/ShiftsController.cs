@@ -128,7 +128,41 @@ namespace webapi.Controllers
             _context.Shifts.Add(NewShift);
             _context.SaveChanges();
 
-            return Ok("Created");
+            return Ok(new { ResponseText = "Created"});
+        }
+
+        // This method returns information (like user Ids, names) the client needs to create shift
+        [HttpGet]
+        [Route("create/info")]
+        [Authorize(Roles = "Manager,Administrator")]
+        public ActionResult<ShiftCreateInfoResponse> CreateInfo()
+        {
+            int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
+
+            List<ShiftCreateShiftPositionDto> ShiftPositions = 
+                (
+                    from shiftPosition in _context.ShiftPositions
+                    where shiftPosition.OrganizationId == UserOrgId
+                    select new ShiftCreateShiftPositionDto
+                        {
+                            Id = shiftPosition.Id,
+                            name = shiftPosition.Name
+                        }
+                ).ToList();
+
+            List<ShiftCreateWorkerDto> Workers = 
+                (
+                    from worker in _context.Users
+                    where worker.OrganizationId == UserOrgId
+                    select new ShiftCreateWorkerDto
+                        {
+                            Id = worker.Id,
+                            nickname = worker.Nickname,
+                            userName = worker.UserName
+                        }
+                ).ToList();
+
+            return Ok(new ShiftCreateInfoResponse{ Positions = ShiftPositions, Workers = Workers });
         }
 
         [HttpGet]

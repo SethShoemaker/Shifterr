@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="header-right">
-        <button (click)="onCreateClick()">
+        <button (click)="onCreateClick()" *ngIf="canEdit">
             <span>Create Shift</span>
         </button>
     </div>
