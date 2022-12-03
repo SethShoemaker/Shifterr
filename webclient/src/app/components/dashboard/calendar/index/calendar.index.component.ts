@@ -22,6 +22,9 @@ export class CalendarIndexComponent implements OnInit {
 
   canEdit: boolean = this.roleService.isManager();
 
+  shiftIsSelected: boolean = false;
+  selectedShiftId: number = null!;
+
   constructor(
     private shiftsService: ShiftsService,
     private loadingService: LoadingService,
@@ -65,13 +68,22 @@ export class CalendarIndexComponent implements OnInit {
       // Success
       res => {
         this.workers = res.workers;
-        console.log(this.workers);
       },
       err => {
         this.alertService.alertErrorFromStatus(err.status);
       }
     );
     this.loadingService.finishedLoading();
+  }
+
+  displayShiftInfo(shiftId: number){
+    this.selectedShiftId = shiftId;
+    this.shiftIsSelected = true;
+  }
+
+  removeShiftInfo(){
+    this.selectedShiftId = null!;
+    this.shiftIsSelected = false;
   }
 
   getShortDate(date: Date): string{

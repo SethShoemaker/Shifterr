@@ -35,9 +35,10 @@
             </td>
             <td *ngFor="let date of dates">
                 <ng-container *ngFor="let shift of worker.shifts">
-                    <span class="date-block" *ngIf="shift.startDate == getShortDate(date)">{{ shift.startTime }} - {{ shift.endTime }} {{ shift.position}}</span>
+                    <span class="date-block" *ngIf="shift.startDate == getShortDate(date)" (click)="displayShiftInfo(shift.id)">{{ shift.startTime }} - {{ shift.endTime }} {{ shift.position}}</span>
                 </ng-container>
             </td>
         </tr>
     </tbody>
 </table>
+<app-shifts-show *ngIf="shiftIsSelected" [shiftId]="selectedShiftId" (removeEmitter)="removeShiftInfo()"></app-shifts-show>

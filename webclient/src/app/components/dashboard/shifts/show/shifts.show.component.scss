@@ -1,0 +1,49 @@
+@import "src/app/styles/vars";
+@import "src/app/styles/dashboard/fixed-centered.mixin";
+
+div#shift-container{
+    @include fixed-center;
+    color: $darkOffBlack;
+
+    h1{
+        font-size: calc(0.9rem + 1.1vw);
+        margin-bottom: calc(0.8rem + 1vw);
+    }
+
+    label{
+        font-size: calc(0.65rem + 0.275vw);
+        font-weight: 500;
+    }
+
+    span{
+        font-size: calc(1rem + 0.4vw);
+        font-weight: 300;
+    }
+
+    div.detail-section{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: calc(0.7rem + 0.8vw);
+    }
+
+    div.multi-detail-section{
+        display: flex;
+        flex-direction: row;
+
+        div.detail-section:first-of-type{
+            margin-right: calc(1rem + 1vw);
+        }
+    }
+
+    ul#coworkers{
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+
+        li{
+            font-size: calc(0.85rem + 0.4vw);
+            font-weight: 300;
+            margin-right: calc(1rem + 1vw);
+        }
+    }
+}

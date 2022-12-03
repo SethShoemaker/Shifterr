@@ -1,24 +1,36 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace webapi.Responses
 {
     public class ShiftShowCoworkerDto
     {
+        [Required]
         public int ShiftId { get; set; }
 
-        public string Position { get; set; } = string.Empty;
-
-        public string UserName { get; set; } = string.Empty;
+        [Required]
+        public string Nickname { get; set; } = null!;
     }
 
     public class ShiftShowResponse
     {
-        public string Worker { get; set; } = string.Empty;
+        [Required]
+        public string Worker { get; set; } = null!;
 
-        public string Position { get; set; } = string.Empty;
+        public string? Position { get; set; }
 
-        public DateTime Start { get; set; }
+        [Required]
+        public string StartDate { get; set; } = null!;
 
-        public DateTime End { get; set; }
+        [Required]
+        public string StartTime { get; set; } = null!;
 
+        [Required]
+        public string EndTime { get; set; } = null!;
+
+        [Required]
+        public int Hours { get; set; }
+
+        [Required]
         public List<ShiftShowCoworkerDto> CoWorkers { get; set; } = null!;
     }
 }

@@ -4,6 +4,7 @@ import { ShiftsCreateRequestBody } from 'src/app/requests/dashboard/shifts.creat
 import { CalendarIndexResponse } from 'src/app/responses/dashboard/calendar/index.response';
 import { ShiftsCreateInfoResponseBody } from 'src/app/responses/dashboard/shifts/create-info.response';
 import { ShiftIndexResponseBody } from 'src/app/responses/dashboard/shifts/index.response';
+import { ShiftShowResponseBody } from 'src/app/responses/dashboard/shifts/show.response';
 import { GenericResponseBody } from 'src/app/responses/generic.response';
 import { ApiService } from '../../shared/api/api.service';
 
@@ -16,6 +17,10 @@ export class ShiftsService {
 
   getAllShifts(): Observable<any>{
     return this.apiService.get<ShiftIndexResponseBody>("shifts/index");
+  }
+
+  getShiftInfo(id: number) : Observable<any>{
+    return this.apiService.get<ShiftShowResponseBody>(`shifts/info?ShiftId=${id}`);
   }
 
   getCalendarShifts(from: string, to: string): Observable<any>{

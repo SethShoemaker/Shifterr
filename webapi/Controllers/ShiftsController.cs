@@ -52,21 +52,23 @@ namespace webapi.Controllers
         }
 
         [HttpGet]
-        [Route("show/{id:int}")]
-        public ActionResult<ShiftShowResponse> Show(int id)
+        [Route("info")]
+        public ActionResult<ShiftShowResponse> Info(int ShiftId)
         {
             int UserOrgId = _userInfoHelperService.GetUserOrgId(HttpContext.User);
                 
             ShiftShowResponse? Shift = 
             (
                 from shift in _context.Shifts
-                    where shift.OrganizationId == UserOrgId && shift.Id == id
+                    where shift.OrganizationId == UserOrgId && shift.Id == ShiftId
                     select new ShiftShowResponse 
                         { 
                             Worker = shift.Worker.UserName,
                             Position = shift.ShiftPosition.Name,
-                            Start = shift.Start,
-                            End = shift.End,
+                            StartDate = shift.Start.ToString(),
+                            StartTime = TimeOnly.FromDateTime(shift.Start).ToString(),
+                            EndTime = TimeOnly.FromDateTime(shift.End).ToString(),
+                            Hours = (shift.Start - shift.End).Hours,
                             CoWorkers = 
                             (
                                 from coWorkerShift in _context.Shifts
@@ -77,8 +79,7 @@ namespace webapi.Controllers
                                     select new ShiftShowCoworkerDto
                                         {
                                             ShiftId = coWorkerShift.Id,
-                                            Position = coWorkerShift.ShiftPosition.Name,
-                                            UserName = coWorkerShift.Worker.UserName
+                                            Nickname = coWorkerShift.Worker.UserName
                                         }
                             ).ToList()
                         }
