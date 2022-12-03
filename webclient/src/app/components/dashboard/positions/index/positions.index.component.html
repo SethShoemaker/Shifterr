@@ -25,4 +25,4 @@
     </tbody>
 </table>
 
-<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="cancelDeletion()" (confirmEmitter)="confirmDeletion()"></app-confirmation>
+<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="cancelDeletion()" (confirmEmitter)="confirmDeletion()" [deleteSubject]="'position'"></app-confirmation>

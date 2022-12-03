@@ -1,39 +1,45 @@
 <app-screen-overlay *ngIf="contentIsActive" (click)="remove()"></app-screen-overlay>
 <div id="shift-container" *ngIf="contentIsActive">
     <img (click)="remove()" id="close-icon" src="assets/images/icons/close.svg" alt="close">
-    <h1>{{ shiftDetails.startDate | date: "fullDate" }}</h1>
-    <div class="detail-section">
-        <label for="worker-nickname">Worker</label>
-        <span id="worker-nickname">{{ shiftDetails.worker }}</span>
-    </div>
-    <div class="multi-detail-section">
+    <div id="text-container">
+        <h1>{{ shiftDetails.startDate | date: "fullDate" }}</h1>
         <div class="detail-section">
-            <label for="start">Start</label>
-            <span id="start">{{ shiftDetails.startTime }}</span>
+            <label for="worker-nickname">Worker</label>
+            <span id="worker-nickname">{{ shiftDetails.worker }}</span>
         </div>
-        <div class="detail-section">
-            <label for="end">End</label>
-            <span id="end">{{ shiftDetails.endTime }}</span>
+        <div class="multi-detail-section">
+            <div class="detail-section">
+                <label for="start">Start</label>
+                <span id="start">{{ shiftDetails.startTime }}</span>
+            </div>
+            <div class="detail-section">
+                <label for="end">End</label>
+                <span id="end">{{ shiftDetails.endTime }}</span>
+            </div>
+        </div>
+        <div class="multi-detail-section">
+            <div class="detail-section">
+                <label for="hours">Hours</label>
+                <span id="hours">{{ shiftDetails.hours }}</span>
+            </div>
+            <div class="detail-section">
+                <label for="position">Position</label>
+                <span id="position">{{ shiftDetails.position ?? "None"}}</span>
+            </div>
+        </div>
+        <div class="detail-section" *ngIf="shiftDetails.coWorkers.length > 0">
+            <label for="coworkers">Coworkers</label>
+            <ul id="coworkers">
+                <li *ngFor="let coworker of shiftDetails.coWorkers">
+                    {{ coworker.nickname }}
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="multi-detail-section">
-        <div class="detail-section">
-            <label for="hours">Hours</label>
-            <span id="hours">{{ shiftDetails.hours }}</span>
-        </div>
-        <div class="detail-section">
-            <label for="position">Position</label>
-            <span id="position">{{ shiftDetails.position ?? "None"}}</span>
-        </div>
+    <div id="buttons-container">
+        <button (click)="createDeleteConfirmation()" *ngIf="canDelete">
+            <span>Delete</span>
+        </button>
     </div>
-    <div class="detail-section" *ngIf="shiftDetails.coWorkers.length > 0">
-        <label for="coworkers">Coworkers</label>
-        <ul id="coworkers">
-            <li *ngFor="let coworker of shiftDetails.coWorkers">
-                {{ coworker.nickname }}
-            </li>
-        </ul>
-    </div>
-    <button (click)="createDeleteConfirmation()" *ngIf="canDelete">Delete</button>
 </div>
-<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="cancelDeleteConfirmation()" (confirmEmitter)="deleteShift()" [overlayIsNeeded]="false"></app-confirmation>
+<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="cancelDeleteConfirmation()" (confirmEmitter)="deleteShift()" [overlayIsNeeded]="false" [deleteSubject]="'shift'"></app-confirmation>

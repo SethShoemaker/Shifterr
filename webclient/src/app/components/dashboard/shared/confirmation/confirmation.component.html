@@ -1,5 +1,11 @@
 <app-screen-overlay *ngIf="overlayIsNeeded"></app-screen-overlay>
-<div>
-    <app-button-cancel (click)="onCancelButtonClick()"></app-button-cancel>
-    <app-button-delete (click)="onDeleteButtonClick()"></app-button-delete>
+<div id="container">
+    <div id="text-container">
+        <h2>Confirmation</h2>
+        <span>Are you sure you want to delete this {{ deleteSubject }}?</span>
+    </div>
+    <div id="buttons-container">
+        <app-button-cancel (click)="onCancelButtonClick()"></app-button-cancel>
+        <app-button-delete (click)="onDeleteButtonClick()"></app-button-delete>
+    </div>
 </div>

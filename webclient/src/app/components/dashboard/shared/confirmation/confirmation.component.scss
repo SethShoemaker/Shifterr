@@ -1,6 +1,28 @@
 @import 'src/app/styles/vars';
 @import 'src/app/styles/dashboard/fixed-centered.mixin';
 
-div{
+div#container{
     @include fixed-center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    div#text-container{
+        h2{
+            font-size: calc(0.9rem + 1.1vw);
+            font-weight: 500;
+            margin-bottom: calc(1rem + 1vw);
+        }
+    
+        span{
+            font-size: calc(1rem + 0.4vw);
+            font-weight: 300;
+        }
+    }
+
+    div#buttons-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }

@@ -27,4 +27,4 @@
     </tbody>
 </table>
 
-<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="removeDeleteConfirmation()" (confirmEmitter)="confirmDeletion()"></app-confirmation>
+<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="removeDeleteConfirmation()" (confirmEmitter)="confirmDeletion()" [deleteSubject]="'worker'"></app-confirmation>
