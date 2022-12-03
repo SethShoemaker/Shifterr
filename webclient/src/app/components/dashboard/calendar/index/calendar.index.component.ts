@@ -60,7 +60,7 @@ export class CalendarIndexComponent implements OnInit {
   getShifts(){
     this.loadingService.startLoading();
     var from: string = this.dates[0].toISOString();
-    var toDate: Date = this.dates[this.dates.length - 1];
+    var toDate: Date = structuredClone(this.dates[this.dates.length - 1]);
     toDate.setHours(23);
     toDate.setMinutes(59);
     var to: string = toDate.toISOString();
@@ -84,6 +84,7 @@ export class CalendarIndexComponent implements OnInit {
   removeShiftInfo(){
     this.selectedShiftId = null!;
     this.shiftIsSelected = false;
+    this.getShifts();
   }
 
   getShortDate(date: Date): string{

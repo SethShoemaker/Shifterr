@@ -1,5 +1,4 @@
-<app-screen-overlay></app-screen-overlay>
-
+<app-screen-overlay *ngIf="overlayIsNeeded"></app-screen-overlay>
 <div>
     <app-button-cancel (click)="onCancelButtonClick()"></app-button-cancel>
     <app-button-delete (click)="onDeleteButtonClick()"></app-button-delete>

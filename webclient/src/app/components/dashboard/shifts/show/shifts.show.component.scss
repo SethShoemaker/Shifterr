@@ -1,9 +1,19 @@
 @import "src/app/styles/vars";
 @import "src/app/styles/dashboard/fixed-centered.mixin";
+@import "src/app/styles/dashboard/btn.mixin";
 
 div#shift-container{
     @include fixed-center;
     color: $darkOffBlack;
+
+    img#close-icon{
+        position: absolute;
+        cursor: pointer;
+        top: calc(1.25rem + 1.5vw);
+        right:calc(1.2rem + 1.4vw);
+        height: calc(1.25rem + 0.75vw);
+        width: calc(1.25rem + 0.75vw);
+    }
 
     h1{
         font-size: calc(0.9rem + 1.1vw);
@@ -13,6 +23,7 @@ div#shift-container{
     label{
         font-size: calc(0.65rem + 0.275vw);
         font-weight: 500;
+        margin-bottom: calc(0.1rem + 0.1vw);
     }
 
     span{
@@ -24,6 +35,10 @@ div#shift-container{
         display: flex;
         flex-direction: column;
         margin-bottom: calc(0.7rem + 0.8vw);
+
+        &:last-of-type{
+            margin-bottom: calc(0.5rem + 0.4vw);
+        }
     }
 
     div.multi-detail-section{
@@ -38,12 +53,18 @@ div#shift-container{
     ul#coworkers{
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         list-style: none;
 
         li{
             font-size: calc(0.85rem + 0.4vw);
             font-weight: 300;
             margin-right: calc(1rem + 1vw);
+            margin-bottom: calc(0.15rem + 0.25vw);
         }
+    }
+
+    button{
+        @include btn-red;
     }
 }

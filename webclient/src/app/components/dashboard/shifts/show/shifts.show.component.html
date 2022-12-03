@@ -1,5 +1,6 @@
 <app-screen-overlay *ngIf="contentIsActive" (click)="remove()"></app-screen-overlay>
 <div id="shift-container" *ngIf="contentIsActive">
+    <img (click)="remove()" id="close-icon" src="assets/images/icons/close.svg" alt="close">
     <h1>{{ shiftDetails.startDate | date: "fullDate" }}</h1>
     <div class="detail-section">
         <label for="worker-nickname">Worker</label>
@@ -33,4 +34,6 @@
             </li>
         </ul>
     </div>
+    <button (click)="createDeleteConfirmation()" *ngIf="canDelete">Delete</button>
 </div>
+<app-confirmation *ngIf="confirmationIsActive" (cancelEmitter)="cancelDeleteConfirmation()" (confirmEmitter)="deleteShift()" [overlayIsNeeded]="false"></app-confirmation>

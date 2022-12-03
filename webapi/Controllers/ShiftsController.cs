@@ -75,7 +75,7 @@ namespace webapi.Controllers
                                     where coWorkerShift.OrganizationId == UserOrgId &&
                                     coWorkerShift.Id != shift.Id &&
                                     // Find Overlapping Shifts
-                                    coWorkerShift.Start < shift.End && coWorkerShift.End > shift.Start
+                                    coWorkerShift.Start <= shift.End && coWorkerShift.End >= shift.Start
                                     select new ShiftShowCoworkerDto
                                         {
                                             ShiftId = coWorkerShift.Id,
@@ -177,12 +177,12 @@ namespace webapi.Controllers
                 .Where(s => s.OrganizationId == UserOrgId)
                 .Where(s => s.Id == ShiftId)
                 .FirstOrDefault();
-            if(ShiftToDelete == null) return BadRequest("Shift Not Found");
+            if(ShiftToDelete == null) return BadRequest(new { ResponseText = "Shift Not Found" });
 
             _context.Shifts.Remove(ShiftToDelete);
             _context.SaveChanges();
 
-            return Ok("Shift Deleted");
+            return Ok(new { ResponseText = "Shift Deleted" });
         }
     }
 }

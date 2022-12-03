@@ -11,6 +11,7 @@ export class ConfirmationComponent implements OnInit {
   @Output() confirmEmitter: EventEmitter<any> = new EventEmitter<any>;
 
   @Input() deleteSubject: string = null!;
+  @Input() overlayIsNeeded: boolean = true;
 
   constructor() { }
 

@@ -35,4 +35,8 @@ export class ShiftsService {
   createShift(requestBody: ShiftsCreateRequestBody): Observable<any>{
     return this.apiService.post<GenericResponseBody>("shifts/create", requestBody);
   }
+
+  deleteShift(id: number): Observable<any>{
+    return this.apiService.get<GenericResponseBody>(`shifts/delete?ShiftId=${id}`);
+  }
 }

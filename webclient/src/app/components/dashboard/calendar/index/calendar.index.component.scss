@@ -150,6 +150,7 @@ table{
                     }
 
                     &.date-block{
+                        cursor: pointer;
                         min-height: calc(1.9rem + 1.75vw);
                         font-size: calc(0.45rem + 0.35vw);
                         padding-left: calc(0.35rem + 0.2vw);
