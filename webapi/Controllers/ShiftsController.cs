@@ -68,7 +68,7 @@ namespace webapi.Controllers
                             StartDate = shift.Start.ToString(),
                             StartTime = TimeOnly.FromDateTime(shift.Start).ToString(),
                             EndTime = TimeOnly.FromDateTime(shift.End).ToString(),
-                            Hours = (shift.Start - shift.End).Hours,
+                            Hours = (shift.End - shift.Start).Hours,
                             CoWorkers = 
                             (
                                 from coWorkerShift in _context.Shifts
@@ -116,6 +116,8 @@ namespace webapi.Controllers
 
             DateTime End;
             if(!DateTime.TryParse(request.End, out End)) return BadRequest("End Invalid");
+
+            if (Start.CompareTo(End) > 0) return BadRequest("End Time Must Be After Start Time");
 
             Shift NewShift = new Shift
             {
