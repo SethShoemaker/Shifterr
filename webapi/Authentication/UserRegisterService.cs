@@ -37,8 +37,8 @@ namespace webapi.Authentication
             );
 
             if(!Errors.Any()){
-                byte[] passwordHash;
-                byte[] passwordSalt;
+                string passwordHash;
+                string passwordSalt;
                 this._passwordService.CreatePasswordHashAndSalt(Password, out passwordHash, out passwordSalt);
 
                 User User = new User 

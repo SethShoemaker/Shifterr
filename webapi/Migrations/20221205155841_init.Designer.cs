@@ -11,7 +11,7 @@ using webapi.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221125215224_init")]
+    [Migration("20221205155841_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,13 +118,13 @@ namespace webapi.Migrations
                         .IsRequired()
                         .HasColumnType("ENUM('Crew','Manager','Administrator')");
 
-                    b.Property<byte[]>("PasswordHash")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("longtext");
 
-                    b.Property<byte[]>("PasswordSalt")
+                    b.Property<string>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserName")
                         .IsRequired()

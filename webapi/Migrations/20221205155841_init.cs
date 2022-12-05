@@ -66,8 +66,10 @@ namespace webapi.Migrations
                     Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     EmailIsConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false),
-                    PasswordSalt = table.Column<byte[]>(type: "longblob", nullable: false),
+                    PasswordHash = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PasswordSalt = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     OrganizationRole = table.Column<string>(type: "ENUM('Crew','Manager','Administrator')", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },

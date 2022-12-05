@@ -37,10 +37,10 @@ namespace webapi.Models
         public bool EmailIsConfirmed { get; set; } = false;
 
         [Required]
-        public byte[] PasswordHash { get; set; } = null!;
+        public string PasswordHash { get; set; } = null!;
 
         [Required]
-        public byte[] PasswordSalt { get; set; } = null!;
+        public string PasswordSalt { get; set; } = null!;
         
         [Required]
         [Column(TypeName="ENUM('Crew','Manager','Administrator')")]

@@ -55,8 +55,8 @@ namespace webapi.Authentication
 
                 if(Password.Length < 8) Errors.Add("Password Not Long Enough");
 
-                byte[] passwordHash = null!;
-                byte[] passwordSalt = null!;
+                string passwordHash = null!;
+                string passwordSalt = null!;
                 this._passwordService.CreatePasswordHashAndSalt(Password, out passwordHash, out passwordSalt);
                 User.PasswordHash = passwordHash;
                 User.PasswordSalt = passwordSalt;

@@ -37,12 +37,14 @@ namespace webapi.Authentication
         
         public bool ValidatePassword(
             User user,
-            string password
+            string attemptedPassword
         )
         {
-            var hmac = new HMACSHA512(user.PasswordSalt);
-            var attemptedPasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            return attemptedPasswordHash.SequenceEqual(user.PasswordHash);
+            byte[] passwordSaltBytes = Convert.FromBase64String(user.PasswordSalt);
+            byte[] passwordHashBytes = Convert.FromBase64String(user.PasswordHash);
+            HMACSHA512 hmac = new HMACSHA512(passwordSaltBytes);
+            byte[] attemptedPasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(attemptedPassword));
+            return attemptedPasswordHash.SequenceEqual(passwordHashBytes);
         }
     }
 }

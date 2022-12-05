@@ -116,13 +116,13 @@ namespace webapi.Migrations
                         .IsRequired()
                         .HasColumnType("ENUM('Crew','Manager','Administrator')");
 
-                    b.Property<byte[]>("PasswordHash")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("longtext");
 
-                    b.Property<byte[]>("PasswordSalt")
+                    b.Property<string>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserName")
                         .IsRequired()

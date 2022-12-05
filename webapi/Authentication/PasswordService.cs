@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using System.Text;
 using webapi.Data;
 using webapi.Models;
 
@@ -16,13 +17,15 @@ namespace webapi.Authentication
 
         public void CreatePasswordHashAndSalt( 
             string PasswordPlainText, 
-            out byte[] PasswordHash, 
-            out byte[] PasswordSalt
+            out string PasswordHash, 
+            out string PasswordSalt
         )
         {
             var hmac = new HMACSHA512();
-            PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(PasswordPlainText));
-            PasswordSalt = hmac.Key;
+            byte[] PasswordHashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(PasswordPlainText));
+            byte[] PasswordSaltByte = hmac.Key;
+            PasswordHash = Convert.ToBase64String(PasswordHashBytes);
+            PasswordSalt = Convert.ToBase64String(PasswordSaltByte);
         }
     }
 }
