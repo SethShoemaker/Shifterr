@@ -24,6 +24,25 @@ export class AuthLoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  insertDemoAdmin(){
+    this.loginRequestBody.UserName = "DemoAdmin";
+    this.insertDemoPassword();
+  }
+
+  insertDemoManager(){
+    this.loginRequestBody.UserName = "DemoManager1";
+    this.insertDemoPassword();
+  }
+
+  insertDemoCrew(){
+    this.loginRequestBody.UserName = "DemoCrew1";
+    this.insertDemoPassword();
+  }
+
+  insertDemoPassword(){
+    this.loginRequestBody.Password = "Password1!";
+  }
+
   onSubmit(): void{
     this.loginService.attemptLogin(this.loginRequestBody).subscribe(
       // Success

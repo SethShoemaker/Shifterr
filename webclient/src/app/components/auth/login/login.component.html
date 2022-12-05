@@ -1,5 +1,5 @@
 <app-auth-backdrop></app-auth-backdrop>
-<div>
+<div id="container">
     <h1>Login</h1>
     <form ngNativeValidate>
         <span class="message">{{ errorMessage }}</span>
@@ -9,4 +9,9 @@
         <input [(ngModel)]="loginRequestBody.Password" name="password" aria-labelledby="passwordLabel" type="password" required minlength="4">
         <button (click)="onSubmit()" aria-label="Login"><span>Login</span></button>
     </form>
+    <div id="demo-options">
+        <button (click)="insertDemoAdmin()">Demo Admin</button>
+        <button (click)="insertDemoManager()">Demo Manager</button>
+        <button (click)="insertDemoCrew()">Demo Crew</button>
+    </div>
 </div>

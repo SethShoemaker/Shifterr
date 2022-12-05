@@ -1,6 +1,29 @@
 @import 'src/app/styles/vars';
 @import 'src/app/styles/auth/fixed-centered-content.mixin';
 
-div{
+div#container{
     @include fixed-centered-content;
+
+    div#demo-options{   
+        position: absolute;
+        bottom: calc(1rem + 0.5vw);  
+
+        @media (max-width:400px) {
+            width: 70%;
+        }
+
+        @media (min-width:400px) {
+            width: calc(14rem + 9vw);
+        }
+
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        
+        button{
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    }
 }
