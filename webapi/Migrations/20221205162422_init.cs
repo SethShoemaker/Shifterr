@@ -171,6 +171,24 @@ namespace webapi.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.InsertData(
+                table: "Organizations",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Demo Organization" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "EmailIsConfirmed", "Nickname", "OrganizationId", "OrganizationRole", "PasswordHash", "PasswordSalt", "UserName" },
+                values: new object[,]
+                {
+                    { 1, "JohnAdmin@demo.com", true, "John Admin", 1, "Administrator", "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==", "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=", "DemoAdmin" },
+                    { 2, "AmyManager@demo.com", true, "Amy Manager", 1, "Manager", "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==", "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=", "DemoManager1" },
+                    { 3, "AdamManager@demo.com", true, "Adam Manager", 1, "Manager", "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==", "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=", "DemoManager2" },
+                    { 4, "GeorgeCrew@demo.com", true, "George Crew", 1, "Crew", "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==", "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=", "DemoCrew1" },
+                    { 5, "JamieCrew@demo.com", true, "Jamie Crew", 1, "Crew", "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==", "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=", "DemoCrew2" },
+                    { 6, "RebeccaCrew@demo.com", true, "Rebecca Crew", 1, "Crew", "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==", "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=", "DemoCrew3" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ShiftPositions_OrganizationId",
                 table: "ShiftPositions",

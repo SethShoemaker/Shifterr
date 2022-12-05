@@ -11,7 +11,7 @@ using webapi.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221205155841_init")]
+    [Migration("20221205162422_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,13 @@ namespace webapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Organizations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Demo Organization"
+                        });
                 });
 
             modelBuilder.Entity("webapi.Models.Shift", b =>
@@ -136,6 +143,80 @@ namespace webapi.Migrations
                     b.HasIndex("OrganizationId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "JohnAdmin@demo.com",
+                            EmailIsConfirmed = true,
+                            Nickname = "John Admin",
+                            OrganizationId = 1,
+                            OrganizationRole = "Administrator",
+                            PasswordHash = "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==",
+                            PasswordSalt = "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=",
+                            UserName = "DemoAdmin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "AmyManager@demo.com",
+                            EmailIsConfirmed = true,
+                            Nickname = "Amy Manager",
+                            OrganizationId = 1,
+                            OrganizationRole = "Manager",
+                            PasswordHash = "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==",
+                            PasswordSalt = "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=",
+                            UserName = "DemoManager1"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "AdamManager@demo.com",
+                            EmailIsConfirmed = true,
+                            Nickname = "Adam Manager",
+                            OrganizationId = 1,
+                            OrganizationRole = "Manager",
+                            PasswordHash = "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==",
+                            PasswordSalt = "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=",
+                            UserName = "DemoManager2"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "GeorgeCrew@demo.com",
+                            EmailIsConfirmed = true,
+                            Nickname = "George Crew",
+                            OrganizationId = 1,
+                            OrganizationRole = "Crew",
+                            PasswordHash = "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==",
+                            PasswordSalt = "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=",
+                            UserName = "DemoCrew1"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Email = "JamieCrew@demo.com",
+                            EmailIsConfirmed = true,
+                            Nickname = "Jamie Crew",
+                            OrganizationId = 1,
+                            OrganizationRole = "Crew",
+                            PasswordHash = "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==",
+                            PasswordSalt = "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=",
+                            UserName = "DemoCrew2"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Email = "RebeccaCrew@demo.com",
+                            EmailIsConfirmed = true,
+                            Nickname = "Rebecca Crew",
+                            OrganizationId = 1,
+                            OrganizationRole = "Crew",
+                            PasswordHash = "xz0rpXQA20GApgQN1mbzGB2k0cPZon6pqj27QlMT9FusR0qivML/6ZpeP+8vPiZ++2ojmdN0PWUZKdFNEsizXA==",
+                            PasswordSalt = "Y1kTl8HvHA4dRuD95FEXNLWhqkUwREWmSwefPg+cVLCRVfJ2ZxFWyDq9SCNm1EdpIDkrTlFQsbJCcd7t7G8wk6JHDcG9u7Db6+/xAOngNSGfzZnb7y5QpFCQ79WnEBl888hjQsvDBFFeLkORNThF6I3allb0ilSEPzgkNo2pr1s=",
+                            UserName = "DemoCrew3"
+                        });
                 });
 
             modelBuilder.Entity("webapi.Models.UserConfirmationKey", b =>
