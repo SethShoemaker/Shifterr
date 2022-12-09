@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
                 builder.AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithOrigins("http://localhost:4200");
+                .WithOrigins("https://app.shifter.net");
             });
         });
 
@@ -55,7 +55,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 app.UseCors();
 
 app.UseAuthentication();

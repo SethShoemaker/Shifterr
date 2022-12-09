@@ -22,24 +22,24 @@ namespace webapi.Controllers
             _userRegisterService = UserRegisterService;
         }
 
-        [HttpPost]
-        [Route("create")]
-        public ActionResult Create(OrgRegisterRequest request)
-        {
+        // [HttpPost]
+        // [Route("create")]
+        // public ActionResult Create(OrgRegisterRequest request)
+        // {
 
-            Organization Organization = new Organization { Name = request.OrgName };
-            _context.Organizations.Add(Organization);
+        //     Organization Organization = new Organization { Name = request.OrgName };
+        //     _context.Organizations.Add(Organization);
 
-            List<string> Errors = _userRegisterService.AttemptUserRegistration(
-                UserName: request.AdminName,
-                Nickname: request.AdminNickname,
-                Email: request.AdminEmail,
-                Password: request.AdminPassword,
-                Organization: Organization,
-                Role: OrganizationRole.Administrator
-            );
+        //     List<string> Errors = _userRegisterService.AttemptUserRegistration(
+        //         UserName: request.AdminName,
+        //         Nickname: request.AdminNickname,
+        //         Email: request.AdminEmail,
+        //         Password: request.AdminPassword,
+        //         Organization: Organization,
+        //         Role: OrganizationRole.Administrator
+        //     );
 
-            return (Errors.Any()) ? BadRequest(new { ResponseText = Errors }) : Ok(new { ResponseText = "Registered"});
-        }
+        //     return (Errors.Any()) ? BadRequest(new { ResponseText = Errors }) : Ok(new { ResponseText = "Registered"});
+        // }
     }
 }
