@@ -88,7 +88,7 @@ export class CalendarIndexComponent implements OnInit {
   }
 
   getShortDate(date: Date): string{
-    return formatDate(date, 'MM/d/yyyy', 'en');
+    return formatDate(date, 'M/d/yyyy', 'en');
   }
 
   nextWeek(){
