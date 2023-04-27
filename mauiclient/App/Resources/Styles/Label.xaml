@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+
+    <!--Font Weights-->
+    <Style TargetType="Label" x:Key="Light">
+        <Setter Property="FontFamily" Value="RedHatTextLight" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="Regular">
+        <Setter Property="FontFamily" Value="RedHatTextRegular" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="Medium">
+        <Setter Property="FontFamily" Value="RedHatTextMedium" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="Bold">
+        <Setter Property="FontFamily" Value="RedHatTextBold" />
+    </Style>
+</ResourceDictionary>

@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
                 builder.AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithOrigins("https://app.shifterr.net");
+                .WithOrigins("http://localhost:4200");
             });
         });
 
