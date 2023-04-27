@@ -1,5 +1,4 @@
-﻿using System;
-namespace mauiclient.Services.StorageService
+﻿namespace mauiclient.Services.StorageService
 {
 	public class InMemoryStorageService : IStorageService
 	{
