@@ -8,12 +8,12 @@ namespace mauiclient.Pages.Login
 	public partial class LoginViewModel : ObservableObject
 	{
         private readonly ILoginService _loginService;
-        private readonly DashboardView _dashboard;
+        private readonly IServiceProvider _services;
 
-        public LoginViewModel(ILoginService loginService, DashboardView dashboard)
+        public LoginViewModel(ILoginService loginService, IServiceProvider services)
 		{
             _loginService = loginService;
-            _dashboard = dashboard;
+            _services = services;
         }
 
         [ObservableProperty]
@@ -81,7 +81,7 @@ namespace mauiclient.Pages.Login
                     GeneralFeedback = "could not connect to server";
                     return;
                 case null:
-                    App.Current.MainPage = _dashboard;
+                    App.Current.MainPage = _services.GetService<DashboardView>();
                     return;
             }
         }

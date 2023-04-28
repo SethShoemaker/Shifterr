@@ -5,6 +5,7 @@ using mauiclient.Pages.Dashboard;
 using mauiclient.Services.Auth;
 using mauiclient.Services.StorageService;
 using mauiclient.Services.Auth.Logout;
+using mauiclient.Services.Dashboard.Shifts.GetShifts;
 
 namespace mauiclient
 {
@@ -30,6 +31,7 @@ namespace mauiclient
                         services.AddSingleton<ILoginService, LoginService>();
                         services.AddSingleton<ILogoutService, LogoutService>();
                         services.AddSingleton<IStorageService, InMemoryStorageService>();
-                }
+                        services.AddSingleton<IGetShiftsService, GetShiftsService>();
+        }
 	}
 }

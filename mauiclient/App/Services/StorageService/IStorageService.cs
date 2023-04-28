@@ -53,5 +53,14 @@ namespace mauiclient.Services.StorageService
         Task StoreNicknameAsync(string nickname);
 
         Task DeleteNicknameAsync();
+
+        async Task DeleteAllAsync()
+        {
+            await DeleteTokenAsync();
+            await DeleteOrganizationNameAsync();
+            await DeleteOrganizationRoleAsync();
+            await DeleteUserNameAsync();
+            await DeleteNicknameAsync();
+        }
     }
 }
