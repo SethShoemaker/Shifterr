@@ -34,6 +34,31 @@ namespace mauiclient.Pages.Login
         [RelayCommand]
         async Task SubmitFormAsync()
         {
+            UsernameFeedback = "";
+            PasswordFeedback = "";
+            if (FormIsComplete())
+                await AttemptLoginAsync();
+        }
+
+        bool FormIsComplete()
+        {
+            bool isComplete = true;
+            if(String.IsNullOrWhiteSpace(Username))
+            {
+                UsernameFeedback = "must enter username";
+                isComplete = false;
+            }
+            if(String.IsNullOrWhiteSpace(Password))
+            {
+                PasswordFeedback = "must enter password";
+                isComplete = false;
+            }
+
+            return isComplete;
+        }
+
+        async Task AttemptLoginAsync()
+        {
             LoginRequest request = new(Username, Password);
             LoginResponse response = await _loginService.LoginAsync(request, default);
 
@@ -43,21 +68,21 @@ namespace mauiclient.Pages.Login
                     Username = "";
                     Password = "";
                     UsernameFeedback = "user not found";
-                    break;
+                    return;
                 case LoginError.PasswordIncorrect:
                     Password = "";
-                    UsernameFeedback = "password incorrect";
-                    break;
+                    PasswordFeedback = "password incorrect";
+                    return;
                 case LoginError.UserNotConfirmed:
                     Password = "";
                     UsernameFeedback = "user not confirmed";
-                    break;
+                    return;
                 case LoginError.CouldNotConnectToServer:
                     GeneralFeedback = "could not connect to server";
-                    break;
+                    return;
                 case null:
                     App.Current.MainPage = _dashboard;
-                    break;
+                    return;
             }
         }
     }
